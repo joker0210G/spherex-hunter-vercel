@@ -83,7 +83,6 @@ def get_benchmarks():
 @app.get("/api/cutout")
 @app.get("/cutout")
 def get_cutout(
-    request: Optional[object] = None,
     ra: Optional[float] = Query(None),
     dec: Optional[float] = Query(None),
     target: Optional[str] = Query(None),
