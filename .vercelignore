@@ -2,11 +2,25 @@
 .venv/
 __pycache__/
 .pytest_cache/
-backend/cache/
+.ruff_cache/
+.obsidian/
+.specify/
+backend/
+pyproject.toml
 specs/
 tools/
 tests/
 scripts/
 docs/
+00 - Dashboard & MOC/
+01 - Challenge & NASA Spec/
+02 - Team Roles & Assignment/
+03 - Architecture & Tech Stack/
+04 - Tasks & Sprints/
+05 - Research & Resources/
+06 - Deliverables & Submission/
 07 - Team Memory & Sync/
 *.pyc
+*.png
+*.bat
+*.canvas
