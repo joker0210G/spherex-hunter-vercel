@@ -1,21 +1,15 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
-  "outputDirectory": "frontend",
-  "routes": [
-    { "src": "/api/(.*)", "dest": "api/index.py" },
-    { "src": "/assets/(.*)", "dest": "/assets/$1" },
-    { "src": "/vendor/(.*)", "dest": "/vendor/$1" },
-    { "src": "/src/(.*)", "dest": "/src/$1" },
-    { "src": "/app/assets/(.*)", "dest": "/assets/$1" },
-    { "src": "/app/vendor/(.*)", "dest": "/vendor/$1" },
-    { "src": "/app/src/(.*)", "dest": "/src/$1" },
-    { "src": "/app", "dest": "/index.html" },
-    { "src": "/app/(.*)", "dest": "/$1" },
-    { "src": "/(.*\\.(svg|png|jpg|jpeg|gif|webp|json|js|css))",
-      "headers": { "Cache-Control": "public, max-age=86400, stale-while-revalidate=604800" },
-      "dest": "/$1"
-    },
-    { "src": "/(.*)", "dest": "/index.html" }
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "/api/index.py" },
+    { "source": "/assets/:path*", "destination": "/frontend/assets/:path*" },
+    { "source": "/vendor/:path*", "destination": "/frontend/vendor/:path*" },
+    { "source": "/src/:path*", "destination": "/frontend/src/:path*" },
+    { "source": "/audio/:path*", "destination": "/frontend/audio/:path*" },
+    { "source": "/favicon.svg", "destination": "/frontend/favicon.svg" },
+    { "source": "/app", "destination": "/frontend/index.html" },
+    { "source": "/app/:path*", "destination": "/frontend/:path*" },
+    { "source": "/", "destination": "/frontend/index.html" }
   ]
 }
