@@ -1,0 +1,21 @@
+{
+  "dimensions": [
+    128,
+    128
+  ],
+  "dtype": "float32",
+  "units": "microjansky / pixel",
+  "crpix": [
+    64.0,
+    64.0
+  ],
+  "crval": [
+    160.6,
+    30.7
+  ],
+  "cdelt": [
+    -0.00172,
+    0.00172
+  ],
+  "nan_convention": "IEEE 754 NaN indicates unobserved out-of-coverage pixels"
+}

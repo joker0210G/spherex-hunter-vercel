@@ -1,0 +1,56 @@
+name: "📐 Image Math: Algorithms, PSF & Spectral Curves"
+description: "Tasks for Alard-Lupton difference imaging, PSF matching, co-addition SNR, and SED math."
+title: "[MATH/AI] "
+labels: ["track:image-math", "status:needs-refinement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### 🔬 Team RIP: Astronomical Image Math & Algorithm Task
+        Use this template for local scientific computing, matrix reductions, PSF convolution matching, and 102-band spectral synthesis.
+
+  - type: dropdown
+    id: teammate
+    attributes:
+      label: "Assigned Teammate"
+      description: "Select which teammate owns this branch."
+      options:
+        - "iceodu (iceodu/image-math-ai) - Scientific Math Powerhouse"
+        - "darkodu (darkodu/astro-backend) - Astropy / Data Support"
+        - "jokerodu (main) - Lead Verification"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: resource_profile
+    attributes:
+      label: "Resource Matrix Profile"
+      description: "High CPU/GPU compute vs prompt token quota."
+      options:
+        - "resource:compute-heavy (High local CPU/GPU RAM: batch PSF convolution / NumPy matrix)"
+        - "resource:hybrid (Heavy math + complex AI algorithm implementation)"
+        - "resource:standard (Parameter tuning / filter adjustment)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: mathematical_formula
+    attributes:
+      label: "Mathematical Formulation & Equation"
+      description: "Specify the scientific equation, kernel dimensions, and statistical thresholds."
+      placeholder: "D = I_2 - S * (I_1 (x) K), where K is a 2D Gaussian seeing-matching kernel (sigma=1.15)..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: verification_criteria
+    attributes:
+      label: "Quantitative Verification Criteria"
+      description: "NASA benchmark tests and numerical thresholds."
+      value: |
+        - [ ] Static background stars cancel out to within 1.5 sigma of neutral mid-gray (128)
+        - [ ] Proper motion targets produce clear dipole rings with SNR > 5.0
+        - [ ] Mira and flare variables show high-amplitude residual cores
+        - [ ] Passes automated test suite (`pytest tests/test_golden_suite.py`)
+    validations:
+      required: true

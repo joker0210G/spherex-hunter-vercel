@@ -1,0 +1,6 @@
+# Minimal requirements for Vercel serverless stub (api/index.py).
+# Heavy packages (astropy, scipy, etc.) are NOT included — they exceed Vercel's
+# 250MB free tier bundle limit. Full backend runs locally via uvicorn.
+fastapi>=0.110.0
+uvicorn>=0.28.0
+pydantic>=2.6.0

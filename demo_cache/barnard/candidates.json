@@ -1,0 +1,13 @@
+{
+  "target_id": "barnard",
+  "pipeline_run": "zogy_v1_run_20261114",
+  "threshold_sigma": 5.0,
+  "exposures_searched": 12,
+  "candidates": [],
+  "provenance": {
+    "source": "precomputed",
+    "git_hash": "71a9daaaa9d8b27d415c2d79d1be389da460baff",
+    "data_release": "DR1",
+    "pipeline_version": "2.1.0"
+  }
+}

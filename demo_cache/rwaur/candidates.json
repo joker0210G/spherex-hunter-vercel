@@ -1,0 +1,12 @@
+{
+  "target_id": "rwaur",
+  "pipeline_run": "none",
+  "candidates": [],
+  "unavailable_reason": "NO_PUBLIC_DATA: 0 public exposures searched.",
+  "provenance": {
+    "source": "precomputed",
+    "git_hash": "71a9daaaa9d8b27d415c2d79d1be389da460baff",
+    "data_release": "DR1",
+    "pipeline_version": "2.1.0"
+  }
+}

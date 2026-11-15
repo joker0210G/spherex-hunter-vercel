@@ -1,0 +1,12 @@
+.git/
+.venv/
+__pycache__/
+.pytest_cache/
+backend/cache/
+specs/
+tools/
+tests/
+scripts/
+docs/
+07 - Team Memory & Sync/
+*.pyc

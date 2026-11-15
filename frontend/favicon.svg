@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <defs>
+    <!-- Background Space Glow -->
+    <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#070a11" stop-opacity="0.95"/>
+    </radialGradient>
+
+    <!-- SPHEREx Infrared Dispersion Spectrum Gradient (0.75 um to 5.0 um) -->
+    <linearGradient id="spherexSpectrum" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ef4444"/>   <!-- 0.75 um NIR Boundary / Array 1 -->
+      <stop offset="20%" stop-color="#f97316"/>  <!-- 1.11 um J-Band / Array 2 -->
+      <stop offset="40%" stop-color="#eab308"/>  <!-- 1.64 um H-Band / Array 3 -->
+      <stop offset="60%" stop-color="#10b981"/>  <!-- 2.42 um K-Band / Array 4 -->
+      <stop offset="80%" stop-color="#06b6d4"/>  <!-- 3.82 um Thermal / Array 5 -->
+      <stop offset="100%" stop-color="#8b5cf6"/> <!-- 5.00 um Planet X / Array 6 -->
+    </linearGradient>
+
+    <!-- Golden Sunshield Aperture Gradient -->
+    <linearGradient id="shieldGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fde047"/>
+      <stop offset="50%" stop-color="#ea580c"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+
+    <!-- Planet X Astrometric Core Glow -->
+    <radialGradient id="planetXGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="1"/>
+      <stop offset="50%" stop-color="#0284c7" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#0369a1" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Base Hexagonal Shield Container -->
+  <polygon points="50,4 90,26 90,74 50,96 10,74 10,26" 
+           fill="url(#bgGlow)" 
+           stroke="url(#shieldGold)" 
+           stroke-width="2.5" 
+           stroke-linejoin="round"/>
+
+  <!-- Inner Cryogenic Radiation Baffle (Concentric Hexagon) -->
+  <polygon points="50,14 81,31 81,69 50,86 19,69 19,31" 
+           fill="none" 
+           stroke="#334155" 
+           stroke-width="1.2" 
+           stroke-dasharray="3,2"/>
+
+  <!-- 102-Band Spectral Dispersion Arcs (6 Detector Arrays) -->
+  <path d="M 24 35 A 32 32 0 0 1 76 35" fill="none" stroke="url(#spherexSpectrum)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M 28 65 A 32 32 0 0 0 72 65" fill="none" stroke="url(#spherexSpectrum)" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+
+  <!-- Astrometric Alignment Crosshairs -->
+  <line x1="50" y1="18" x2="50" y2="38" stroke="#38bdf8" stroke-width="1.2" stroke-linecap="round" opacity="0.8"/>
+  <line x1="50" y1="62" x2="50" y2="82" stroke="#38bdf8" stroke-width="1.2" stroke-linecap="round" opacity="0.8"/>
+  <line x1="20" y1="50" x2="38" y2="50" stroke="#38bdf8" stroke-width="1.2" stroke-linecap="round" opacity="0.8"/>
+  <line x1="62" y1="50" x2="80" y2="50" stroke="#38bdf8" stroke-width="1.2" stroke-linecap="round" opacity="0.8"/>
+
+  <!-- Central Focal Plane Instrument Aperture Ring -->
+  <circle cx="50" cy="50" r="14" fill="#090d16" stroke="url(#shieldGold)" stroke-width="1.8"/>
+
+  <!-- Planet Nine / Planet X Orbital Arc & Moving Dipole -->
+  <ellipse cx="50" cy="50" rx="36" ry="16" fill="none" stroke="#60a5fa" stroke-width="0.8" stroke-dasharray="2,3" transform="rotate(-28 50 50)"/>
+  
+  <!-- Glowing Target Dipole Source (Planet X / WISE 0855 candidate) -->
+  <circle cx="68" cy="40" r="4.5" fill="url(#planetXGlow)"/>
+  <circle cx="68" cy="40" r="2.2" fill="#f8fafc"/>
+  
+  <!-- Sub-stellar Infrared Core Pupil -->
+  <circle cx="50" cy="50" r="5" fill="#f97316"/>
+  <circle cx="50" cy="50" r="2" fill="#fef08a"/>
+</svg>

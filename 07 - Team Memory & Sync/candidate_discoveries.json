@@ -1,0 +1,124 @@
+[
+  {
+    "candidate_id": "SPX-2026-0855YD",
+    "target_name": "WISE J085510.83-071442.5",
+    "candidate_name": "WISE J085510.83-071442.5",
+    "ra": 133.79513,
+    "dec": -7.24515,
+    "object_type": "Cold Y-Dwarf (Proper Motion)",
+    "motion_type": "Cold Y-Dwarf (Proper Motion)",
+    "proper_motion_mas": 8120.0,
+    "user_handle": "Kevin Luhman / Citizen Archive",
+    "astronomer": "Kevin Luhman / Citizen Archive",
+    "confidence": 5,
+    "notes": "Coldest known sub-stellar brown dwarf (250 K) exhibiting strong H2O and CH4 absorption.",
+    "timestamp": "2026-11-12T18:30:00Z",
+    "scientific_validation": {
+      "is_ultracold_candidate": true,
+      "optical_infrared_g_minus_ks": 1.27,
+      "simbad_counterpart": "WISE J085510.83-071442.5",
+      "spectral_classification": "Y4 (Ultracold Y-Dwarf)",
+      "verification_status": "CONFIRMED_ULTRACOLD"
+    }
+  },
+  {
+    "candidate_id": "SPX-2026-GJ699B",
+    "target_name": "Barnard's Star (GJ 699)",
+    "candidate_name": "Barnard's Star (GJ 699)",
+    "ra": 269.45208,
+    "dec": 4.69339,
+    "object_type": "Fast Mover M4V Red Dwarf",
+    "motion_type": "Fast Mover M4V Red Dwarf",
+    "proper_motion_mas": 10393.3,
+    "user_handle": "E. E. Barnard / Gaia DR3",
+    "astronomer": "E. E. Barnard / Gaia DR3",
+    "confidence": 5,
+    "notes": "Highest known proper motion star (10.39 arcsec/yr northward).",
+    "timestamp": "2026-11-12T19:15:00Z",
+    "scientific_validation": {
+      "is_ultracold_candidate": false,
+      "optical_infrared_g_minus_ks": 4.99,
+      "simbad_counterpart": "NAME Barnard's star",
+      "spectral_classification": "M4Ve",
+      "verification_status": "CONFIRMED_HIGH_PM"
+    }
+  },
+  {
+    "candidate_id": "SPX-2026-CW1249",
+    "target_name": "CWISE J124908.75+362116.0",
+    "candidate_name": "CWISE J124908.75+362116.0",
+    "ra": 192.28646,
+    "dec": 36.35444,
+    "object_type": "Hypervelocity L/T Subdwarf",
+    "motion_type": "Hypervelocity L/T Subdwarf",
+    "proper_motion_mas": 900.0,
+    "user_handle": "Backyard Worlds Citizen Team",
+    "astronomer": "Backyard Worlds Citizen Team",
+    "confidence": 5,
+    "notes": "Hypervelocity halo subdwarf discovered via Backyard Worlds: Planet 9.",
+    "timestamp": "2026-11-12T20:05:00Z",
+    "scientific_validation": {
+      "is_ultracold_candidate": true,
+      "optical_infrared_g_minus_ks": 3.85,
+      "simbad_counterpart": "CWISE J124908.75+362116.0",
+      "spectral_classification": "sdL7",
+      "verification_status": "CONFIRMED_ULTRACOLD"
+    }
+  },
+  {
+    "candidate_id": "SPX-2026-EPSINDB",
+    "target_name": "Epsilon Indi Ba/Bb",
+    "candidate_name": "Epsilon Indi Ba/Bb",
+    "ra": 331.04379,
+    "dec": -56.78272,
+    "object_type": "Binary Brown Dwarf (T1+T6)",
+    "motion_type": "Binary Brown Dwarf (T1+T6)",
+    "proper_motion_mas": 4697.0,
+    "user_handle": "SPHEREx Verification Team",
+    "astronomer": "SPHEREx Verification Team",
+    "confidence": 5,
+    "notes": "Nearest binary brown dwarf system (3.64 pc) with strong CH4 and H2O bands.",
+    "timestamp": "2026-11-12T21:10:00Z",
+    "scientific_validation": {
+      "is_ultracold_candidate": true,
+      "optical_infrared_g_minus_ks": 7.74,
+      "simbad_counterpart": "* eps Ind B",
+      "spectral_classification": "T1+T6",
+      "verification_status": "CONFIRMED_ULTRACOLD"
+    }
+  },
+  {
+    "candidate_id": "SPX-2026-RWAUR",
+    "target_name": "RW Aurigae A/B",
+    "candidate_name": "RW Aurigae A/B",
+    "ra": 76.95642,
+    "dec": 30.40142,
+    "object_type": "Eruptive T-Tauri Variable",
+    "motion_type": "Eruptive T-Tauri Variable",
+    "proper_motion_mas": 16.5,
+    "user_handle": "AAVSO / SPHEREx Transient Alert",
+    "astronomer": "AAVSO / SPHEREx Transient Alert",
+    "confidence": 5,
+    "notes": "Young stellar object with circumstellar disk dimming and infrared excess.",
+    "timestamp": "2026-11-12T22:00:00Z",
+    "scientific_validation": {
+      "is_ultracold_candidate": false,
+      "optical_infrared_g_minus_ks": 3.4,
+      "simbad_counterpart": "V* RW Aur",
+      "spectral_classification": "K1-K4Ve",
+      "verification_status": "CONFIRMED_VARIABLE"
+    }
+  },
+  {
+    "candidate_id": "SPX-2026-98F2F2",
+    "target_id": "sample_leo",
+    "target_name": "Technical Validation Field (SPHEREx D6 Flight Pair)",
+    "ra": 160.605,
+    "dec": 30.702,
+    "object_type": "mover",
+    "category": "mover",
+    "user_handle": "@pytest_runner",
+    "notes": "Fast-moving candidate tracklet test",
+    "timestamp": "2026-11-14T18:39:08.489533+00:00"
+  }
+]

@@ -1,0 +1,65 @@
+name: "🪐 Feature: Astro-Data & Backend Pipeline"
+description: "Tasks for NASA IRSA, CDS TAP, Astropy FITS cutouts, and FastAPI endpoints."
+title: "[FEATURE] "
+labels: ["track:feature-backend", "status:needs-refinement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### 🚀 Team RIP: Backend & Astro-Data Task
+        Use this template for tasks involving backend services, astronomical data ingestion (IRSA, Gaia DR3, DSS2, 2MASS), or FastAPI endpoints.
+
+  - type: dropdown
+    id: teammate
+    attributes:
+      label: "Assigned Teammate"
+      description: "Select which teammate owns this branch."
+      options:
+        - "darkodu (darkodu/astro-backend) - Primary Backend Lead"
+        - "jokerodu (main) - Lead Architect"
+        - "coolodu (coolodu/web-frontend) - Full-Stack Support"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: resource_profile
+    attributes:
+      label: "Resource Matrix Profile"
+      description: "Is this task compute-heavy, token-heavy, or standard?"
+      options:
+        - "resource:standard (Standard API endpoint / routing)"
+        - "resource:token-heavy (Complex agent reasoning / multi-file refactor)"
+        - "resource:compute-heavy (Heavy local FITS matrix math / batch download)"
+    validations:
+      required: true
+
+  - type: input
+    id: target_subsystem
+    attributes:
+      label: "Target File(s) / Subsystems"
+      description: "e.g., backend/services/cutout_engine.py, backend/services/gaia_service.py"
+      placeholder: "backend/services/cutout_engine.py"
+    validations:
+      required: true
+
+  - type: textarea
+    id: astronomical_spec
+    attributes:
+      label: "Astronomical & Technical Specification"
+      description: "Describe what data archive is queried, celestial coordinate conventions, and API payloads."
+      placeholder: "Query NASA IRSA FinderChart for 2MASS J-band and DSS2 Red at given RA/Dec with 15s timeout..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: "Acceptance Criteria & Test Plan"
+      description: "List quantitative verification checks and test suite additions."
+      value: |
+        - [ ] Endpoint `/api/...` returns 200 with valid JSON/FITS Base64 payload
+        - [ ] Validated against NASA Benchmark Suite (`pytest tests/test_golden_suite.py`)
+        - [ ] Handles offline/timeout gracefully with HTTP 502 scientific error
+        - [ ] Memory and cache tested (`backend/cache/dynamic_fits/`)
+    validations:
+      required: true

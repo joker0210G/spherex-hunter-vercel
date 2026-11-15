@@ -1,0 +1,73 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spherex-hunter"
+version = "2.0.0"
+description = "Scientifically defensible candidate detection pipeline for NASA Space Apps 2026: Planet X and SPHEREx"
+readme = "README.md"
+authors = [
+    { name = "Team RIP", email = "nasa-spaceapps-rip@spherex-hunter.org" }
+]
+license = { text = "MIT" }
+requires-python = ">=3.11"
+dependencies = [
+    "astropy>=6.0.0",
+    "astroquery>=0.4.7",
+    "pyvo>=1.5.0",
+    "numpy>=1.26.0",
+    "scipy>=1.11.0",
+    "reproject>=0.13.0",
+    "pillow>=10.2.0",
+    "fastapi>=0.110.0",
+    "uvicorn>=0.28.0",
+    "pydantic>=2.6.0",
+    "httpx>=0.27.0",
+    "python-multipart>=0.0.9",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "playwright>=1.40.0",
+    "ruff>=0.3.0",
+    "mypy>=1.9.0",
+    "beautifulsoup4>=4.12.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["backend*"]
+exclude = ["specs*", "frontend*", "demo_cache*", "validation*", "tests*", "tools*", "scripts*"]
+
+[tool.vercel]
+entrypoint = "backend/main.py:app"
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-ra -q --ignore=data_samples"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+filterwarnings = [
+    "ignore:Unknown config option.*asyncio.*:pytest.PytestConfigWarning",
+    "ignore:.*starlette.testclient.*",
+    "ignore:.*ERFA function.*yielded.*:UserWarning",
+    "ignore:.*dubious year.*:UserWarning",
+    "ignore:.*distance overridden.*:UserWarning",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N"]
+ignore = ["E501", "N806", "E402", "E701", "E741", "W291", "W293"]
+

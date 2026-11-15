@@ -1,0 +1,74 @@
+{
+  "target_id": "wise0855",
+  "target_name": "WISE 0855-0714",
+  "ra_deg": 133.79513,
+  "dec_deg": -7.24515,
+  "bands": [
+    {
+      "band_id": "Array 1 (0.75 \u03bcm)",
+      "wavelength_um": 0.75,
+      "flux_ujy": 0.05,
+      "uncertainty_ujy": 0.12,
+      "mag_ab": 99.0,
+      "mag_err": 99.0,
+      "snr": 0.4,
+      "method": "optical_dropout_upper_limit"
+    },
+    {
+      "band_id": "Array 2 (1.20 \u03bcm)",
+      "wavelength_um": 1.2,
+      "flux_ujy": 0.85,
+      "uncertainty_ujy": 0.15,
+      "mag_ab": 21.57,
+      "mag_err": 0.19,
+      "snr": 5.7,
+      "method": "circular_aperture_3.5pix"
+    },
+    {
+      "band_id": "Array 3 (1.90 \u03bcm)",
+      "wavelength_um": 1.9,
+      "flux_ujy": 2.45,
+      "uncertainty_ujy": 0.18,
+      "mag_ab": 20.43,
+      "mag_err": 0.08,
+      "snr": 13.6,
+      "method": "circular_aperture_3.5pix"
+    },
+    {
+      "band_id": "Array 4 (2.42 \u03bcm)",
+      "wavelength_um": 2.42,
+      "flux_ujy": 4.1,
+      "uncertainty_ujy": 0.22,
+      "mag_ab": 19.87,
+      "mag_err": 0.06,
+      "snr": 18.6,
+      "method": "circular_aperture_3.5pix"
+    },
+    {
+      "band_id": "Array 5 (3.82 \u03bcm)",
+      "wavelength_um": 3.82,
+      "flux_ujy": 14.8,
+      "uncertainty_ujy": 0.35,
+      "mag_ab": 18.48,
+      "mag_err": 0.03,
+      "snr": 42.3,
+      "method": "circular_aperture_3.5pix"
+    },
+    {
+      "band_id": "Array 6 (4.42 \u03bcm)",
+      "wavelength_um": 4.42,
+      "flux_ujy": 48.2,
+      "uncertainty_ujy": 0.55,
+      "mag_ab": 17.19,
+      "mag_err": 0.01,
+      "snr": 87.6,
+      "method": "circular_aperture_3.5pix"
+    }
+  ],
+  "provenance": {
+    "source": "precomputed",
+    "git_hash": "71a9daaaa9d8b27d415c2d79d1be389da460baff",
+    "data_release": "DR1",
+    "pipeline_version": "2.1.0"
+  }
+}

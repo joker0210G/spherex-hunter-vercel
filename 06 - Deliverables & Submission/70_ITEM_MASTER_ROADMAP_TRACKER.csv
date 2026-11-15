@@ -1,0 +1,71 @@
+Item_ID,Phase,Category,Requirement,Implementation_Details,Verification_File,Status
+1,Phase 7,UX & Onboarding,First-time instructions & onboarding modal,3-step Cosmic Quick-Start Tour (#onboardingModal) explaining infrared thermal dipoles and blink detection,tests/test_ui_contract.py,DONE
+2,Phase 7,UX & Onboarding,15-Second Quick-Start Launch Button,Footer button (#btnTourQuickStart) that dismisses guide and auto-loads WISE 0855 with toast feedback,tests/test_ui_contract.py,DONE
+3,Phase 7,UX & Onboarding,Interactive mini-blink simulation graphic,Animated blink demonstration (#tourMiniBlinkContainer) visually demonstrating dipole jump,tests/test_ui_contract.py,DONE
+4,Phase 7,UX & Onboarding,Clear purpose statement in UI & documentation,Mission statement unlocking 102-band infrared sky to crowdsource Planet X search,README.md,DONE
+5,Phase 7,UX & Performance,Loading spinners & non-blocking states,Viewport spinner (#vpSpinner) and graceful toast alerts (#alertToast) during async cutout fetches,tests/test_ui_contract.py,DONE
+6,Phase 7,UX & Layout,Responsive tablet & mobile layout,Tailwind responsive grid and collapsible bottom dock (#btnToggleDock),tests/test_ui_contract.py,DONE
+7,Phase 7,UX & Attribution,Prominent data attribution badges,Attribution badges for NASA JPL IPAC ESA Gaia CDS and CSA NEOSSat,tests/test_ui_contract.py,DONE
+8,Phase 7,Citizen Science,Citizen Science Ledger export,One-click export of flagged discoveries to CSV/JSON (#btnExportCandidateReport),tests/test_identification_and_evidence.py,DONE
+9,Phase 1,Coordinate Search,Accept Decimal Degree RA/Dec inputs,Native decimal degree support via Astropy SkyCoord(ra dec unit=deg frame=icrs),tests/test_validation.py,DONE
+10,Phase 1,Coordinate Search,Accept Sexagesimal HMS/DMS inputs,Native parsing for string sexagesimal formats via SkyCoord,tests/test_golden_suite.py,DONE
+11,Phase 1,Coordinate Search,State accepted formats clearly in UI,Input fields feature micro-hints (#raValidationHint #decValidationHint),tests/test_ui_contract.py,DONE
+12,Phase 1,Coordinate Search,Validate coordinate range with helpful errors,Server HTTP 400 validation and client input clamping for RA [0 360) and Dec [-90 +90],scripts/test_data_acquisition_and_ui.py,DONE
+13,Phase 1,Coordinate Search,Search radius / Field-of-View (FOV) control,Interactive FOV slider ranging from 1.0 to 15.0 arcmin (#fovSlider),backend/main.py,DONE
+14,Phase 1,Coordinate Search,Display searched coordinates beside results,Target coordinates permanently rendered in HUD header (#vpCoords),tests/test_ui_contract.py,DONE
+15,Phase 1,Coordinate Search,Repeatable searches without full page reload,Asynchronous AJAX/Fetch lifecycle re-renders canvas dynamically without reload,tests/test_continuous_viewport_e2e.py,DONE
+16,Phase 1,Coordinate Search,One-click Benchmark Target Presets,Instant slew buttons for all 5 mandatory targets (#presetTargetsContainer),tests/test_ui_contract.py,DONE
+17,Phase 0,Data Foundation,Pull real SPHEREx data from public archive,Connected to NASA IRSA IPAC TAP NASA SkyView and authentic IRSA SPHEREx DR1 HiPS cube,tests/test_aladin_hips_e2e.py,DONE
+18,Phase 0,Data Foundation,Document source & access method in app & README,Comprehensive data citations in README.md Primer and in-app Resources Codex Modal,backend/main.py,DONE
+19,Phase 0,Data Foundation,Return observation date/time with every record,Standardized JSON bundle schema attaches date_obs mjd and dec_year to every epoch record,tests/test_scene_and_metadata.py,DONE
+20,Phase 0,Data Foundation,Display timestamp on active frame at all times,Viewport HUD chip (#vpFrameLabel) and time-step badge display active date in real time,tests/test_ui_contract.py,DONE
+21,Phase 0,Data Foundation,Label sample/mock data visibly; never mix silently,Distinct badges for synthetic fallbacks and DR1 HiPS mosaic blurred-mover notice,frontend/index.html,DONE
+22,Phase 0,Data Foundation,Handle empty results with clear user explanation,Unobserved sky regions return structured HTTP 404 with friendly explanation banner,tests/test_ui_contract.py,DONE
+23,Phase 0,Data Foundation,Provide retry option on network or archive failure,Circuit breaker telemetry with automatic fallback and UI retry trigger toast,backend/services/catalog_engine.py,DONE
+24,Phase 0,Data Foundation,Preserve raw FITS metadata & provenance,Returns FITS header cards (TELESCOP INSTRUME FILTER WCS CRVAL CDELT BUNIT) in REST payload,backend/models_v1.py,DONE
+25,Phase 2,Image Viewer,Display images with attached date band & wavelength,Canvas layers render active survey tag filter band and central wavelength,backend/services/cutout_engine.py,DONE
+26,Phase 2,Image Viewer,Smooth hardware-accelerated pan & drag,60 FPS HTML5 Canvas with pointer tracking mouse dragging and touch translation,tests/test_viewport_overhaul.py,DONE
+27,Phase 2,Image Viewer,Interactive zoom with cursor centering,Logarithmic zoom slider cursor-centered wheel zoom and reset button (#btnZoomReset),tests/test_ui_contract.py,DONE
+28,Phase 2,Image Viewer,Brightness & contrast stretch engine,Asinh ZScale Linear and MinMax photometric stretching via Astropy/NumPy,tests/test_preprocessing.py,DONE
+29,Phase 2,Image Viewer,Astronomical false-color colormaps (LUTs),4 selectable contrast palettes: Inferno Viridis Greyscale and Cool-Warm,backend/services/cutout_engine.py,DONE
+30,Phase 2,Image Viewer,State physical units and scaling explicitly,HUD displays physical device scale (arcsec/dev_px) and distinguishes counts from calibrated flux,tests/test_ui_contract.py,DONE
+31,Phase 2,Image Viewer,Surface detector pixel pitch comparison,Dual LOD badges comparing HiPS Order 5 (12.88 arcsec/px) against SPHEREx native (6.15 arcsec/px),tests/test_viewport_overhaul_v2.py,DONE
+32,Phase 2,Image Viewer,Raw 1:1 Detector Pixels inspection mode,Toggle for nearest-neighbor interpolation showing authentic pixel boundaries,tests/test_viewport_overhaul_v2.py,DONE
+33,Phase 3,Time Sequence,Sort observations chronologically by default,Auto-sorts temporal baseline epochs chronologically by MJD,tests/test_scene_and_metadata.py,DONE
+34,Phase 3,Time Sequence,Play / Pause automatic blink cycling,Clyde Tombaugh Blink comparator toggle button (#btnPlayBlink) with state indication,tests/test_ui_contract.py,DONE
+35,Phase 3,Time Sequence,Previous & Next manual frame steppers,UI stepper buttons (#btnHudStepPrev #btnHudStepNext) allowing single-step epoch toggling,tests/test_ui_contract.py,DONE
+36,Phase 3,Time Sequence,Adjustable blink playback speed,Variable blink frequency slider ranging from 0.5 FPS to 6.0 FPS (#speedSlider),tests/test_ui_contract.py,DONE
+37,Phase 3,Time Sequence,Smooth Morph (cross-fade) blend slider,Continuous opacity transition slider (#morphSlider) blending between historical and modern frames,tests/test_ui_contract.py,DONE
+38,Phase 3,Time Sequence,Keyboard navigation shortcuts,Arrow keys step frames Spacebar toggles blink D toggles difference mode,tests/test_ui_contract.py,DONE
+39,Phase 3,Time Sequence,Continuous time-step HUD indicator,Compact pill badge displaying active step index survey origin and observation year,tests/test_ui_contract.py,DONE
+40,Phase 3,Time Sequence,Multi-tier tile caching (L0 RAM / L1 IndexedDB),Scoped multi-tier cache storing decoded textures with micro-degree quantized spatial keys,tests/test_caching_and_inspector_e2e.py,DONE
+41,Phase 4,Movement & Motion,Manual comparison before automated claims,Interactive blink comparator and side-by-side comparison available without algorithmic processing,tests/test_ui_contract.py,DONE
+42,Phase 4,Movement & Motion,Strict WCS reprojection & sub-pixel alignment,Reprojects multi-epoch FITS cutouts onto shared tangential grid via Astropy reproject_interp,tests/test_golden_suite.py,DONE
+43,Phase 4,Movement & Motion,Gaia DR3 space-motion epoch propagation,Propagates Gaia DR3 catalog coordinates to exposure epoch target_mjd via apply_space_motion,tests/test_scene_and_metadata.py,DONE
+44,Phase 4,Movement & Motion,Centroid residual tolerance check,Calculates EPSF sub-pixel centroid offsets and flags offsets exceeding 0.5 detector pixels,tests/test_viewport_overhaul_v2.py,DONE
+45,Phase 4,Movement & Motion,Display Astrometric RMS alignment badge,Telemetry chip (#astrometricAlignmentBadge) shows Astrometric RMS and Gaia DR3 verification,tests/test_ui_contract.py,DONE
+46,Phase 4,Brightness & Flux,Photometric aperture flux measurement,Circular aperture integration with local background annulus subtraction and Poisson noise estimate,image_engine/difference.py,DONE
+47,Phase 4,Brightness & Flux,Multi-epoch light curve generation,Historical light curve plot rendering calibrated fluxes (uJy) and relative flux amplitudes,backend/main.py,DONE
+48,Phase 4,Brightness & Flux,Variable star flare / dip amplitude calculation,Computes eruptive flare factors (RW Aur 2.8x) and pulsating amplitudes (R Dra 3.4x),tests/test_golden_suite.py,DONE
+49,Phase 4,Difference Math,Mathematically rigorous difference imaging (ZOGY),Optimal sub-pixel image subtraction engine (D = I2 - I1) with PSF convolution and sky subtraction,tests/test_differencing.py,DONE
+50,Phase 4,Difference Math,Difference colormap & polarity legend,Difference image legend explaining positive residual (white) and negative residual (dark),tests/test_ui_contract.py,DONE
+51,Phase 4,Candidate Flagging,Automated detection results labeled as CANDIDATES,Automatic source discovery results strictly labeled as Candidates (#candidateAlertStrip),tests/test_ui_contract.py,DONE
+52,Phase 4,Candidate Flagging,Source frame inspection for all candidates,Clicking candidate chip auto-focuses viewport canvas on raw un-subtracted multi-epoch frames,tests/test_ui_contract.py,DONE
+53,Phase 4,Candidate Flagging,ESA Gaia DR3 optical absence / presence crossmatch,Automatic crossmatch checking if candidate has a bright optical counterpart or is infrared-only,tests/test_golden_suite.py,DONE
+54,Phase 4,Candidate Flagging,NEOSSat & MPC asteroid filter,Queries known Solar System Objects via CADC / NEOSSat API to distinguish asteroids from trans-Neptunian bodies,tests/test_neossat_verification.py,DONE
+55,Phase 5,102-Band SED,Model authentic 102 contiguous narrow bands,Accurately models all 102 SPHEREx spectral channels (0.75 - 5.00 um) across Arrays A1-A6 (R=35-128),tests/test_bands_spectrum.py,DONE
+56,Phase 5,102-Band SED,Merged 102-Band info bar & channel selector in toolbar,Direct 102-band selector (#spec102ChannelSelect) steppers and wavelength readout in spectrum toolbar,tests/test_ui_contract.py,DONE
+57,Phase 5,102-Band SED,Two-way sync between spectrum and HiPS cube slicing,Changing channel updates Chart.js SED array tabs slider and invokes Aladin Lite setSliceNumber,tests/test_ui_contract.py,DONE
+58,Phase 5,102-Band SED,Strict separation of wavelength plot and time series,Spectral SED is hosted in #dockPanelSpectrum isolated from temporal blink viewer with honesty notice,tests/test_ui_contract.py,DONE
+59,Phase 5,102-Band SED,Explain multi-epoch spectral buildup in UI,Clear explanatory notice explaining SPHEREx builds up spectral coverage over multi-epoch survey sweeps,tests/test_ui_contract.py,DONE
+60,Phase 5,102-Band SED,Grounded molecular absorption claims,Physical absorption markers for H2O vapor H2O ice CH4 CO2 ice and CO with 1-click jump pills,tests/test_ui_contract.py,DONE
+61,Phase 6,NASA Benchmarks,Barnard's Star (High Proper Motion Red Dwarf),RA=269.4521 Dec=+4.6934. Verifies 10.36 arcsec/yr northward proper motion and Gaia DR3 match,tests/test_golden_suite.py,DONE
+62,Phase 6,NASA Benchmarks,Epsilon Indi B (Binary Brown Dwarf System),RA=331.0438 Dec=-56.7827. Verifies 4.70 arcsec/yr proper motion companion and infrared brightness,tests/test_golden_suite.py,DONE
+63,Phase 6,NASA Benchmarks,WISE 0855-0714 (Ultra-Cool Sub-stellar Y-Dwarf),RA=133.79513 Dec=-7.24515. Verifies 8.12 arcsec/yr westward motion optical void and 4.6um stack dipole,tests/test_golden_suite.py,DONE
+64,Phase 6,NASA Benchmarks,RW Aurigae (Young T-Tauri Eruptive Variable),RA=76.9564 Dec=+30.4014. Verifies 2.8x eruptive flare amplitude and strong ZOGY difference residual,tests/test_golden_suite.py,DONE
+65,Phase 6,NASA Benchmarks,R Draconis (Mira-type Pulsating Red Giant),RA=248.1676 Dec=+66.7551. Verifies 3.4x cyclic flux shift between 6-month survey passes,tests/test_golden_suite.py,DONE
+66,Phase 6,NASA Benchmarks,SIMBAD & Gaia DR3 catalog cross-verification,Coordinates and proper-motion vectors cross-verified against CDS SIMBAD and ESA Gaia DR3,tests/test_golden_suite.py,DONE
+67,Phase 6,NASA Benchmarks,Honest No Data reporting for empty regions,Displays clear no data available states when target falls outside survey footprints or dates,tests/test_golden_suite.py,DONE
+68,Phase 7,Performance,Tested under realistic data volumes,Scoped LRU + IndexedDB tile caching stress-tested across 102 spectral bands with zero leaks,tests/test_continuous_viewport_e2e.py,DONE
+69,Phase 7,Deliverables,7-Slide Presentation Pitch Deck,Complete pitch-ready 7-slide presentation deck adhering strictly to NASA Space Apps limit,SPHEREx_Hunter_7_Slide_Presentation.pptx,DONE
+70,Phase 7,Deliverables,30-Second Video Script & Storyboard,Word-for-word timed 30-second rapid elevator pitch and 3-minute extended judging walkthrough script,06 - Deliverables & Submission/Demo Video Script & Storyboard (30-sec to 3-min).md,DONE

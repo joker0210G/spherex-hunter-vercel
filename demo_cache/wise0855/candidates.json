@@ -1,0 +1,39 @@
+{
+  "target_id": "wise0855",
+  "pipeline_run": "zogy_v1_run_20261114",
+  "threshold_sigma": 5.0,
+  "exposures_searched": 5,
+  "candidates": [
+    {
+      "candidate_id": "SPX-2026-W0855-01",
+      "target_name": "WISE 0855 Dipole Detection",
+      "ra": 133.79513,
+      "dec": -7.24515,
+      "uncertainty_arcsec": 0.08,
+      "object_type": "Ultracold Sub-stellar Brown Dwarf",
+      "evidence_tier": "KNOWN_STELLAR_OR_BROWN_DWARF",
+      "evidence_label": "Known Sub-Stellar Object",
+      "evidence_summary": "Clean 7.08'' dipole on 26-year baseline with complete optical Gaia dropout. Verified analog to Planet X.",
+      "candidate_status": "CATALOG_VERIFIED (WISE J085510.83-071442.5)",
+      "snr": 87.6,
+      "motion_model": {
+        "motion_type": "PROPER_MOTION_DIPOLE",
+        "total_pm_arcsec_yr": 8.149,
+        "parallax_mas": 433.5,
+        "model_status": "CONSTRAINED"
+      },
+      "vetoes": {
+        "is_cosmic_ray": false,
+        "is_stationary_star_dipole": false,
+        "is_known_sso": false
+      },
+      "created_at": "2026-11-14T15:00:00Z"
+    }
+  ],
+  "provenance": {
+    "source": "precomputed",
+    "git_hash": "71a9daaaa9d8b27d415c2d79d1be389da460baff",
+    "data_release": "DR1",
+    "pipeline_version": "2.1.0"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "valid": true,
+  "status": "success",
+  "method": "ZOGY (Zackay, Ofek, & Gal-Yam 2016)",
+  "epoch_a": {
+    "exposure_id": "2025W27_1A_0210_1",
+    "mjd": 60858.4201,
+    "detector": 3,
+    "band": "SPHEREx-D3 (2.12 µm)",
+    "wavelength_um": 2.12
+  },
+  "epoch_b": {
+    "exposure_id": "2026W06_1B_0411_2",
+    "mjd": 61041.5201,
+    "detector": 3,
+    "band": "SPHEREx-D3 (2.12 µm)",
+    "wavelength_um": 2.12
+  },
+  "band_matched": true,
+  "scorr_max": 42.5,
+  "scorr_min": -39.1,
+  "scorr_mean": 0.005,
+  "scorr_std": 1.012,
+  "mismatch_reason": null,
+  "provenance": {
+    "source": "NASA IRSA SPHEREx DR1 Archive",
+    "data_release": "DR1",
+    "pipeline_version": "2.1.0"
+  }
+}

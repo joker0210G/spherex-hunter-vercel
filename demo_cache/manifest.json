@@ -1,0 +1,134 @@
+{
+  "version": "1.0.0",
+  "generated_at": "2026-11-14T10:31:23.714715+00:00",
+  "git_hash": "71a9daaaa9d8b27d415c2d79d1be389da460baff",
+  "description": "Precomputed demo cache for SPHEREx Hunter. Each SPHEREx exposure is ~62MB; small cutouts and forced photometry are precomputed to guarantee sub-300ms latency.",
+  "targets": {
+    "sample_leo": {
+      "name": "Technical Validation Field (SPHEREx D6 Flight Pair)",
+      "ra": 160.6,
+      "dec": 30.7,
+      "public_exposures_total": 262,
+      "exposures_used": 2,
+      "products": [
+        "cutout_raw.bin",
+        "cutout_raw_header.json",
+        "difference.json",
+        "photometry.json",
+        "lightcurve.json",
+        "exposures.json"
+      ],
+      "checksums": {
+        "cutout_raw.bin": "e36eaa6fe1c45b9f67ce9077f1e3696d37bfff4525ab328839019289e0d9c266",
+        "cutout_raw_header.json": "f7ccef1da5685f60aa6fb378f439e037e1d8228ef7daf9dfe5e5b9d3b9d86d3d",
+        "difference.json": "2848eb8a120fd3c4c4e40e9bcecd21642531f9c8c182d3b75add7c3b3f227e06",
+        "photometry.json": "127528db08f6002db5caedd0dafc4830a37f272a1a77c56a06e6202004a00d20",
+        "lightcurve.json": "ceb7ebb2b3bd602d3c1d44911ed9eef52781c679322b12667d53804c860eccb9",
+        "exposures.json": "97947e7c04cc144aabb4b99c3f1138c4c90fab5d77e762a682d4b7876a77d90e"
+      },
+      "data_release": "DR1",
+      "pipeline_version": "2.1.0"
+    },
+    "wise0855": {
+      "name": "WISE 0855-0714",
+      "ra": 133.79513,
+      "dec": -7.24515,
+      "public_exposures_total": 258,
+      "exposures_used": 5,
+      "products": [
+        "cutout_raw.bin",
+        "photometry.json",
+        "exposures.json",
+        "difference.json",
+        "candidates.json"
+      ],
+      "checksums": {
+        "cutout_raw.bin": "c80c94bdc36c5e895ab367d8bbea299ac323989752e89f9b3ee0023702359d34",
+        "photometry.json": "03671f0e27d82fd0628fde9def1e4a9abb6f8b99ba8c23bdaccb3a2cd63154b3",
+        "exposures.json": "13a8546341488b1449d51429c02e8f61639b2af3e709680ae518df16ea181bfa",
+        "difference.json": "96580d326dfd1824ee19bbde5b5195afbb127ed1d8db7d7387c91dca7ecd346a",
+        "candidates.json": "17233607fa213fb46e7d7abe09492d5874ec65402017e3fc94ef1d64c1854e42"
+      },
+      "data_release": "DR1",
+      "pipeline_version": "2.1.0"
+    },
+    "barnard": {
+      "name": "Barnard's Star",
+      "ra": 269.45208,
+      "dec": 4.69339,
+      "public_exposures_total": 363,
+      "exposures_used": 12,
+      "products": [
+        "exposures.json",
+        "candidates.json",
+        "difference.json"
+      ],
+      "checksums": {
+        "exposures.json": "e13484f63cc56d726e22d4556bcbcdedefcbebcc39202021aae1a7c19e2d5fbc",
+        "candidates.json": "4f143223ce52ca92f66ee8d55e6d12f434a7364587576494bd37feaf84fd737c",
+        "difference.json": "4e110a24a59273f12b0ff68e3fc3c46ad21466788c1f73e6834db84843d71852"
+      },
+      "data_release": "DR1",
+      "pipeline_version": "2.1.0"
+    },
+    "epsindi": {
+      "name": "Epsilon Indi B",
+      "ra": 331.04379,
+      "dec": -56.78272,
+      "public_exposures_total": 459,
+      "exposures_used": 8,
+      "products": [
+        "exposures.json",
+        "candidates.json",
+        "difference.json"
+      ],
+      "checksums": {
+        "exposures.json": "b329a3f546b17e8145de0ae432c7a16bf060e3bd931f24a69b51ec6f8ba3986f",
+        "candidates.json": "9dbad635f6bf8c0d008cac1136184105e2f7cc303dbdab603ab682f686599c6c",
+        "difference.json": "6534b22f4b8e631ba5cf1f52ae350faf79af2f4b46fb7326b5155f18e85b9ccb"
+      },
+      "data_release": "DR1",
+      "pipeline_version": "2.1.0"
+    },
+    "rdraconis": {
+      "name": "R Draconis",
+      "ra": 248.16763,
+      "dec": 66.75506,
+      "public_exposures_total": 2542,
+      "exposures_used": 6,
+      "products": [
+        "exposures.json",
+        "candidates.json",
+        "difference.json"
+      ],
+      "checksums": {
+        "exposures.json": "c0a7c705453df4de8c718120940e4cf27a7ce5ce79938bb762d20de3c3e6b602",
+        "candidates.json": "2c8598886b52c3b16b21bdd2313be007b2984f3489cc8172e2a58a49303a46d7",
+        "difference.json": "96ed35aabe609d61cc19fefda495ea053cd9bb7f9ed94bdadc17ad9204c21571"
+      },
+      "data_release": "DR1",
+      "pipeline_version": "2.1.0"
+    },
+    "rwaur": {
+      "name": "RW Aurigae",
+      "ra": 76.95642,
+      "dec": 30.40142,
+      "public_exposures_total": 0,
+      "exposures_used": 0,
+      "products": [
+        "exposures.json",
+        "candidates.json",
+        "difference.json"
+      ],
+      "checksums": {
+        "exposures.json": "148171ef58e6494353eaffb44dc0debe4751346b2a328c4675a34e77d5dba811",
+        "candidates.json": "ad91d822f218d7873c23b03b0eec0ee06126174a516855a1d8951dffa7f72d9f",
+        "difference.json": "36a6a7c13915c00458f9ba4bca95fa73970ae497090f5d0ee5bff177b147460e"
+      },
+      "data_release": "DR1",
+      "pipeline_version": "2.1.0"
+    }
+  },
+  "data_release": "DR1",
+  "pipeline_version": "2.1.0"
+}

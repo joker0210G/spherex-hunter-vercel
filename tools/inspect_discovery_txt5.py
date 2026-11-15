@@ -1,0 +1,5 @@
+with open('spherex_discovery_raw.txt', 'r', encoding='utf-8') as f:
+    lines = f.readlines()
+
+for i in range(600, len(lines)):
+    print(f"{i+1}: {lines[i].rstrip()[:120]}")

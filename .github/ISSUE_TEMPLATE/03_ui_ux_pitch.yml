@@ -1,0 +1,57 @@
+name: "🎨 UI/UX: Citizen Science, Onboarding & Pitch"
+description: "Tasks for Citizen Science workflow, modal guides, slide deck, pitch video, and docs."
+title: "[UI/UX] "
+labels: ["track:uiux-pitch", "status:needs-refinement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### 🎬 Team RIP: UI/UX, Story & Hackathon Deliverable Task
+        Use this template for citizen science user flows, audio cues, explanatory modals, presentation slides, and video pitch deliverables.
+
+  - type: dropdown
+    id: teammate
+    attributes:
+      label: "Assigned Teammate"
+      description: "Select which teammate owns this branch."
+      options:
+        - "astrodu (astrodu/ui-story-pitch) - UX, Story & Pitch Lead"
+        - "coolodu (coolodu/web-frontend) - UI Implementation Support"
+        - "jokerodu (main) - Lead Review"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: deliverable_type
+    attributes:
+      label: "Deliverable Category"
+      options:
+        - "Citizen Science Discovery Modal & Export"
+        - "Interactive Onboarding / First-Time User Tutorial"
+        - "NASA Space Apps Slide Deck (Google Slides / PDF)"
+        - "Video Pitch Script & Storyboard (30s / 120s video)"
+        - "Audio-Visual Cues & Accessibility"
+    validations:
+      required: true
+
+  - type: textarea
+    id: design_spec
+    attributes:
+      label: "Design Specification & User Narrative"
+      description: "Explain the visual hierarchy, citizen scientist user journey, or slide narrative."
+      placeholder: "Step 1: User detects dipole in difference mode. Step 2: Clicks 'Flag Candidate'. Step 3: Enters citizen science notes..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: "Acceptance Criteria"
+      description: "What constitutes complete and verified for this deliverable?"
+      value: |
+        - [ ] Clear non-technical instructions for citizen science volunteers
+        - [ ] Adheres to NASA Space Apps 2026 rubric constraints
+        - [ ] Responsive layout across laptop and tablet screens
+        - [ ] Reviewed by team lead (`@jokerodu`)
+    validations:
+      required: true

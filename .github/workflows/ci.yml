@@ -1,0 +1,35 @@
+name: SPHEREx Hunter CI
+
+on:
+  push:
+    branches: [ main, "darkodu/*", "coolodu/*", "iceodu/*" ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install .[dev]
+
+      - name: Run Ruff Linting
+        run: |
+          ruff check backend tests
+
+      - name: Run Unit Tests
+        env:
+          PYTHONPATH: .
+        run: |
+          pytest tests/test_validation.py tests/test_flag_bits.py tests/test_scene_and_metadata.py tests/test_motion_models.py tests/test_preprocessing.py tests/test_differencing.py tests/test_identification_and_evidence.py -v
+

@@ -1,0 +1,17 @@
+{
+	"nodes":[
+		{"id":"node_mission","type":"text","text":"# 🛸 MISSION: SPHEREx Hunter\n**NASA Space Apps Challenge 2026**\nTeam RIP (Coimbatore, India)\n\nBuild a public web tool to blink multi-epoch SPHEREx images and discover moving objects & Planet X.","x":400,"y":0,"width":400,"height":180,"color":"1"},
+		{"id":"node_benchmarks","type":"file","file":"01 - Challenge & NASA Spec/02 - Mandatory Test Targets & Benchmark Suite.md","x":0,"y":240,"width":380,"height":340,"color":"3"},
+		{"id":"node_arch","type":"file","file":"03 - Architecture & Tech Stack/01 - Architecture Overview.md","x":420,"y":240,"width":420,"height":340,"color":"4"},
+		{"id":"node_roles","type":"file","file":"02 - Team Roles & Assignment/00 - Team Structure & Skill Matrix.md","x":880,"y":240,"width":380,"height":340,"color":"5"},
+		{"id":"node_tasks","type":"file","file":"04 - Tasks & Sprints/Master Kanban Taskboard.md","x":420,"y":640,"width":420,"height":300,"color":"6"},
+		{"id":"node_pitch","type":"file","file":"06 - Deliverables & Submission/Winning Project Pitch Deck Outline.md","x":880,"y":640,"width":380,"height":300,"color":"2"}
+	],
+	"edges":[
+		{"id":"e1","fromNode":"node_mission","fromSide":"bottom","toNode":"node_arch","toSide":"top"},
+		{"id":"e2","fromNode":"node_mission","fromSide":"left","toNode":"node_benchmarks","toSide":"top"},
+		{"id":"e3","fromNode":"node_mission","fromSide":"right","toNode":"node_roles","toSide":"top"},
+		{"id":"e4","fromNode":"node_arch","fromSide":"bottom","toNode":"node_tasks","toSide":"top"},
+		{"id":"e5","fromNode":"node_roles","fromSide":"bottom","toNode":"node_pitch","toSide":"top"}
+	]
+}

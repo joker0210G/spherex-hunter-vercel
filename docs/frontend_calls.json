@@ -1,0 +1,221 @@
+[
+  {
+    "name": "loadSceneState",
+    "method": "GET",
+    "url": "/api/scene",
+    "v1_url": "/api/v1/targets/{id}/scene",
+    "component": "Inspector Layers Tab (Scene Collection Layer Manager)",
+    "query_params": {
+      "target": "targetKey (optional)",
+      "ra": "ra (optional)",
+      "dec": "dec (optional)",
+      "fov": "fov (float, default 3.0)"
+    },
+    "reads_fields": [
+      "status",
+      "target_key",
+      "target.name",
+      "target.ra_deg",
+      "target.dec_deg",
+      "target.object_type",
+      "target.spectral_type",
+      "target.total_pm_arcsec_yr",
+      "target.total_pm_mas_yr",
+      "target.effective_temp_k",
+      "target.evidence_tier",
+      "target.evidence_summary",
+      "target.confirmation_status",
+      "target.citations",
+      "epochs[].id",
+      "epochs[].name",
+      "epochs[].survey",
+      "epochs[].instrument",
+      "epochs[].band",
+      "epochs[].mjd",
+      "epochs[].date",
+      "epochs[].detector",
+      "epochs[].wavelength_microns",
+      "epochs[].pixel_scale_arcsec",
+      "epochs[].status",
+      "epochs[].target_coord.ra_deg",
+      "epochs[].target_coord.dec_deg",
+      "epochs[].target_coord.delta_theta_arcsec",
+      "epochs[].target_coord.fov_warning",
+      "layers[].id",
+      "layers[].name",
+      "layers[].type",
+      "layers[].visible",
+      "layers[].opacity",
+      "layers[].status",
+      "layers[].provenance",
+      "layers[].badge",
+      "layers[].band_matched",
+      "layers[].unmatched_reason",
+      "active_blink_pair",
+      "difference.valid",
+      "difference.reason"
+    ],
+    "error_handling": "Hides skeleton, shows #sceneError banner with #sceneErrorMessage text"
+  },
+  {
+    "name": "loadSkyCutout",
+    "method": "GET",
+    "url": "/api/cutout",
+    "v1_url": "/api/v1/cutout",
+    "component": "Astronomical Viewport (AstroCanvas & Flipbook)",
+    "query_params": {
+      "ra": "ra (float, required)",
+      "dec": "dec (float, required)",
+      "fov": "fov (float, default 3.0)",
+      "lod": "lod (int, 0=HiRes, 1=Standard, 2=Overview)",
+      "target": "targetKey (optional)"
+    },
+    "reads_fields": [
+      "status",
+      "target",
+      "coordinates.ra_deg",
+      "coordinates.dec_deg",
+      "coordinates.fov_arcmin",
+      "epochs[].image_data",
+      "epochs[].label",
+      "epochs[].date",
+      "epochs[].survey",
+      "epochs[].band",
+      "difference_image.image_data",
+      "difference_image.label",
+      "coverage_mask_image.image_data",
+      "transient_detection.status",
+      "transient_detection.offset_arcsec",
+      "transient_detection.snr",
+      "transient_detection.transient_type",
+      "transient_detection.source_ra",
+      "transient_detection.source_dec",
+      "transient_detection.notes",
+      "provenance.source",
+      "provenance.retrieved_at"
+    ],
+    "error_handling": "Catches error, logs console error, hides loading overlay with toast"
+  },
+  {
+    "name": "loadGaiaData",
+    "method": "GET",
+    "url": "/api/gaia",
+    "v1_url": "/api/v1/catalog/gaia",
+    "component": "Viewport Gaia DR3 Reticle & Inspector Gaia Cross-Match Card",
+    "query_params": {
+      "ra": "ra (float, required)",
+      "dec": "dec (float, required)",
+      "radius": "radius_arcmin (float, default 3.0)"
+    },
+    "reads_fields": [
+      "status",
+      "count",
+      "sources[].source_id",
+      "sources[].ra",
+      "sources[].dec",
+      "sources[].phot_g_mean_mag",
+      "sources[].pmra",
+      "sources[].pmdec",
+      "sources[].total_pm_mas_yr",
+      "sources[].parallax",
+      "sources[].distance_pc"
+    ],
+    "error_handling": "Catches error, console.warn notice, defaults gaiaSources to empty array"
+  },
+  {
+    "name": "loadCSANeossatData",
+    "method": "GET",
+    "url": "/api/csa/neossat",
+    "v1_url": "/api/v1/services/neossat",
+    "component": "Target Inspector NEOSSat Card & Mission Codex CADC Panel",
+    "query_params": {
+      "ra": "ra (float, required)",
+      "dec": "dec (float, required)",
+      "radius": "radius_arcmin (float, default 3.0)"
+    },
+    "reads_fields": [
+      "status",
+      "verdict",
+      "verdict_text",
+      "known_solar_system_objects.count",
+      "known_solar_system_objects.objects[]",
+      "neossat_archive.count",
+      "cadc_search_url",
+      "links"
+    ],
+    "error_handling": "Catches error, logs console.warn notice"
+  },
+  {
+    "name": "loadSpectrumData",
+    "method": "GET",
+    "url": "/api/spectrum",
+    "v1_url": "/api/v1/targets/{id}/spectrum",
+    "component": "Bottom Dock 102-Band Spectrum Tab & Chart.js Canvas",
+    "query_params": {
+      "ra": "ra (float, required)",
+      "dec": "dec (float, required)",
+      "target": "targetKey (optional)"
+    },
+    "reads_fields": [
+      "wavelengths_microns",
+      "flux_microjanskys",
+      "estimated_temp_k",
+      "detector_arrays",
+      "detected_molecules",
+      "bands[].wavelength",
+      "bands[].flux_ujy"
+    ],
+    "error_handling": "Catches error, logs console.warn notice"
+  },
+  {
+    "name": "submitCandidateFlag",
+    "method": "POST",
+    "url": "/api/flag",
+    "v1_url": "/api/v1/candidates/flag",
+    "component": "Citizen Science Flagging Modal Dialog (#flagCandidateModal)",
+    "body": {
+      "ra": "float",
+      "dec": "float",
+      "candidate_name": "string",
+      "motion_type": "string",
+      "proper_motion_mas": "float"
+    },
+    "reads_fields": [
+      "status",
+      "message",
+      "candidate_id",
+      "candidate"
+    ],
+    "error_handling": "Catches error, alerts user of failure"
+  },
+  {
+    "name": "loadDiscoveries",
+    "method": "GET",
+    "url": "/api/discoveries",
+    "v1_url": "/api/v1/targets/{id}/candidates",
+    "component": "Inspector Candidates Tab (#candidatesListContainer)",
+    "query_params": {},
+    "reads_fields": [
+      "[].candidate_id",
+      "[].target_name",
+      "[].notes",
+      "[].ra",
+      "[].dec",
+      "[].object_type",
+      "[].evidence_tier",
+      "[].proper_motion_mas",
+      "[].created_at"
+    ],
+    "error_handling": "Renders error message inside #candidatesListContainer"
+  },
+  {
+    "name": "exportDiscoveriesCSV",
+    "method": "GET",
+    "url": "/api/discoveries/export/csv",
+    "v1_url": "/api/v1/export/csv",
+    "component": "Inspector Candidates Export Button (#btnExportCSV)",
+    "query_params": {},
+    "reads_fields": "Binary CSV attachment stream",
+    "error_handling": "Browser native window.open navigation"
+  }
+]

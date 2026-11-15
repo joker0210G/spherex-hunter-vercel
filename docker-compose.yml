@@ -1,0 +1,14 @@
+services:
+  spherex-hunter:
+    build: .
+    container_name: spherex-hunter-app
+    ports:
+      - "8000:8000"
+    environment:
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - DEMO_MODE=true
+    volumes:
+      - ./backend/cache:/app/backend/cache
+    restart: unless-stopped
+

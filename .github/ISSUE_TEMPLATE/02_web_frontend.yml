@@ -1,0 +1,65 @@
+name: "✨ Web: Viewport, Canvas & Interactive Frontend"
+description: "Tasks for HTML5 Canvas, WebGL, Aladin Lite, WiseView, and Blink/Diff controls."
+title: "[WEB] "
+labels: ["track:web-frontend", "status:needs-refinement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### 🔭 Team RIP: Web Viewport & Frontend Task
+        Use this template for tasks involving the 60 FPS Canvas viewport, optical zoom, Aladin Lite embedding, WiseView integration, or UI controls.
+
+  - type: dropdown
+    id: teammate
+    attributes:
+      label: "Assigned Teammate"
+      description: "Select which teammate owns this branch."
+      options:
+        - "coolodu (coolodu/web-frontend) - Web & Frontend Powerhouse"
+        - "astrodu (astrodu/ui-story-pitch) - UX & UI Polish"
+        - "jokerodu (main) - Lead Review"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: resource_profile
+    attributes:
+      label: "Resource Matrix Profile"
+      description: "Is this task token-heavy (large UI refactor) or compute-heavy?"
+      options:
+        - "resource:token-heavy (Paid Pro Gemini required: large multi-file UI refactor)"
+        - "resource:standard (CSS styling / button handler / telemetry tweak)"
+        - "resource:compute-heavy (WebGL shader / high-res canvas rendering)"
+    validations:
+      required: true
+
+  - type: input
+    id: target_component
+    attributes:
+      label: "Target Component / File"
+      description: "e.g., frontend/index.html, frontend/vendor/aladin.js, CSS styles"
+      placeholder: "frontend/index.html (Canvas Viewport / Controls)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature_description
+    attributes:
+      label: "Feature & UI Interaction Specification"
+      description: "Describe the interactive behavior, user controls, canvas rendering, or external bridge."
+      placeholder: "Add WiseView 1-click verification bridge button that opens WiseView unWISE co-adds centered on current RA/Dec..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: "Acceptance Criteria & Browser Verification"
+      description: "Checklist for browser subagent or live user testing."
+      value: |
+        - [ ] Renders at 60 FPS without stutter or frame drop
+        - [ ] Verified in browser subagent on both light and dark targets
+        - [ ] Zero JavaScript console errors or memory leaks (LRU texture cache verified)
+        - [ ] URL deep-linking preserved (`?ra=...&dec=...&fov=...`)
+    validations:
+      required: true

@@ -1,0 +1,49 @@
+name: "🐛 Bug: Glitch, Visual Artifact, or Pipeline Failure"
+description: "Report a bug, canvas glitch, memory leak, or broken astronomical query."
+title: "[BUG] "
+labels: ["status:needs-refinement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### 🚨 Team RIP: Bug & Issue Report
+        Help us track down glitches, canvas seam lines, timeout exceptions, or mathematical anomalies.
+
+  - type: dropdown
+    id: affected_area
+    attributes:
+      label: "Affected Track / Component"
+      options:
+        - "Web / Viewport (Canvas, Zoom, Pan, Aladin Lite, Shaders)"
+        - "Backend API (FastAPI, NASA IRSA query, TAP client)"
+        - "Image Math (Difference imaging, PSF convolution, Dipoles)"
+        - "Golden Test Suite Failure"
+    validations:
+      required: true
+
+  - type: input
+    id: celestial_coords
+    attributes:
+      label: "Observed Sky Coordinates (RA, Dec, FOV)"
+      description: "If applicable, provide the exact coordinates where the issue occurred."
+      placeholder: "e.g. RA 133.79513, Dec -7.24515, FOV 3.0"
+
+  - type: textarea
+    id: bug_behavior
+    attributes:
+      label: "Expected vs Observed Behavior"
+      description: "Describe what went wrong and attach console error logs or terminal traceback."
+      placeholder: "Expected seamless optical zoom; observed black void on near-image tile query..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction_steps
+    attributes:
+      label: "Steps to Reproduce"
+      value: |
+        1. Open `http://localhost:8000/app/index.html`
+        2. Slew to target / zoom to 0.4x
+        3. Observe issue in canvas / browser console
+    validations:
+      required: true

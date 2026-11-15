@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Team RIP Discussions & Chat
+    url: https://github.com/joker0210G/spherex-hunter/discussions
+    about: Ask questions, coordinate with teammates, or discuss astrodynamics architecture.
+  - name: 📊 Live Project State Board
+    url: https://github.com/joker0210G/spherex-hunter/blob/main/07%20-%20Team%20Memory%20%26%20Sync/SHARED_PROJECT_STATE.md
+    about: View real-time status across all 5 NASA benchmark targets and tracks.

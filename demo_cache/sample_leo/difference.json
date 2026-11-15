@@ -1,0 +1,31 @@
+{
+  "valid": true,
+  "status": "success",
+  "method": "ZOGY (Zackay, Ofek, & Gal-Yam 2016)",
+  "epoch_a": {
+    "exposure_id": "SPHEREx_D6_60789_752254",
+    "mjd": 60789.752254,
+    "detector": 6,
+    "band": "Band 6 (4.42 \u03bcm)",
+    "wavelength_um": 4.42
+  },
+  "epoch_b": {
+    "exposure_id": "SPHEREx_D6_60789_752458",
+    "mjd": 60789.752458,
+    "detector": 6,
+    "band": "Band 6 (4.42 \u03bcm)",
+    "wavelength_um": 4.42
+  },
+  "band_matched": true,
+  "scorr_max": 175.48654174804688,
+  "scorr_min": -932.218505859375,
+  "scorr_mean": -1.0778945684432983,
+  "scorr_std": 19.71572494506836,
+  "provenance": {
+    "source": "precomputed",
+    "generated_at": "2026-11-14T10:31:24.298763+00:00",
+    "git_hash": "71a9daaaa9d8b27d415c2d79d1be389da460baff",
+    "data_release": "DR1",
+    "pipeline_version": "2.1.0"
+  }
+}

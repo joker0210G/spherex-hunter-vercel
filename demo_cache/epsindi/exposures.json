@@ -1,0 +1,27 @@
+{
+  "target_id": "epsindi",
+  "count_public_total": 459,
+  "count_precomputed_used": 8,
+  "exposures": [
+    {
+      "exposure_id": "SPHEREx_EPSINDI_EXP01",
+      "mjd": 60800.12,
+      "detector": 2,
+      "wavelength_at_target_um": 1.25,
+      "band": "Band 2"
+    },
+    {
+      "exposure_id": "SPHEREx_EPSINDI_EXP02",
+      "mjd": 60825.45,
+      "detector": 5,
+      "wavelength_at_target_um": 3.82,
+      "band": "Band 5"
+    }
+  ],
+  "provenance": {
+    "source": "precomputed",
+    "git_hash": "71a9daaaa9d8b27d415c2d79d1be389da460baff",
+    "data_release": "DR1",
+    "pipeline_version": "2.1.0"
+  }
+}

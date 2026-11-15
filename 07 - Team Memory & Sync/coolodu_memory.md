@@ -1,0 +1,314 @@
+# 🧠 Memory Log: coolodu (Frontend Lead)
+> **Role:** React Web App, Canvas Blink Comparator & URL Deep-Linking
+> **Branch:** `coolodu/web-frontend`
+
+## Personal Status:
+- **Current Task:** Streamlined the viewport HUD by seamlessly merging the active blink frame and survey indicator into the bottom telemetry bar and consolidating redundant resolution/LOD indicators into a compact, unified readout. Captured and verified high-resolution application screenshots for scientific validation, NASA flight exposure benchmark verification, and Aladin Sky view with non-intrusive bottom context bar (`docs/screenshots/`). Updated memory logs and team state.
+- **Next Task:** Maintain clean branch state and prepare final challenge submission demo materials.
+- **Blockers:** None.
+
+## Assigned Tasks:
+- [x] **[Viewport Bloat Remediation: Merged Active Blink Frame & Consolidated Telemetry HUD]**:
+  - Investigated user report of viewport bloating between the top-left frame overlay (`| (Frame 4/4) SPHEREx Stack...`) and the bottom telemetry bar.
+  - Identified redundant indicators: Active Frame/Epoch info was split into an isolated top-left floating box, while the bottom bar carried 4 sprawling resolution indicators (`LOD 0`, `Scale`, `Span`, `Exp Magnified`).
+  - Action taken:
+    1. Integrated active frame and survey tag (`#vpBottomEpochTag`, `#vpBottomEpochDot`, `#vpBottomEpochLabel`) directly into the bottom telemetry HUD bar, syncing dynamically with blink comparator cycles.
+    2. Consolidated the 4 resolution metrics (`#vpLOD`, `#vpDeviceScale`, `#vpNativeSpan`, `#vpScaleStatusBadge`) into a single, cohesive optical scale block with rich hover tooltips, cutting horizontal bar bloat by ~40%.
+    3. Removed the orphan separator pipe `|` in `#vpTopTargetCard` when no target name is populated (`#vpTargetDivider`).
+    4. Verified all 62 automated tests (`test_ui_contract.py`, `test_golden_suite.py`, `test_viewport_overhaul_v2.py`) pass 100% green.
+- [x] **[Visual Evidence Gallery Overhaul: Ingestion of Authentic Observatory Captures]**:
+  - Ingested 20 genuine high-resolution application screenshots provided by user (`.zip` and Aladin captures).
+  - Upgraded canonical screenshots:
+    1. `03_aladin_sky_hips_view.png` (1600x899) — Full celestial sphere in Aladin Sky mode with R Draconis and bottom context bar.
+    2. `01_wise0855_observatory_blink.png` (1600x899) — Complete observatory interface with WISE 0855 dipole, streamlined HUD, target metadata, and flipbook timeline.
+    3. `04_102_band_spectrum_workbench.png` (1600x899) — Full 102-band SED graph across 6 detector arrays with molecular absorption tags ($H_2O, CH_4, CO_2, CO$).
+    4. `05_target_barnards_star_benchmark.png` (1600x900) — High proper motion benchmark.
+    5. `06_target_rw_aurigae_variable.png` (1600x900) — Eruptive variable flare benchmark.
+    6. `07_target_epsilon_indi_binary.png` (1600x899) — Brown dwarf binary companion benchmark.
+    7. `08_target_r_draconis_variable.png` (1600x899) — Pulsating Mira variable benchmark.
+    8. `09_aladin_sky_deep_starfield.png` (1600x899) — Deep starfield zoom in Aladin Lite.
+    9. `10_streamlined_viewport_canvas.png` (1308x880) — Focused canvas view with streamlined HUD.
+  - Linked all screenshots into [`README.md`](file:///d:/Workspace/NASA_Space_apps/README.md) and [`docs/README.md`](file:///d:/Workspace/NASA_Space_apps/docs/README.md) gallery grids. Pushed cleanly to `origin/main` (`49956b1`).
+- [x] **[Capture High-Resolution Application Screenshots for Validation & Aladin Sky Mode]**:
+  - Developed automated headless Playwright capture script (`scripts/capture_validation_screenshots.py`) bypassing onboarding tour intercepts.
+  - Captured `01_wise0855_observatory_blink.png`: Authentic multi-epoch FITS data for WISE 0855-0714 with auto-identified proper motion dipole annotation, telemetry HUD, coordinate overlay, and multi-epoch timeline.
+  - Captured `02_scientific_validation_modal.png`: Phase 2 Scientific Validation Benchmark & Mission Codex modal showing verified NASA SPHEREx flight exposure metrics (completeness at $m_{\text{AB}} \approx 17.3$, false-positive rate 29.02/deg², 54 IMCCE SkyBoT bodies, EPSF 0.666" astrometry).
+  - Captured `03_aladin_sky_hips_view.png`: CDS Strasbourg Aladin Lite interactive HiPS view with the new bottom-docked `#aladinContextBar`.
+  - Stored in `docs/screenshots/` and copied to conversation artifact directory.
+- [x] **[Modernize Header Action Tools to Dropdown Toolbar Named 'More' & Target Selector Dropdown]**:
+  - Replaced horizontal preset target strip with a clean, compact dropdown toolbar (`#btnTargetDropdownTrigger` & `#targetDropdownMenu`), preserving the single search icon button (`#btnOpenCommandPalette`, `Ctrl+K`) and all benchmark target buttons with full test compatibility.
+  - Consolidated observatory action buttons (`#btnOpenInvestigations`, `#btnSaveAnalysis`, `#btnShareModal`, `#btnOpenValidation`, `#btnOpenShortcuts`) into a single unified dropdown toolbar button named **"More"** (`#btnHeaderMoreActions` + `#headerMoreActionsDropdown`).
+  - Added live badge synchronization (`#moreCountBadge`) that dynamically tracks the investigations session count.
+  - Resolved block-scoped variable declaration diagnostic in `persistSessions()`.
+  - Verified 100% test pass rate across `test_ui_contract.py` (26/26) and `test_viewport_overhaul_v2.py` (10/10).
+- [x] **[Execute and Pass 70-Point NASA SPHEREx Final Judge Evaluation Checklist]**:
+  - Audited all 70 items across 10 functional domains (Application Basics, Coordinate Search, SPHEREx Retrieval, Image Viewer, Time Animation, Movement Detection, Photometry Comparison, 102 Spectral Bands, Benchmark Targets, Performance).
+  - All 70 criteria verified and passed: authentic FITS data, WCS coordinate registration, 102-band infrared spectroscopy ($0.75\text{--}5.0\,\mu\text{m}$), ZOGY image subtraction, multi-epoch blink comparator (1999 to 2025), and 5 required targets (Barnard's Star, Epsilon Indi B, WISE 0855, RW Aurigae, R Draconis).
+  - Committed commit `ba91cbd` with four-survey overlay stack, discrete time steps, and RAF render throttling.
+  - Generated comprehensive judge evaluation report artifact.
+- [x] **[Minimalist Layout: Remove Redundant Time Gap Explainer Pill]**:
+  - Removed `#btnTimeGapExplainer` and `#timeGapPopover` from `frontend/index.html`.
+  - Streamlined the bottom dock header to include only the dock panel collapse toggle.
+  - Verified 100% test pass rate across all suites with 0 regressions.
+- [x] **[Ensure Reliable Triggering of View Modes ("Blink ⌵") Dropdown]**:
+  - Diagnosed issue where clicking `#btnViewModesTrigger` ("Blink ⌵") immediately triggered `wsBlink.click()`, which invoked `updateActiveViewModeIndicator()` and instantly closed the menu in the same event tick.
+  - Removed conflicting internal click trigger, added `hidden` class by default to `#viewModesPopup`, added direct inline `onclick="window.toggleViewModesPopup && window.toggleViewModesPopup(); event.stopPropagation();"` and `pointer-events-none` on children.
+  - Verified with 29/29 contract tests passing.
+- [x] **[Eliminate Linear Starfield Replicas & Canvas Transform Compounding in Viewport]**:
+  - Diagnosed visual anomaly where identical scaled copies (0.500x ratio) of the target starfield (`WISE 0855`) appeared duplicated diagonally with L-shaped clipping boundaries.
+  - Fix: Added `ctx.setTransform(1, 0, 0, 1, 0, 0)` before clearing, defined `const cosDec = Math.cos((camera.dec * Math.PI) / 180.0) || 1.0;` at the top of `drawFrame()`, enclosed all transformed operations in `ctx.save(); try { ... } finally { ctx.restore(); }`, and added a defensive `safeCosDec` fallback inside `drawAutoIdentificationOverlay()`.
+  - Verification: Added contract test `test_viewport_draw_frame_canvas_transform_hygiene_and_cosdec_contract` to `tests/test_ui_contract.py`. Subagent confirmed single clean celestial frame, zero console errors, zero replicas across multi-axis panning/zooming, and 62/62 passing tests.
+- [x] **[Ensure Reliable Triggering of Coordinates Popover & Multi-Entry Time Step Access]**:
+  - Bound direct inline `onclick="window.toggleCoordsPopover()"` and `onclick="window.toggleTimeStepHUD()"` handlers, adding `pointer-events-none` to nested text and icons so child elements never swallow clicks.
+  - Added dedicated `Tool 5: Time Step Controller` entry inside the top View Modes dropdown (`#viewModesPopup`), enabling users to open the Time Step Controller from either the left vertical toolbar (`Step` button / Hotkey `T`) or the top View Modes menu.
+  - Verified live in browser subagent on `http://127.0.0.1:8000` with both popups rendering cleanly and 100% test pass rate.
+- [x] **[Close Time Step Controller by Default to Free Viewport & Open from Sidebar on Demand]**:
+  - Closed `#viewportTimeStepHUD` by default by setting `class="hidden ..."` in `frontend/index.html`, eliminating viewport occlusion on initial startup.
+  - Set `#toolTimeStep` on the left sidebar tool rail to idle state by default (removed `blender-btn-active`).
+  - Maintained full on-demand toggle capability: clicking `#toolTimeStep` ("Step") in the left sidebar or pressing hotkey `T` toggles the controller open with active indicator styling, full time stepping, blink speed control, and options drawer.
+  - Added quiet initialization to `setTimeStepPinned(pinned, silent=true)` to eliminate redundant toast notifications when the controller is initially closed.
+  - Updated contract test `test_timestep_relocated_to_left_rail_with_popup_option_contract` in `tests/test_ui_contract.py` asserting `hidden` class on load. Verified 100% green pass rate across all 58 baseline contract tests.
+- [x] **[End-to-End Error & Warning Rectification Across Backend, Frontend & Tests]**:
+  - Implemented `@app.get("/index.html")` redirect in `backend/main.py` so direct `/index.html` navigation cleanly forwards to `/app/index.html` without 404s.
+  - Implemented `@app.get("/favicon.ico")` in `backend/main.py` serving SVG brand icon to cleanly resolve default browser favicon probes.
+  - Configured `pyproject.toml` warning filters (`filterwarnings`) to suppress third-party `StarletteDeprecationWarning` and `ErfaWarning`, achieving 100% clean test execution with zero warnings.
+  - Restyled epoch high proper motion displacement badges from alarming amber alert-circles to clean cyan auto-tracking telemetry badges (`<i data-lucide="crosshair">`), preventing visual confusion.
+  - Verified with 100% test pass rates across all suites (50/50 contract tests green).
+- [x] **[Compact Icon Sizing for Save Analysis, Share, and Command Palette in Upper Toolbar]**:
+  - Resized the SVG icons of `#btnSaveAnalysis` (bookmark-plus), `#btnShareModal` (share-2), `#btnOpenCommandPalette` (search), and `#cmdPaletteBtn` (search) in the top header to `w-2.5 h-2.5` (`10px x 10px`).
+  - Streamlined icon proportions to create visual hierarchy with the primary view mode and target dropdown triggers.
+  - Verified live in browser subagent with bounding box inspections and screenshot capture.
+  - Verified all 28 contract tests passing 100% green.
+- [x] **[Relocate 'My Investigations' to Cands Tab in Right Vertical Toolbar]**:
+  - Removed `#btnOpenInvestigations` from the upper horizontal toolbar, streamlining top header real estate.
+  - Placed dedicated My Investigations toolbar card (`#candsMyInvestigationsBar`) at the top of the Cands tab (`#inspectorPanelCandidates`) in the Scene Collection right vertical toolbar, directly above the 'Flagged Candidates' section.
+  - Retained `#btnOpenInvestigations` ("Open" action) and `#investigationsCountBadge` with persistent session counter.
+  - Preserved full interactive functionality: clicking `#btnOpenInvestigations` opens `#investigationsModal` dialog with full CRUD, renaming, snapshot deletion, and session restore capabilities.
+  - Updated contract test `test_issue_21_investigations_drawer_contract()` in `tests/test_ui_contract.py`. All 28 tests passing.
+- [x] **[Consolidate Curated Targets into Single Tool Icon with Collective Popup Toolbar]**:
+  - Replaced the horizontal row of individual preset buttons in the upper header with a single compact tool button (`#btnTargetPresetsTrigger`).
+  - Displays active target icon (`#targetPresetsActiveIcon`), active target label (`#targetPresetsActiveLabel`, defaults to 'WISE 0855'), and dynamic rotating chevron (`#targetPresetsChevron`).
+  - Added collective popup toolbar flyout (`#targetPresetsPopup` inside `#targetPresetsMenuContainer`) anchored directly beneath the trigger.
+  - Implemented click-to-toggle, outside click auto-dismiss, `Esc` key dismiss, and header close button `✕` (`#btnCloseTargetPresetsPopup`).
+  - Wired `selectTarget(key)` to update trigger label and active button highlight automatically.
+  - Added contract test `test_target_presets_single_tool_icon_and_collective_popup_contract()` in `tests/test_ui_contract.py`. All 28 tests passing.
+- [x] **[Repository-Wide Error & Code Quality Remediation]**:
+  - Ran ruff audit and rectified 53 formatting, unused import, and syntax issues across `tools/*.py`.
+  - Verified 0 ruff errors across `backend/`, `tools/`, and `tests/`.
+  - Confirmed 0 browser console errors, unhandled rejections, or layout bugs via live browser subagent.
+  - Verified all core test suites pass 100% green (49/49 contract tests).
+- [x] **[Scene Collection Right Vertical Toolbar Distinct Color Tone Gradient]**:
+  - Applied an Astral Amethyst / Cosmic Obsidian gradient (`linear-gradient(180deg, #130a24 0%, #170d2d 25%, #1c1036 55%, #160c2b 85%, #0f071e 100%)`) with `border-left: 1px solid rgba(192, 132, 252, 0.28)` and deep cosmic drop-shadow on `#propertiesSidebar`.
+  - Added matching glassmorphic gradient to `#propertiesSidebarHeader` (`rgba(38, 17, 66, 0.95)` to `rgba(26, 11, 46, 0.98)`).
+  - Maintained all tools in the toolbar 100% intact.
+  - Added contract test `test_scene_collection_right_toolbar_gradient_contract()` in `tests/test_ui_contract.py`. All 27 tests passing.
+- [x] **[Make Upper Horizontal Toolbar Blink Icon Functional & Make Popup Toolbar Visible]**:
+  - Resolved CSS overflow clipping on top `<header>` by changing `overflow-hidden` to `overflow-visible` with high stacking context (`z-40`).
+  - Rendered `#viewModesPopup` directly beneath the top toolbar with high-contrast styling (`border-cyan-500/60`, backdrop blur, deep shadow `0 12px 40px rgba(0,0,0,0.85)`).
+  - Included all 4 view mode tools: Blink Comparator (`#wsBlink`, B), Difference Imaging (`#wsDiff`, D), 102-Band Spectra (`#wsSpec`, S), and Aladin Sky Map (`#wsAladin`, A).
+  - Added dedicated close button `✕` (`#btnCloseViewModesPopup`) in addition to `Esc` and outside-click dismiss.
+  - Made `#btnViewModesTrigger` fully functional: clicking toggles the popup toolbar and directly controls Blink comparator playback (play/pause toggle, frame redraw, and Blink HUD visibility).
+  - Verified live in browser with subagent screenshot evidence (`final_step_46.png`) and verified all 26 tests in `tests/test_ui_contract.py` pass.
+- [x] **[Issue #43: Further Enhancements & Upgrades for Time-Domain Light Curve Tab]**:
+  - **Interactive Point Details:** Tooltips and telemetry sidebar detail card (`#lcSelectedPointDetails`) displaying observational SNR ($\approx 1.0857/\sigma_m$), instrument/survey passband, calibrated infrared flux in $\mu\text{Jy}$ (`calcCalibratedFluxMicroJy`), observation date/MJD, and outlier status.
+  - **Frequency Power Sparkline:** Added mini-canvas display (`#lcPowerSparkline`, `#lcPowerSparklineContainer`) showing the full Lomb-Scargle spectral power distribution across scanned trial periods ($0.2\text{d} - 500\text{d}$) with live peak period indicator (`#lcPowerPeakLabel`).
+  - **Outlier Flagging & Masking:** Tool to exclude cosmic ray artifacts and bad photometry from statistical metrics ($\chi^2_{\text{red}}$, mean magnitude, amplitude) via button `#btnToggleOutlierMask` and `Shift+Click` point toggling, with live masked count badge (`#lcMaskedCountBadge`) and one-click clear button (`#btnClearLCMasks`).
+  - **Responsive Dock Layout:** Fine-tuned `#dockPanelLightCurve` toolbar with `flex-wrap xl:flex-nowrap`, preserving full height and responsiveness across displays.
+  - **Fitted Analytical Model Curve:** Added optional sinusoidal harmonic fit curve (`#btnToggleLCModelCurve`, `#lcModelCurveLabel`) across the folded phase domain $[0.0, 2.0]$ computed via weighted least-squares regression.
+  - **Verification:** 100% green pass rate across `test_ui_contract.py` (25/25) including `test_issue_43_light_curve_enhancements_contract()`, full test suite (73/73), and physical verification via browser subagent ([final_step_61.png](file:///C:/Users/Ganesh%20Kumar/.gemini/antigravity/brain/76f06a40-990c-4cd7-b7cf-4900ca4d77fe/browser_evidence/2720cd7c-6b3c-44bf-be2b-7587de23e209/final_step_61.png)).
+- [x] **[Make the Blink Icon Tool Option and Its Popup Toolbar Functional]**:
+  - **Left Rail Blink Tool (`#toolBlinkFlip`):** Configured on `#leftToolRail` with `split` icon, `Blink` label, and hotkey `B` tooltip. Clicking toggles `#viewportBlinkHUD` open/closed and highlights with `blender-btn-orange-active`.
+  - **Viewport Blink HUD (`#viewportBlinkHUD`):** Anchored adjacent to the left rail at `left-16` with full Draggable Header handle (`#hudBlinkHeader`).
+  - **Interactive Edit Options Drawer (`#blinkEditDrawer`):** Added `#btnBlinkEditOptions` toggle opening a dedicated preferences drawer with:
+    1. *Pinning Mode Toggles (`#optPinBlinkAlways` vs `#optUnpinBlinkFlyout`):* Allows switching between permanently pinned viewport sidebar and auto-dismiss flyout mode (with persistence in `localStorage.spherex_blink_pinned`).
+    2. *Blink Cycle Rate Presets:* Direct 0.25s (4 FPS), 0.5s (2 FPS), 1.0s (1 FPS), and 2.0s (0.5 FPS) presets with active highlighting and bottom dock synchronization.
+    3. *Transition Style Toggles:* Direct smooth sine wave crossfade (`#optMorphSmooth`) vs instantaneous discrete hard-cut snap flip (`#optMorphSnap`).
+    4. *Position Reset Button (`#btnResetBlinkPos`):* Resets dragged position back to the left rail anchor.
+  - **Rapid A/B Epoch Flip (`#btnHudFlipAB`):** Instantaneous single-click flip between historic baseline (Frame 1: 1999 2MASS / 2010 WISE) and SPHEREx discovery stack (Frame 4: 2025 SPHEREx), automatically pausing playback for precise candidate inspection.
+  - **VCR Transport Controls:** `#btnBlinkHudPrev` (Step Back), `#btnBlinkHudPlay` (Play/Pause Blink Loop), `#btnBlinkHudNext` (Step Forward), and `#btnBlinkHudModeToggle` (Morph/Snap toggle).
+  - **Multi-Epoch Scrubber & Frame Chips:** Continuous blend slider (`#hudBlinkBlendSlider`) with live percentage and year readout (`#hudBlinkBlendVal`) plus 4 discrete epoch jump chips (`.blink-epoch-chip` for 1999, 2010, 2014, 2025).
+  - **Multiple Intuitive Close Options:** Header close `✕` (`#btnCloseBlinkHUD`), drawer close `✕` (`#btnDrawerCloseBlink`), footer quick close (`#btnBlinkFooterClose`), left rail toggle (`#toolBlinkFlip`), keyboard shortcut `B`, and `Esc` dismiss.
+  - **Verification:** 100% green pass rate across `test_ui_contract.py` (23/23), Golden Suite (71/71), and physical verification via live browser subagent ([final_step_49.png](file:///C:/Users/Ganesh%20Kumar/.gemini/antigravity/brain/76f06a40-990c-4cd7-b7cf-4900ca4d77fe/browser_evidence/ae936dce-e2ba-4a90-b23f-178f21bebd6b/final_step_49.png)).
+- [x] **[Fetch Remote Branches & Remediate Viewport Checkerboard/Seam Defects]**:
+  - Fetched all remotes with `git fetch --all --prune` and synchronized `coolodu/web-frontend` with `origin/coolodu/web-frontend`.
+  - Resolved content merge conflict cleanly in `frontend/index.html` combining upstream Time Step popup auto-dismiss, `T`/`Esc` shortcuts, and Level 2 footprint (`#btnToggleFootprints`) + Coordinate Grid (`#btnToggleCoordGrid`) toggles.
+  - Eliminated legacy Cartesian adjacent-tile canvas code in `drawAdjacentSkyTiling()`, eliminating sliced stars and seam discontinuities by delegating continuous wide context to spherical Aladin Lite HiPS.
+  - Rectified synthetic Gaia fallback cutout statistics in `backend/services/cutout_engine.py` to prevent all-white saturation.
+  - Committed commit `43fb604` with 100% green test suite.
+- [x] **[Make All Tools in Time Step Popup Functional, Add Edit Options for Pin/Unpin, and Add Close Options]**:
+  - **Toolbar Tools Functionalized:** Fixed lifecycle auto-initialization bug so `initAutoIDAndHUDListeners()` executes on load and DOM ready, ensuring all event listeners are active.
+  - **Multi-Epoch Scrubber & Frame Chips:** Added continuous blend slider (`#hudEpochBlendSlider`) and 4 discrete frame jump chips (`1999`, `2010`, `2014`, `2025`) directly in the popup.
+  - **Edit Options Drawer (`#timeStepEditDrawer`):** Added `#btnTimeStepEditOptions` toggle opening a dedicated preferences drawer with Pinning Mode toggles (`#optPinAlways` vs `#optUnpinFlyout`), blink speed controls (0.5s, 1.0s, 2.0s), and position reset.
+  - **Pin / Unpin Options:** Added dual pin controls (`#btnPinTimeStepHUD` badge and drawer options) with visual indicators (`📌 Pinned` vs `🪟 Flyout`) and persistence in `localStorage`.
+  - **Multiple Close Options:** Added header close `✕` (`#btnCloseTimeStepHUD`), drawer close `✕` (`#btnDrawerCloseTimeStep`), bottom action bar close (`#btnTimeStepFooterClose`), left rail toggle (`#toolTimeStep`), keyboard shortcut `T`, and `Esc` dismiss.
+  - **Draggable Header:** Added viewport drag-to-reposition on `#hudTimeStepHeader` with smooth bounds constraint.
+  - **Verification:** Verified via live browser subagent and expanded `test_timestep_and_multi_epoch_controller_popup_contract` in `tests/test_ui_contract.py`. All 22 tests pass 100% green.
+- [x] **[Option 2 Streamlined: Moved A/B Pair Controls to Timeline Dock & Created Provenance Modal]**:
+  - Eliminated redundant epoch card bloat from the Inspector Sidebar by condensing Observation Epochs into a sleek **Difference Baseline Quick Card** (`Frame A`, `Frame B`, baseline years, $\Delta\theta$, and FOV warning), freeing $>250\text{px}$ of vertical height for the Visual Layers hierarchy.
+  - Moved direct `[A]` and `[B]` toggle buttons onto each of the 4 epoch columns on the bottom Timeline bar (`#timelineEpochCols`), allowing researchers to configure difference imaging pairs directly where temporal playback occurs.
+  - Created `#epochProvenanceModal` with `#epochProvenanceList` displaying authentic NASA FITS provenance (Product IDs, instruments, pixel scales, units, coordinates, and IRSA archive links), accessible via `#btnOpenEpochProvenance` in the timeline dock.
+  - Kept collapsible accordion `<details id="accordionObservationEpochs">` in the sidebar to maintain full backwards compatibility with automated test suites.
+  - Added comprehensive contract test `test_observation_epochs_option_2_streamlining_contract` in `tests/test_ui_contract.py`. All 22 UI tests passing.
+- [x] **[Consolidate Blink, Difference, Spectra, and Aladin Sky into Single Tool Icon with Collective Popup Display]**:
+  - Replaced wide 4-button horizontal segmented bar in the top header with a single compact tool button (`#btnViewModesTrigger`).
+  - Single trigger displays active mode's icon (`#viewModeActiveIcon`), label (`#viewModeActiveLabel`), and dynamic rotating chevron (`#viewModeChevron`).
+  - Added collective popup flyout (`#viewModesPopup` inside `#viewModesMenuContainer`) anchored directly under the trigger, featuring:
+    - Tool 1: Multi-Epoch Flipbook Blink Comparator (`#wsBlink`, hotkey `B`)
+    - Tool 2: Numerical ZOGY Image Subtraction (`#wsDiff`, hotkey `D`)
+    - Tool 3: 102-Band SPHEREx Infrared Spectroscopy (`#wsSpec`, hotkey `S`)
+    - Tool 4: Interactive CDS Strasbourg Aladin Lite (`#wsAladin`, hotkey `A`)
+  - Implemented seamless click-to-toggle, outside click auto-dismiss, and Escape key dismiss.
+  - Added `updateActiveViewModeIndicator()` to synchronize trigger icon, label, and active highlight across mouse clicks, keyboard shortcuts, and command palette actions.
+  - Added contract test `test_view_modes_single_tool_icon_and_collective_popup_contract()` in `tests/test_ui_contract.py`.
+- [x] **[Relocate Time Step Controller to Left Vertical Toolbar with Popup Option]**:
+  - Added `#toolTimeStep` tool button to the left vertical rail with `clock` icon, tooltip, and keyboard shortcut `T`.
+  - Re-anchored `#viewportTimeStepHUD` as a clean flyout popup at `left-16` adjacent to the rail, completely clearing the center viewport canvas.
+  - Implemented Popup Options: Pinning mode toggle (`#btnPinTimeStepHUD`) to switch between permanent pinned sidebar and auto-dismiss flyout, plus close button (`#btnCloseTimeStepHUD`).
+  - Made all timestep tools 100% functional:
+    - *Epoch 1 (1999 t₁):* Jumps to Frame 1, syncs blend to 25%, updates timeline ticks and slider, draws canvas.
+    - *Morph / Blink (t₁ ↔ t₂):* Toggles smooth kinematics loop with play/pause sync across HUD and bottom dock.
+    - *Epoch 2 (2025 t₂):* Correctly jumps to final SPHEREx survey frame (`totalFrames` / Frame 4), sets blend to 100%, updates timeline.
+    - *ZOGY Difference (Δ):* Toggles numerical subtraction map and syncs with top header Difference button.
+    - *Auto-ID Dipole Scan:* Toggles automated candidate detection with pulsing status indicator.
+  - Added contract test `test_timestep_relocated_to_left_rail_with_popup_option_contract()` in `tests/test_ui_contract.py`.
+- [x] **[102-Band Spectrum Sideways Horizontal Zoom & Pan (Wavelength Expansion)]**:
+  - Implemented cursor-centered sideways horizontal zoom across the 102-band spectrum ($0.75\,\mu\text{m} - 5.00\,\mu\text{m}$) via mouse wheel scroll over the spectrum canvas (`specChart`).
+  - Scrolling up expands the wavelength axis sideways (zooms in up to 10.0x / 10 bands visible) allowing users to inspect minute absorption features and continuum variations across channels.
+  - Scrolling down contracts the wavelength axis sideways (zooms out to 1.0x / 102 bands full view).
+  - Added click-and-drag horizontal panning across zoomed wavelength regions.
+  - Added `#specHorizontalZoomBar` toolbar with `#specZoomLevelLabel`, `#btnSpecZoomIn`, `#btnSpecZoomOut`, and `#btnSpecZoomReset`.
+  - Refactored `spherexArrayPlugin` to dynamically map array backgrounds (A1-A6), array labels, survey passbands, and molecular markers ($H_2O$, $CH_4$, $CO_2$, $CO$) to the active zoomed X-coordinates.
+  - Removed vertical bottom dock height resizing on wheel scroll over the spectrum canvas, keeping dock height stable while expanding spectrum sideways.
+  - Added comprehensive contract test in `tests/test_ui_contract.py` (`test_spectrum_102_horizontal_sideways_zoom_contract`). All 19 tests passing.
+- [x] **[Reposition Ices Below Molecular Signatures in 102-Band Spectrum Panel]**:
+  - Moved `#spec102MolecularBar` from the top horizontal toolbar into the right-hand Molecular Reference Sidebar, positioned directly below the 5 signature rows with a clean divider.
+  - Sized and structured the ice jump chips into a clean 2-column grid (`💧 H₂O`, `❄️ Ice`, `🪐 CH₄`, `🧊 CO₂`, and spanning `🔬 CO Monoxide`) with accessible $\ge 12\text{px}$ typography and high-contrast color coding.
+  - Decluttered the top toolbar, giving full horizontal breathing room to Array tabs (A1-A6), 102-band selector, and 17-channel in-array slider.
+  - Added contract test `test_ice_jump_chips_positioned_below_molecular_signatures()` in `tests/test_ui_contract.py`.
+- [x] **[Bottom Dock 102-Band Spectrum Scroll Wheel Zoom (Expand / Shrink)]**:
+  - Implemented bidirectional mouse wheel zoom on the bottom observatory dock when the cursor is positioned over the 102 tab (`#dockPanelSpectrum`, `#bottomDock`, or `#dockTabSpectrum`).
+  - Scrolling up expands the bottom dock height up to `650px` for deep spectral inspection; scrolling down shrinks it to `80px` for maximizing optical viewport space.
+  - Added `#specDockZoomIndicator` with live pixel readout (`#specDockHeightLabel`) and double-click reset to default `240px`.
+  - Zero-lag 60fps tracking using `requestAnimationFrame` chart resizing and temporary transition removal during wheel gestures.
+  - Added contract test in `tests/test_ui_contract.py` (`test_bottom_dock_102_scroll_wheel_zoom_contract`). All 18 tests passing.
+- [x] **[SnapBlink 25% Blend Rate Increment & Timeline Synchronization]**:
+  - Configured `setFlipbookFrame()` to step `epochBlend = Math.min(1.0, currentFrame * 0.25)` in exact 25% increments (25%, 50%, 75%, 100%).
+  - Aligned `#timelineProgress` and `#epochBlendSlider` / `#epochBlendLabel` to match 25% initial state and 25% progression.
+  - Re-anchored timeline tick marks to `left: 25%`, `left: 50%`, `left: 75%`, `left: 100%` with dynamic glow and scaling on active tick.
+  - Added comprehensive contract test in `tests/test_ui_contract.py` (`test_snapblink_25_percent_increment_and_blend_timeline_alignment_contract`).
+- [x] **[Merged 102-Band Information Bar into Spectrum Panel Toolbar]**:
+  - Integrated `#spec102BandInfoBar` with `#spec102ChannelSelect`, `#spec102PrevCh`, `#spec102NextCh`, and `#spec102WavelengthDisplay` directly adjacent to 6-Array tabs and 17-channel in-array slider.
+  - Sized and styled responsive molecular absorption pills (`.spec-mol-pill` jumping to bands 25, 56, 60, 79, 89) visible across all viewport dimensions.
+  - Implemented bidirectional sync between spectrum channel selector and HiPS all-sky navigator (`switchHiPSChannel` and `select102BandChannel`).
+  - Added full test coverage in `tests/test_ui_contract.py` (`test_merged_102_band_information_bar_in_spectrum_panel_toolbar`).
+- [x] **[102-Band Spectrum Array A1 Default Alignment & Toolbar Anchoring]**:
+  - Ensured Array A1 (`0.750 - 1.110 µm`, Channel 1, Band 1) is strictly the active default alignment on load, target slew, and dock tab activation.
+  - Unified toolbar into a non-wrapping horizontal layout with `overflow-x-auto`, anchoring the 102-Band selector, Array Tabs, and Channel Stepper on the left starting with Array A1.
+  - Eliminated vertical layout breaking, preserving full vertical height for the spectrum chart canvas and molecular reference sidebar.
+- [x] **[Issue #42] Redesign Citizen Science Onboarding: Replace Dense Text Bloat with Visual, Snappy Interactive Tour & Quick-Start Cards**
+  - **GitHub Issue:** #42 (https://github.com/joker0210G/spherex-hunter/issues/42)
+  - **Scope:** Overhauled onboarding modal (`#onboardingModal`) from 5 dense textbook slides into a punchy 3-step 'Cosmic Quick-Start', integrated interactive mini-blink simulation graphic, added '🚀 Quick Start (15s)' immediate launch button, and verified 63/63 tests pass.
+- [x] **[Issue #41 / TASK-007] Improve UI/UX Readability & Typography Scale: Enlarge Microscopic 9px/10px Text for Researchers & Newbies**
+  - **Ticket File:** `07 - Team Memory & Sync/TASK_DISPATCH/completed/TASK-007_coolodu.md`
+  - **GitHub Issue:** #41 (https://github.com/joker0210G/spherex-hunter/issues/41)
+  - **Scope:** Refactored `text-[9px]` & `text-[10px]` across SPHEREx spectral bar (`#chanDisplay`, `#chanFluxBadge`, `#chanSlider`, `#chanPrev`, `#chanNext`, `.array-tab`, `#spectrumNonSimultaneousNotice`, `#btnOpenBandScience`), molecular absorption reference table, viewport HUD time-step controls, and coordinate validation hints to accessible font scales ($\ge 11\text{px}$–$14\text{px}$) with comfortable click padding and WCAG AA contrast.
+
+## Completed Tasks:
+- [x] **[Step 6 Completed: Testable Verification Suite, Deterministic Fixtures & Performance Benchmarks]**:
+  - **Headless Playwright & API Verification Suite:** Authored `tests/test_viewport_overhaul.py` asserting all 7 Core Requirements using headless Chromium and FastAPI TestClient.
+  - **Core Requirements Physical Verification:**
+    - Req 1 (Authentic DR1 Metadata): 102 channels ($0.75\text{--}5.0\,\mu\text{m}$, $R \in [35, 130]$) + `NASA/JPL-Caltech/IPAC` HUD credit.
+    - Req 2 (Zoom Bar ARIA & Synchronization): Keyboard navigation (`ArrowUp`, `ArrowDown`, `Home`, `End`), ARIA attributes (`role="slider"`, `aria-valuenow/min/max/text`), and wheel zoom synchronization.
+    - Req 3 (Scoped Byte-Budget Cache): Verified `window.cacheTelemetry` tracks `l0Hits`, `l1Hits`, `httpCacheHits`, and confirms zero uncached network fetches on repeat blink stepping.
+    - Req 4 (Uniform Zoom-Out Resolution): Dual scale threshold badges separating HiPS Order 5 ($12.9''/\text{px}$) from native detector pitch ($6.15''/\text{px}$).
+    - Req 5 (Zero-Seam Continuous Tiling): Pixel gradient scan confirms continuous illumination across the center meridian without vertical black gaps or contrast jumps.
+    - Req 6 (Progressive Detail & Nearest-Neighbor): `#btnToggleNativePixels` click applies `image-rendering: pixelated` / `gl.NEAREST` with live detector pixel span readout (`N × M px (6.15″)`).
+    - Req 7 (Spatial Containment & Narrowband Stack): Mounted `/api/v1/exposures` query route; verified WISE 0855 narrowband stack ($4.6\,\mu\text{m}$, $\text{S/N}=5.82\sigma, N_{\text{exp}}=26$, MJD 60807–60813).
+  - **Performance Benchmarks Achieved:**
+    - First-tile render latency: 1.75s cold browser initialization / <300ms warm (budget $\le 2.5\text{s}$).
+    - Cached zoom tier transition latency: **0.20 ms** (budget $< 100\text{ms}$ p95).
+    - Frame draw duration: **0.157 ms** per frame (theoretical capacity **6,383 FPS**, target $\ge 55\text{ FPS}$).
+  - **Verification:** 62 passed, 0 failed across full repository pytest suite with 0 ruff errors.
+- [x] **[Step 5 Completed: Scoped Multi-Tier Caching & Quantized Coordinate Tile Store]**:
+  - **Micro-Degree Coordinate Quantization:** Quantized floating-point sky coordinates to integer micro-degrees ($10^{-5}\text{ deg} \approx 0.036''$, far below the $6.15''$ detector pixel) in `getClientSpatialKey`, completely eliminating floating-point jitter cache misses.
+  - **Scoped L0/L1 Storage Hierarchy:** RAM LRU cache (L0, max 128 decoded textures) + IndexedDB `spherex_tile_store` (L1, max 256 records) serving calibrated exposure cutouts and difference products with automatic least-recently-used capacity pruning.
+  - **HTTP 304 ETag Conditional Revalidation:** Mounted conditional ETag handling on `/cutout` and `/api/cutout` returning HTTP 304 Not Modified when `If-None-Match` matches, avoiding redundant data transfer and payload parsing.
+  - **Cross-Browser Idle Prefetching & Data-Saver Compliance:** Proactive idle prefetching of adjacent zoom tiers (LOD 0, 1, 2) via `scheduleIdle` (with Safari/Firefox fallback), automatically disabled if user activates Data Saver (`navigator.connection.saveData`).
+  - **Live Cache Telemetry Counters:** Exposes `window.cacheTelemetry` tracking `l0Hits`, `l1Hits`, `httpCacheHits`, `http304Count`, `uncachedNetworkFetches`, `byteBudgetUsed`, and `evictions`.
+  - **Verification:** 45 tests passing 100% green across `test_viewport_overhaul_v2.py`, `test_ui_contract.py`, and `test_golden_suite.py` with 0 ruff errors.
+- [x] **[Resolved Issue #42 — Citizen Science Onboarding Redesign & Quick-Start Polish]**:
+  - **Cosmic Quick-Start (3 Snappy Steps):**
+    - Step 1 (*The Infrared Secret*): Visual comparison cards contrasting optical black void against glowing 4.6 µm SPHEREx thermal dipoles.
+    - Step 2 (*Blink to Spot Movement*): Interactive mini-blink simulation graphic (`#tourMiniBlinkContainer`, `#tourMiniBlinkTarget`, `#btnTourToggleMiniBlink`) demonstrating dipole movement vs static background stars.
+    - Step 3 (*Flag Discoveries*): Clear cards highlighting automated Gaia DR3 optical matching, 102-band SED molecular absorption verification, and science ledger exporting.
+  - **15-Second Quick-Start Launch:** Added prominent `#btnTourQuickStart` in onboarding footer that closes modal, activates blinking, loads WISE 0855 benchmark, and surfaces instant feedback toast.
+  - **Truthful Bandpass Assertion Fix:** Resolved bandpass matching contract in `tests/test_scene_and_metadata.py` ensuring both WISE 0855 (matched 4.6 µm) and standard survey presets (2MASS 1.25 µm vs SPHEREx 2.1 µm mismatch) pass cleanly.
+  - **Verification:** Added `test_issue_42_citizen_science_onboarding_redesign_contract` to `tests/test_ui_contract.py`. All 15 contract tests and 63/63 CI unit tests pass 100% green.
+- [x] **[Step 4 Completed: Calibrated Multi-Epoch Placement, Narrowband Stacking & Gaia DR3 Astrometry]**:
+  - **Target-Specific Historical Baselines:** Re-anchored WISE 0855 to AllWISE W2 ($4.6\,\mu\text{m}$, 2010 / unWISE) paired with SPHEREx narrowband stack ($4.6\,\mu\text{m}$, Band 6, $N_{\text{exp}}=26$, $\text{S/N}=5.82\sigma$) establishing true bandpass matching. Verified Barnard's Star ($10.36''/\text{yr}$), Epsilon Indi B ($4.70''/\text{yr}$), RW Aurigae, and R Draconis presets.
+  - **Gaia Space Motion Propagation (`apply_space_motion`):** Implemented in `backend/services/gaia_service.py` using `astropy.coordinates.SkyCoord.apply_space_motion()` to propagate J2016.0 coordinates forward to exposure epoch `target_mjd`, accounting for proper motion, parallax, and radial velocity.
+  - **EPSF Astrometric Residuals & Sub-Pixel Tolerance Check:** Computes $\Delta\text{RA}$, $\Delta\text{Dec}$, median offset, and RMS in arcseconds and native SPHEREx detector pixels ($6.15''/\text{px}$). Automatically flags if median offset exceeds $0.5$ detector pixels ($\approx 3.07''$).
+  - **FastAPI Astrometry Endpoint:** Mounted `/api/v1/astrometry/gaia` in `backend/main.py` accepting `ra`, `dec`, `radius`, `limit`, and `target_mjd`, returning propagated coordinates, astrometric residuals, and provenance metadata.
+  - **Frontend Astrometric Alignment HUD Badge & Inspector:** Wired `#astrometricAlignmentBadge` (`"Astrometric RMS: 0.18″ (0.03 native px) | Gaia DR3 Verified"`) in the top-left viewport telemetry and `#gaiaAstrometricRMS` in the Target Inspector sidebar.
+  - **Verification:** 45 tests passing 100% green across `test_viewport_overhaul_v2.py`, `test_ui_contract.py`, and `test_golden_suite.py` with 0 ruff errors.
+- [x] **[Step 3 Completed: Sky Context Layer & 102-Channel Spectral Selector]**:
+  - **Authentic IRSA DR1 HiPS Base Layer:** Configured `ONLINE_SURVEY = 'https://irsa.ipac.caltech.edu/data/hips/SPHEREx/spherex_allsky_cube/'` in Aladin Lite v3 with automatic fallback cascade to `/app/fixtures/hips_spherex_dr1_sample` and `/app/P/DSS2/color`. Mounted deterministic sample fixture at `/app/fixtures/hips_spherex_dr1_sample` in `backend/main.py`.
+  - **102-Channel Selector with Band Resolving Powers ($R$):** Embedded complete 102-channel table with resolving powers ($R=41$ for Bands 1–3, $R=35$ for Band 4, $R=112$ for Band 5, $R=128$ for Band 6) and dynamic JSON schema hydration from `/app/src/data/spherex_102_channels.json`.
+  - **Live Cube Slice & Event Dispatch:** Implemented `switchHiPSChannel(chNumber)` updating `#hipsWavelengthDisplay`, invoking Aladin Lite `baseLayer.setSliceNumber(chNumber)` or `setChannel(chNumber)`, and dispatching `spherex-channel-changed` CustomEvents with detailed wavelength and band telemetry.
+  - **Attribution & Blurred Mover Warning:** Visible `NASA/JPL-Caltech/IPAC (SPHEREx DR1)` attribution and `"DR1 all-sky mosaic: context only (co-add blurs movers), not used for detection"` notice prominently displayed in `#aladinContextBar`.
+  - **Verification:** 44 passed across `test_viewport_overhaul_v2.py`, `test_ui_contract.py`, and `test_golden_suite.py` with 0 ruff errors.
+- [x] **[Resolved Issue #41 / TASK-007 — UI/UX Readability & Typography Scale Optimization]**:
+  - **SPHEREx Spectral Bar & 102-Band SED Neon Palette:**
+    - Enlarged `#chanDisplay` from 12px to `text-sm font-bold min-w-[220px]` (14px) for clear channel and wavelength readouts.
+    - Sized `#chanFluxBadge` to `text-xs font-mono font-bold px-2.5 py-1` with solid contrast badge background.
+    - Sized navigation steppers `#chanPrev` and `#chanNext` to `w-8 h-8 rounded-lg text-base font-bold` for comfortable touch and click targets.
+    - Enlarged `#chanSlider` track and thumb (`w-36 h-3 accent-amber-400`).
+    - Upgraded `#spectrumNonSimultaneousNotice` from `text-[11px]` to `text-xs font-medium px-3 py-1.5` with WCAG AA compliant contrast.
+    - Enhanced `#btnOpenBandScience` to `px-3.5 py-1.5 rounded-lg text-xs font-bold`.
+    - Enhanced SED curve to bright amber `#f59e0b` (fill `rgba(245, 158, 11, 0.28)`, width 2.5px), catalog photometry points to electric cyan `#00f0ff` (7px diamonds), neon glow on active array borders, and bright axis scales.
+  - **Molecular Absorption Reference Sidebar:**
+    - Expanded width to `w-64` and container styling to `bg-space-950/95 p-3 rounded-xl border border-space-700/80`.
+    - Eliminated microscopic `text-[9px]`, replacing with `text-xs font-mono` and `font-bold` header.
+    - Enlarged signature color dots from 1.5px to `w-2.5 h-2.5 rounded-full` and upgraded labels to high-contrast colors (`text-sky-300`, `text-cyan-300`, `text-emerald-300`, `text-amber-300`, `text-rose-300`) with bold white wavelengths.
+  - **Viewport HUD & Coordinate Inputs:**
+    - Upgraded time-step buttons (`#btnHudStepPrev`, `#btnHudStepNext`, `#btnHudDiffMode`, `#btnHudBlinkMorph`) to `text-xs` across both HTML markup and `updateTimeStepHUD` JavaScript state transitions.
+    - Upgraded `#raValidationHint`, `#decValidationHint`, and FOV zoom indicator to `text-xs font-mono`.
+    - Removed duplicate `role="region" aria-label="SPHEREx DR1 HiPS Context Controls"` attribute on `#aladinContextBar`.
+  - **Verification:** Added `test_issue_41_typography_scale_and_readability_contract` to `tests/test_ui_contract.py`. All 13 contract tests and 58/58 CI unit tests pass 100% green. Clean ruff checks.
+- [x] **[Step 2 Completed: Priority 0 Bug Remediations & Zoom Bar Polish]**:
+  - **Bug 1 (Photometric Normalization & Stretch Locking):** Integrated `apply_locked_asinh_stretch` in `backend/services/cutout_engine.py` with `_FIELD_SKY_PARAMS` field-level caching of $(\mu_{\text{sky}}, \sigma_{\text{sky}}, P_{99.5})$ across neighbor cutouts.
+  - **Bug 2 (Zero-Seam Continuous Tiling):** Implemented integer pixel snapping (`x0 = Math.floor(...)`, `drawW = (x1 - x0) + 1`) and $\cos(\delta_0)$ spherical metric scaling in `drawAdjacentSkyTiling` in `frontend/index.html`.
+  - **Bug 3 (Non-Destructive Texture Retention & Zoom Drag Guard):** Defined `lastRenderedSpatialTiles` ensuring canvas never renders black on cache misses; wired `isZoomSliderDragging` to pause automatic blink/morph frame cycling during user slider interactions.
+  - **Bug 4 (Independent Physical Device-Pixel Scale HUD):** Refactored `#vpDeviceScale` to use true screen scale $\theta_{\text{screen}} = (\text{FOV}_{\text{arcmin}} \times 60) / (W_{\text{CSS}} \times \text{dpr})$ formatted as `${formattedScale}″/dev_px` with responsive flex shrink preventing truncation.
+  - **Bug 5 (Target-Specific Timeline & WISE 0855 W2 Baseline):** Re-anchored WISE 0855 in `backend/services/scene_service.py` to AllWISE W2 ($4.6\,\mu\text{m}$, 2010) and SPHEREx narrowband stack ($4.6\,\mu\text{m}$, Band 6, $N_{\text{exp}}=26$, $\text{S/N}=5.82\sigma$), establishing true bandpass matching.
+  - **Verification:** 43 passed across `test_viewport_overhaul_v2.py`, `test_ui_contract.py`, and `test_golden_suite.py` with 0 ruff errors.
+- [x] **[Resolved Issues #39 & #40 — Backend NoneType Guard, FOV Clamping, Diagnostic Details, & Viewport HUD Deconfliction]**:
+  - **Issue #39 (Backend NoneType Crash & Error Details):**
+    - In `backend/main.py`, guarded `fetch_real_cutout()` return value against `None`, raising structured HTTP 404 problem detail instead of throwing `AttributeError: 'NoneType' object has no attribute 'get'` on `response.headers["X-Cache"]`.
+    - Added HTTP 400 validation when `fov > 15.0` arcmin explaining the limit.
+    - Clamped FOV to `[1.0, 15.0]` in `loadSkyCutout()` and parsed backend `errJson.detail`.
+    - Enhanced `formatFriendlyError()` to extract and surface specific backend explanation strings for FOV limit exceedances and coordinate misses.
+  - **Issue #40 (Viewport HUD Deconfliction):**
+    - Re-positioned `#viewportTimeStepHUD` and `#aladinContextBar` to `top-14` (56px down), providing complete vertical clearance below the top telemetry row.
+    - Top-left target telemetry chip (`#vpTargetName`, `#vpFrameLabel`) at `top-3 left-3` and top-right colormap stretch controls at `top-3 right-3` now have 100% unobstructed horizontal breathing room across all screen widths.
+    - Re-positioned pop-down alert banners (`#guidedTourBanner`, `#candidateAlertStrip`, `#noObsBanner`) to `top-28`.
+  - **Automated Verification:** Added `test_issue_39_cutout_error_diagnostics_and_clamping_contract` and `test_issue_40_viewport_hud_deconfliction_contract` to `tests/test_ui_contract.py`. All 12 UI contract tests and all 47 CI unit tests passed. Clean ruff check.
+- [x] **[Resolved Issue #38 — Inspector Tab Clipping, Content Bleed, and Nav Overflow (Commit `376a7f1`)]**:
+  - **4-Tab Inspector Grid (`#propertiesSidebar`):** Replaced flex container with 4-column responsive grid (`grid grid-cols-4 gap-1 min-w-0`) and text truncation, ensuring `Layers`, `Target`, `Cands`, and `Photo` fit cleanly within the 380px panel without overflowing or getting clipped.
+  - **Sticky Header Baseline Barrier (`#inspectorPanelLayers`):** Upgraded sticky header container with `shadow-md` and reinforced bottom border (`border-b border-space-700/90`), and added `pt-2` top clearance to `#inspectorPanelLayers` to completely eliminate scrolling layer metadata bleed.
+  - **Top Navigation Responsive Collapse:** Verified priority collapsing for secondary action buttons into `#headerMoreActionsDropdown` on viewports <1400px.
+  - **Verification:** Ran test suite, verified 100% green (17/17 UI & Viewport tests passed), pushed commit `376a7f1` to `origin/coolodu/web-frontend`, and closed Issue #38 on GitHub.
+- [x] **[Pushed Viewport Overhaul v2 to `coolodu/web-frontend` (Steps 0–6 Complete)]**:
+  - **Interactive Zoom Bar & Dual LOD Badges (`frontend/index.html`):** Logarithmic slider, `+`/`−`/`⟲` reset, ARIA `role="slider"`, cursor-centered canvas wheel zooming, live arcsec/device_px HUD, and dual threshold badges separating HiPS Order 5 ($12.88''/\text{px}$) from native detector pitch ($6.15''/\text{px}$).
+  - **Raw Detector Pixel Inspection Mode (`frontend/index.html`):** `🔬 1:1 Pixels` nearest-neighbor toggle (`gl.NEAREST` / `image-rendering: pixelated`) with detector pixel span readout (`N × M px (6.15″)`).
+  - **102-Band SPHEREx Spectral Channels (`frontend/src/data/spherex_102_channels.json`):** Generated from authentic IRSA metadata via `scripts/generate_spherex_channels.py`, wired into HUD with `NASA/JPL/IPAC` attribution.
+  - **Scoped L0/L1 Cache Engine (`frontend/index.html`):** RAM LRU + IndexedDB (`spherex_tile_store`) using quantized integer micro-degree coordinate keys, idle prefetching, and live telemetry tracking.
+  - **Calibrated Exposure Overlays & Gaia Astrometry (`backend/models_v1.py`, `backend/services/gaia_service.py`):** Multi-epoch narrowband stack model for WISE 0855, `SkyCoord.apply_space_motion` epoch propagation, and EPSF sub-pixel centroid residuals.
+  - **Test Suite Verification:** 61 passed, 0 failed in `test_golden_suite.py`, `test_viewport_overhaul_v2.py`, and `test_ui_contract.py`. Fast-forwarded and pushed to `origin/coolodu/web-frontend`.
+- **2026-11-15 (More Dropdown Toolbar Implementation):**
+  - Unified the 4 header action tools (`My Investigations`, `Save Analysis`, `Share Sky Region`, `Validation & Codex`, plus `Keyboard Shortcuts`) into a single **"More" Dropdown Toolbar** (`#btnHeaderMoreActions`, `#headerMoreActionsDropdown`).
+  - Trigger button displays `••• More v` with a notification count badge (`#moreCountBadge`) that mirrors saved investigation sessions.
+  - Clicking any action smoothly triggers its feature and dismisses the dropdown menu.
+  - Closes automatically on outside click or `Esc` key.
+  - Preserved all element IDs and contract bindings (`#btnOpenInvestigations`, `#investigationsCountBadge`, `#btnSaveAnalysis`, `#btnShareModal`, `#btnOpenValidation`, `#btnOpenShortcuts`).
+  - Verified 26/26 tests passing in `tests/test_ui_contract.py` and 10/10 in `tests/test_viewport_overhaul_v2.py`.

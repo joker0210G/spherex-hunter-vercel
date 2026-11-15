@@ -1,0 +1,32 @@
+{
+  "target_id": "sample_leo",
+  "selection_rule": "Like-wavelength exposures only (SPHEREx Detector 6, 4.42 \u03bcm)",
+  "points": [
+    {
+      "mjd": 60789.752254,
+      "utc": "2025-04-20T18:03:14Z",
+      "wavelength_um": 4.42,
+      "flux_ujy": 248.64,
+      "uncertainty_ujy": 78.92,
+      "mag_ab": 17.91,
+      "mag_err": 0.34,
+      "exposure_id": "SPHEREx_D6_60789_752254"
+    },
+    {
+      "mjd": 60789.752458,
+      "utc": "2025-04-20T18:06:08Z",
+      "wavelength_um": 4.42,
+      "flux_ujy": 314.53,
+      "uncertainty_ujy": 108.56,
+      "mag_ab": 17.66,
+      "mag_err": 0.37,
+      "exposure_id": "SPHEREx_D6_60789_752458"
+    }
+  ],
+  "provenance": {
+    "source": "precomputed",
+    "git_hash": "71a9daaaa9d8b27d415c2d79d1be389da460baff",
+    "data_release": "DR1",
+    "pipeline_version": "2.1.0"
+  }
+}

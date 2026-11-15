@@ -1,0 +1,4093 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "SPHEREx Hunter Astronomical API",
+    "description": "NASA Space Apps 2026 - Team RIP (Planet X & SPHEREx)",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/v1/capabilities": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Get Capabilities",
+        "description": "Reports feature availability and operational state for current deployment.",
+        "operationId": "get_capabilities_api_v1_capabilities_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CapabilitiesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/status": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Get Status",
+        "description": "Reports system readiness, external archive reachability, and cache statistics.",
+        "operationId": "get_status_api_v1_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/health": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Get Health",
+        "description": "Ultra-fast liveness check without external dependencies.",
+        "operationId": "get_health_api_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/targets": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "List Targets",
+        "description": "Returns curated benchmark validation targets with coordinates and exposure counts.",
+        "operationId": "list_targets_api_v1_targets_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/TargetSummary"
+                  },
+                  "type": "array",
+                  "title": "Response List Targets Api V1 Targets Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/targets/search": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Search Targets V1",
+        "description": "Sanitized target search:\n- Matches preset benchmark names and coordinates.\n- Resolves arbitrary celestial coordinates (degrees or sexagesimal).\n- Queries SIMBAD name resolver for astronomical targets.",
+        "operationId": "search_targets_v1_api_v1_targets_search_get",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "title": "Q"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/targets/{target_id}": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Get Target",
+        "description": "Returns detailed target metadata including proper motions, parallax, and citations.",
+        "operationId": "get_target_api_v1_targets__target_id__get",
+        "parameters": [
+          {
+            "name": "target_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Target Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TargetDetail"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/targets/{target_id}/scene": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Get Target Scene V1",
+        "description": "Constructs the astronomical scene graph for the viewer:\n- Computes space-motion propagated positions for each observation epoch.\n- Assembles visual layers (science cutouts, difference maps, Gaia DR3 vectors).\n- Emits warnings if the target leaves the instrument field of view.",
+        "operationId": "get_target_scene_v1_api_v1_targets__target_id__scene_get",
+        "parameters": [
+          {
+            "name": "target_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Target Id"
+            }
+          },
+          {
+            "name": "fov_arcmin",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "maximum": 30.0,
+              "minimum": 0.5,
+              "default": 3.0,
+              "title": "Fov Arcmin"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SceneResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/targets/{target_id}/exposures": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Get Target Exposures",
+        "description": "Returns public SPHEREx exposures covering the target coordinates.\nIf 0 exposures exist in public archive, returns status 'no_public_data' with structured reason.",
+        "operationId": "get_target_exposures_api_v1_targets__target_id__exposures_get",
+        "parameters": [
+          {
+            "name": "target_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Target Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExposuresResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cutout": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Get Cutout V1",
+        "description": "Retrieves visual preview cutout PNG with ETag and Cache-Control headers.\nDirects to precomputed cache for benchmark targets.",
+        "operationId": "get_cutout_v1_api_v1_cutout_get",
+        "parameters": [
+          {
+            "name": "ra",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "RA in decimal deg or sexagesimal",
+              "title": "Ra"
+            },
+            "description": "RA in decimal deg or sexagesimal"
+          },
+          {
+            "name": "dec",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Dec in decimal deg or sexagesimal",
+              "title": "Dec"
+            },
+            "description": "Dec in decimal deg or sexagesimal"
+          },
+          {
+            "name": "target",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Benchmark target slug (wise0855, sample_leo, etc.)",
+              "title": "Target"
+            },
+            "description": "Benchmark target slug (wise0855, sample_leo, etc.)"
+          },
+          {
+            "name": "fov",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "maximum": 30.0,
+              "minimum": 0.2,
+              "default": 3.0,
+              "title": "Fov"
+            }
+          },
+          {
+            "name": "lod",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 2,
+              "minimum": 0,
+              "default": 1,
+              "title": "Lod"
+            }
+          },
+          {
+            "name": "force_refresh",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Force Refresh"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cutout/raw": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Get Cutout Raw",
+        "description": "Returns uncompressed float32 binary ArrayBuffer or JSON WCS header.\nAllows client-side WebGL/Canvas to perform custom stretching and photometry without server roundtrips.",
+        "operationId": "get_cutout_raw_api_v1_cutout_raw_get",
+        "parameters": [
+          {
+            "name": "target",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Target slug e.g. 'sample_leo' or 'wise0855'",
+              "title": "Target"
+            },
+            "description": "Target slug e.g. 'sample_leo' or 'wise0855'"
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "'binary' (ArrayBuffer float32) or 'header' (JSON WCS)",
+              "default": "binary",
+              "title": "Format"
+            },
+            "description": "'binary' (ArrayBuffer float32) or 'header' (JSON WCS)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/cutout/raw/header": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Get Cutout Raw Header",
+        "description": "Direct alias to retrieve WCS metadata for raw float32 cutout.",
+        "operationId": "get_cutout_raw_header_api_v1_cutout_raw_header_get",
+        "parameters": [
+          {
+            "name": "target",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Target"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CutoutRawHeaderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/difference": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Get Difference V1",
+        "description": "Executes or returns precomputed ZOGY optimal subtraction.\nStrictly validates wavelength matching between epochs:\nRejects differencing differing wavelengths with RFC 7807 code BAND_MISMATCH.",
+        "operationId": "get_difference_v1_api_v1_difference_get",
+        "parameters": [
+          {
+            "name": "target",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Target slug",
+              "title": "Target"
+            },
+            "description": "Target slug"
+          },
+          {
+            "name": "epoch_a",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Exposure ID for Epoch A / Reference",
+              "title": "Epoch A"
+            },
+            "description": "Exposure ID for Epoch A / Reference"
+          },
+          {
+            "name": "epoch_b",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Exposure ID for Epoch B / Science",
+              "title": "Epoch B"
+            },
+            "description": "Exposure ID for Epoch B / Science"
+          },
+          {
+            "name": "wavelength_a_um",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Wavelength A Um"
+            }
+          },
+          {
+            "name": "wavelength_b_um",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Wavelength B Um"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DifferenceResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/validation": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Get Validation Metrics",
+        "description": "Returns authentic pipeline audit metrics:\n- Reads dynamic CSV results from validation/\n- Reports 5-sigma clean False Positive Rate with Poisson confidence intervals\n- Reports point-source depth comparison and veto rejection rates\n- Explicitly flags incomplete items as 'under_review'",
+        "operationId": "get_validation_metrics_api_v1_validation_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/export/csv": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Export Csv",
+        "description": "Exports candidates in CSV format.",
+        "operationId": "export_csv_api_v1_export_csv_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/export/votable": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Export Votable",
+        "description": "Exports candidates in IVOA VOTable XML format.",
+        "operationId": "export_votable_api_v1_export_votable_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/export/fits": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Export Fits",
+        "description": "Exports candidates in multi-extension FITS binary table format.",
+        "operationId": "export_fits_api_v1_export_fits_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/targets/{target_id}/candidates": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Get Target Candidates",
+        "description": "Returns verified pipeline candidate detections for the specified target.\nIf 0 detections exist, returns an honest empty list with structured explanation.",
+        "operationId": "get_target_candidates_api_v1_targets__target_id__candidates_get",
+        "parameters": [
+          {
+            "name": "target_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Target Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CandidatesResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/candidates/flag": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Flag Candidate V1",
+        "description": "Records a citizen science candidate classification.\nDeduplicates flags by (target_id, rounded RA/Dec, category) to prevent spam.",
+        "operationId": "flag_candidate_v1_api_v1_candidates_flag_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FlagCandidateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlagCandidateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/targets/{target_id}/photometry": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Get Target Photometry",
+        "description": "Returns forced aperture and PSF photometry for the target across SPHEREx detector arrays.\nAll physical fluxes include units (uJy, mag AB), 1-sigma uncertainties, and SNR.",
+        "operationId": "get_target_photometry_api_v1_targets__target_id__photometry_get",
+        "parameters": [
+          {
+            "name": "target_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Target Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PhotometryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/targets/{target_id}/lightcurve": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Get Target Lightcurve",
+        "description": "Returns like-wavelength calibrated photometric time-series for the target.\nExcludes cross-wavelength combinations to prevent false variability signals.",
+        "operationId": "get_target_lightcurve_api_v1_targets__target_id__lightcurve_get",
+        "parameters": [
+          {
+            "name": "target_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Target Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LightCurveResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/spectrum": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Get Spectrum V1",
+        "operationId": "get_spectrum_v1_api_v1_spectrum_get",
+        "parameters": [
+          {
+            "name": "ra",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Ra"
+            }
+          },
+          {
+            "name": "dec",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Dec"
+            }
+          },
+          {
+            "name": "target",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Target"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/catalog/gaia": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Get Gaia V1",
+        "operationId": "get_gaia_v1_api_v1_catalog_gaia_get",
+        "parameters": [
+          {
+            "name": "ra",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Ra"
+            }
+          },
+          {
+            "name": "dec",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Dec"
+            }
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "default": 3.0,
+              "title": "Radius"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 100,
+              "title": "Limit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/catalog/2mass": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Get 2Mass V1",
+        "operationId": "get_2mass_v1_api_v1_catalog_2mass_get",
+        "parameters": [
+          {
+            "name": "ra",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Ra"
+            }
+          },
+          {
+            "name": "dec",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Dec"
+            }
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "default": 3.0,
+              "title": "Radius"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/catalog/simbad": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Get Simbad V1",
+        "operationId": "get_simbad_v1_api_v1_catalog_simbad_get",
+        "parameters": [
+          {
+            "name": "ra",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Ra"
+            }
+          },
+          {
+            "name": "dec",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Dec"
+            }
+          },
+          {
+            "name": "target",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Target"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/catalog/crossmatch": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Get Crossmatch V1",
+        "operationId": "get_crossmatch_v1_api_v1_catalog_crossmatch_get",
+        "parameters": [
+          {
+            "name": "ra",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Ra"
+            }
+          },
+          {
+            "name": "dec",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Dec"
+            }
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "default": 3.0,
+              "title": "Radius"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/csa/neossat": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Get Neossat V1",
+        "operationId": "get_neossat_v1_api_v1_csa_neossat_get",
+        "parameters": [
+          {
+            "name": "ra",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Ra"
+            }
+          },
+          {
+            "name": "dec",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Dec"
+            }
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "default": 3.0,
+              "title": "Radius"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/wiseview/url": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Get Wiseview Url V1",
+        "operationId": "get_wiseview_url_v1_api_v1_wiseview_url_get",
+        "parameters": [
+          {
+            "name": "ra",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Ra"
+            }
+          },
+          {
+            "name": "dec",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Dec"
+            }
+          },
+          {
+            "name": "epoch_count",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10,
+              "title": "Epoch Count"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Root",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/health": {
+      "get": {
+        "summary": "Health Check",
+        "operationId": "health_check_api_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/benchmarks": {
+      "get": {
+        "summary": "Get Benchmark Targets",
+        "description": "Returns the 5 NASA benchmark validation targets as pure coordinate bookmarks.",
+        "operationId": "get_benchmark_targets_api_benchmarks_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/targets": {
+      "get": {
+        "summary": "Get Benchmark Targets",
+        "description": "Returns the 5 NASA benchmark validation targets as pure coordinate bookmarks.",
+        "operationId": "get_benchmark_targets_api_targets_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/cache/clear": {
+      "post": {
+        "summary": "Clear Cache",
+        "description": "Flushes L1 RAM LRU cache and purges dynamic FITS files from disk.",
+        "operationId": "clear_cache_api_cache_clear_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/cache/stats": {
+      "get": {
+        "summary": "Cache Stats",
+        "description": "Returns current cache metrics.",
+        "operationId": "cache_stats_api_cache_stats_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/cutout": {
+      "get": {
+        "summary": "Get Cutout",
+        "description": "Universal Astronomical Pipeline:\nProcesses ANY celestial coordinates through authentic FITS retrieval, WCS alignment,\ndifference imaging, and multi-tier caching.",
+        "operationId": "get_cutout_api_cutout_get",
+        "parameters": [
+          {
+            "name": "ra",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Right Ascension in decimal deg or sexagesimal ('08h55m10.831s')",
+              "title": "Ra"
+            },
+            "description": "Right Ascension in decimal deg or sexagesimal ('08h55m10.831s')"
+          },
+          {
+            "name": "dec",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Declination in decimal deg or sexagesimal ('-7d14m42.53s')",
+              "title": "Dec"
+            },
+            "description": "Declination in decimal deg or sexagesimal ('-7d14m42.53s')"
+          },
+          {
+            "name": "fov",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "description": "Field of View in arcminutes",
+              "default": 3.0,
+              "title": "Fov"
+            },
+            "description": "Field of View in arcminutes"
+          },
+          {
+            "name": "target",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Benchmark target key (wise0855, barnard, etc.)",
+              "title": "Target"
+            },
+            "description": "Benchmark target key (wise0855, barnard, etc.)"
+          },
+          {
+            "name": "lod",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "description": "Game Level of Detail tier: 0 (Hero Deep), 1 (Standard Science), 2 (Wide Overview)",
+              "default": 1,
+              "title": "Lod"
+            },
+            "description": "Game Level of Detail tier: 0 (Hero Deep), 1 (Standard Science), 2 (Wide Overview)"
+          },
+          {
+            "name": "force_refresh",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "description": "Bypass all caches and force fresh NASA query",
+              "default": false,
+              "title": "Force Refresh"
+            },
+            "description": "Bypass all caches and force fresh NASA query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/gaia": {
+      "get": {
+        "summary": "Get Gaia Astrometry",
+        "description": "Queries official Gaia Data Release 3 (DR3) catalog directly from NASA IRSA TAP.\nReturns stellar proper motions, parallax, and optical G-band magnitudes.",
+        "operationId": "get_gaia_astrometry_api_gaia_get",
+        "parameters": [
+          {
+            "name": "ra",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Right Ascension in decimal deg or sexagesimal",
+              "title": "Ra"
+            },
+            "description": "Right Ascension in decimal deg or sexagesimal"
+          },
+          {
+            "name": "dec",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Declination in decimal deg or sexagesimal",
+              "title": "Dec"
+            },
+            "description": "Declination in decimal deg or sexagesimal"
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "description": "Search radius in arcminutes",
+              "default": 3.0,
+              "title": "Radius"
+            },
+            "description": "Search radius in arcminutes"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/spectrum": {
+      "get": {
+        "summary": "Get Spectrum",
+        "description": "Returns the 102 near-infrared spectral bands (0.75 - 5.0 \u03bcm) with molecular detections.",
+        "operationId": "get_spectrum_api_spectrum_get",
+        "parameters": [
+          {
+            "name": "ra",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Right Ascension in decimal deg or sexagesimal",
+              "title": "Ra"
+            },
+            "description": "Right Ascension in decimal deg or sexagesimal"
+          },
+          {
+            "name": "dec",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Declination in decimal deg or sexagesimal",
+              "title": "Dec"
+            },
+            "description": "Declination in decimal deg or sexagesimal"
+          },
+          {
+            "name": "target",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Benchmark target key",
+              "title": "Target"
+            },
+            "description": "Benchmark target key"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/catalog/gaia": {
+      "get": {
+        "summary": "Get Gaia Catalog",
+        "description": "Queries European Space Agency (ESA) Gaia DR3 catalog for astrometric sources,\nmagnitudes (G, BP, RP), proper motions (pmRA, pmDEC), parallax distances, and motion vectors.",
+        "operationId": "get_gaia_catalog_api_catalog_gaia_get",
+        "parameters": [
+          {
+            "name": "ra",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Right Ascension in decimal deg or sexagesimal",
+              "title": "Ra"
+            },
+            "description": "Right Ascension in decimal deg or sexagesimal"
+          },
+          {
+            "name": "dec",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Declination in decimal deg or sexagesimal",
+              "title": "Dec"
+            },
+            "description": "Declination in decimal deg or sexagesimal"
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "description": "Search radius in arcminutes (0.2 to 15.0)",
+              "default": 3.0,
+              "title": "Radius"
+            },
+            "description": "Search radius in arcminutes (0.2 to 15.0)"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "description": "Maximum number of sources to return (1 to 300)",
+              "default": 100,
+              "title": "Limit"
+            },
+            "description": "Maximum number of sources to return (1 to 300)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/wiseview/url": {
+      "get": {
+        "summary": "Get Wiseview Url",
+        "description": "Task 3: WiseView 1-Click Verification Bridge.\nGenerates verified deep-link URL to NASA Backyard Worlds WiseView tool\n(http://byw.tools/wiseview) for multi-epoch WISE coadd verification.",
+        "operationId": "get_wiseview_url_api_wiseview_url_get",
+        "parameters": [
+          {
+            "name": "ra",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Right Ascension in decimal deg or sexagesimal",
+              "title": "Ra"
+            },
+            "description": "Right Ascension in decimal deg or sexagesimal"
+          },
+          {
+            "name": "dec",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Declination in decimal deg or sexagesimal",
+              "title": "Dec"
+            },
+            "description": "Declination in decimal deg or sexagesimal"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "description": "Cutout box size in pixels (default: 150)",
+              "default": 150,
+              "title": "Size"
+            },
+            "description": "Cutout box size in pixels (default: 150)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/csa/neossat": {
+      "get": {
+        "summary": "Get Csa Neossat",
+        "description": "Task 4: CSA NEOSSat & CADC Asteroid Tracking Integration.\nQueries Canadian Astronomy Data Centre (CADC) for Canadian Space Agency NEOSSat\nobservations and computes Near-Earth Object / asteroid vs Planet X discrimination.",
+        "operationId": "get_csa_neossat_api_csa_neossat_get",
+        "parameters": [
+          {
+            "name": "ra",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Right Ascension in decimal deg or sexagesimal",
+              "title": "Ra"
+            },
+            "description": "Right Ascension in decimal deg or sexagesimal"
+          },
+          {
+            "name": "dec",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Declination in decimal deg or sexagesimal",
+              "title": "Dec"
+            },
+            "description": "Declination in decimal deg or sexagesimal"
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "description": "Search radius in arcminutes (0.5 to 15.0)",
+              "default": 3.0,
+              "title": "Radius"
+            },
+            "description": "Search radius in arcminutes (0.5 to 15.0)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/scene": {
+      "get": {
+        "summary": "Get Scene",
+        "description": "Returns the single source of truth 'scene' object:\nTarget Metadata, Propagated Epochs List, and Interactive Layers List.",
+        "operationId": "get_scene_api_scene_get",
+        "parameters": [
+          {
+            "name": "target",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Preset target key (e.g. wise0855, barnard, epsindi)",
+              "title": "Target"
+            },
+            "description": "Preset target key (e.g. wise0855, barnard, epsindi)"
+          },
+          {
+            "name": "ra",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Right Ascension in decimal deg or sexagesimal",
+              "title": "Ra"
+            },
+            "description": "Right Ascension in decimal deg or sexagesimal"
+          },
+          {
+            "name": "dec",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Declination in decimal deg or sexagesimal",
+              "title": "Dec"
+            },
+            "description": "Declination in decimal deg or sexagesimal"
+          },
+          {
+            "name": "fov",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "description": "Field of view in arcminutes (0.5 to 15.0)",
+              "default": 3.0,
+              "title": "Fov"
+            },
+            "description": "Field of view in arcminutes (0.5 to 15.0)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/catalog/2mass": {
+      "get": {
+        "summary": "Get 2Mass Catalog",
+        "description": "Queries NASA IRSA 2MASS Point Source Catalog (PSC) for near-infrared\nJ (1.25 \u03bcm), H (1.65 \u03bcm), and Ks (2.17 \u03bcm) photometry and color indices.",
+        "operationId": "get_2mass_catalog_api_catalog_2mass_get",
+        "parameters": [
+          {
+            "name": "ra",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Right Ascension in decimal deg or sexagesimal",
+              "title": "Ra"
+            },
+            "description": "Right Ascension in decimal deg or sexagesimal"
+          },
+          {
+            "name": "dec",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Declination in decimal deg or sexagesimal",
+              "title": "Dec"
+            },
+            "description": "Declination in decimal deg or sexagesimal"
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "description": "Search radius in arcminutes (0.2 to 15.0)",
+              "default": 3.0,
+              "title": "Radius"
+            },
+            "description": "Search radius in arcminutes (0.2 to 15.0)"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "description": "Maximum number of sources to return (1 to 200)",
+              "default": 50,
+              "title": "Limit"
+            },
+            "description": "Maximum number of sources to return (1 to 200)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/catalog/simbad": {
+      "get": {
+        "summary": "Get Simbad Metadata",
+        "description": "Queries CDS Strasbourg SIMBAD database for canonical astronomical object identification,\nmorphological and spectral classifications, and literature citation counts.",
+        "operationId": "get_simbad_metadata_api_catalog_simbad_get",
+        "parameters": [
+          {
+            "name": "ra",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Right Ascension in decimal deg or sexagesimal",
+              "title": "Ra"
+            },
+            "description": "Right Ascension in decimal deg or sexagesimal"
+          },
+          {
+            "name": "dec",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Declination in decimal deg or sexagesimal",
+              "title": "Dec"
+            },
+            "description": "Declination in decimal deg or sexagesimal"
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "description": "Search radius in arcminutes",
+              "default": 3.0,
+              "title": "Radius"
+            },
+            "description": "Search radius in arcminutes"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/catalog/crossmatch": {
+      "get": {
+        "summary": "Get Crossmatched Photometry",
+        "description": "Performs unified optical-to-infrared photometric cross-matching across Gaia DR3, 2MASS,\nand SIMBAD. Computes diagnostic color baselines (G - Ks, J - Ks) to flag Brown Dwarfs and Planet X candidates.",
+        "operationId": "get_crossmatched_photometry_api_catalog_crossmatch_get",
+        "parameters": [
+          {
+            "name": "ra",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Right Ascension in decimal deg or sexagesimal",
+              "title": "Ra"
+            },
+            "description": "Right Ascension in decimal deg or sexagesimal"
+          },
+          {
+            "name": "dec",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Declination in decimal deg or sexagesimal",
+              "title": "Dec"
+            },
+            "description": "Declination in decimal deg or sexagesimal"
+          },
+          {
+            "name": "radius",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "description": "Search radius in arcminutes",
+              "default": 3.0,
+              "title": "Radius"
+            },
+            "description": "Search radius in arcminutes"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/discoveries": {
+      "get": {
+        "summary": "Get Discoveries",
+        "description": "Returns community discoveries logged by users, with optional filtering.",
+        "operationId": "get_discoveries_api_discoveries_get",
+        "parameters": [
+          {
+            "name": "object_type",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by object type",
+              "title": "Object Type"
+            },
+            "description": "Filter by object type"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "description": "Max entries to return",
+              "default": 50,
+              "title": "Limit"
+            },
+            "description": "Max entries to return"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/flag": {
+      "post": {
+        "summary": "Flag Candidate",
+        "description": "Logs a citizen science candidate discovery into the community ledger.\nAutomatically cross-references multi-survey archives (Gaia DR3, 2MASS, SIMBAD)\nand evaluates Planet X / Brown Dwarf color criteria.",
+        "operationId": "flag_candidate_api_flag_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DiscoveryCandidate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/discoveries/export/csv": {
+      "get": {
+        "summary": "Export Discoveries Csv",
+        "description": "Exports all logged citizen science discoveries as a CSV spreadsheet.",
+        "operationId": "export_discoveries_csv_api_discoveries_export_csv_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/discoveries/{candidate_id}": {
+      "delete": {
+        "summary": "Delete Discovery",
+        "description": "Deletes a candidate by ID.",
+        "operationId": "delete_discovery_api_discoveries__candidate_id__delete",
+        "parameters": [
+          {
+            "name": "candidate_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Candidate Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ArchiveReachability": {
+        "properties": {
+          "irsa_reachable": {
+            "type": "boolean",
+            "title": "Irsa Reachable"
+          },
+          "cadc_reachable": {
+            "type": "boolean",
+            "title": "Cadc Reachable"
+          },
+          "skybot_reachable": {
+            "type": "boolean",
+            "title": "Skybot Reachable"
+          },
+          "latency_ms": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Latency Ms"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "irsa_reachable",
+          "cadc_reachable",
+          "skybot_reachable",
+          "latency_ms"
+        ],
+        "title": "ArchiveReachability"
+      },
+      "BandPhotometry": {
+        "properties": {
+          "band_id": {
+            "type": "string",
+            "title": "Band Id"
+          },
+          "wavelength_um": {
+            "type": "number",
+            "title": "Wavelength Um"
+          },
+          "flux": {
+            "$ref": "#/components/schemas/PhysicalQuantity_float_"
+          },
+          "mag_ab": {
+            "$ref": "#/components/schemas/PhysicalQuantity_float_"
+          },
+          "snr": {
+            "type": "number",
+            "title": "Snr"
+          },
+          "method": {
+            "type": "string",
+            "title": "Method",
+            "description": "Photometry extraction method",
+            "default": "circular_aperture_3.5pix"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "band_id",
+          "wavelength_um",
+          "flux",
+          "mag_ab",
+          "snr"
+        ],
+        "title": "BandPhotometry"
+      },
+      "CandidateItem": {
+        "properties": {
+          "candidate_id": {
+            "type": "string",
+            "title": "Candidate Id"
+          },
+          "ra_deg": {
+            "type": "number",
+            "title": "Ra Deg"
+          },
+          "dec_deg": {
+            "type": "number",
+            "title": "Dec Deg"
+          },
+          "x_pix": {
+            "type": "number",
+            "title": "X Pix"
+          },
+          "y_pix": {
+            "type": "number",
+            "title": "Y Pix"
+          },
+          "snr": {
+            "type": "number",
+            "title": "Snr"
+          },
+          "flux_ujy": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Flux Ujy"
+          },
+          "evidence_tier": {
+            "type": "string",
+            "title": "Evidence Tier",
+            "description": "Strict evidence tier string",
+            "default": "UNKNOWN_RAPID_MOVER"
+          },
+          "veto_status": {
+            "type": "string",
+            "title": "Veto Status",
+            "description": "'PASSED' | veto rejection reason",
+            "default": "PASSED"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "candidate_id",
+          "ra_deg",
+          "dec_deg",
+          "x_pix",
+          "y_pix",
+          "snr"
+        ],
+        "title": "CandidateItem"
+      },
+      "CandidatesResponse": {
+        "properties": {
+          "target_id": {
+            "type": "string",
+            "title": "Target Id"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          },
+          "candidates": {
+            "items": {
+              "$ref": "#/components/schemas/CandidateItem"
+            },
+            "type": "array",
+            "title": "Candidates"
+          },
+          "notes": {
+            "type": "string",
+            "title": "Notes",
+            "default": "Real pipeline candidates or empty list when no significant detections exist."
+          },
+          "provenance": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Provenance"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "target_id",
+          "total",
+          "candidates"
+        ],
+        "title": "CandidatesResponse"
+      },
+      "CapabilitiesResponse": {
+        "properties": {
+          "version": {
+            "type": "string",
+            "title": "Version",
+            "description": "Pipeline semantic version",
+            "default": "6.0.0"
+          },
+          "api_version": {
+            "type": "string",
+            "title": "Api Version",
+            "description": "API contract major version",
+            "default": "v1"
+          },
+          "git_hash": {
+            "type": "string",
+            "title": "Git Hash",
+            "description": "Current Git deployment commit hash"
+          },
+          "environment": {
+            "type": "string",
+            "title": "Environment",
+            "description": "Runtime environment",
+            "default": "production"
+          },
+          "capabilities": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/FeatureCapability"
+            },
+            "type": "object",
+            "title": "Capabilities",
+            "description": "Dictionary of features and their availability state"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "git_hash",
+          "capabilities"
+        ],
+        "title": "CapabilitiesResponse"
+      },
+      "CutoutRawHeaderResponse": {
+        "properties": {
+          "dimensions": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Dimensions",
+            "description": "[height, width] in pixels"
+          },
+          "dtype": {
+            "type": "string",
+            "title": "Dtype",
+            "description": "Binary element type",
+            "default": "float32"
+          },
+          "units": {
+            "type": "string",
+            "title": "Units",
+            "description": "Flux calibration unit",
+            "default": "microjansky / pixel"
+          },
+          "crpix": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Crpix",
+            "description": "WCS reference pixel [x, y] (1-based)"
+          },
+          "crval": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Crval",
+            "description": "WCS celestial reference [RA, Dec] in degrees"
+          },
+          "cdelt": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Cdelt",
+            "description": "Pixel scale in degrees per pixel [dRA, dDec]"
+          },
+          "nan_convention": {
+            "type": "string",
+            "title": "Nan Convention",
+            "default": "IEEE 754 NaN indicates unobserved out-of-coverage pixels"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "dimensions",
+          "crpix",
+          "crval",
+          "cdelt"
+        ],
+        "title": "CutoutRawHeaderResponse"
+      },
+      "DifferenceEpoch": {
+        "properties": {
+          "exposure_id": {
+            "type": "string",
+            "title": "Exposure Id"
+          },
+          "mjd": {
+            "type": "number",
+            "title": "Mjd"
+          },
+          "detector": {
+            "type": "integer",
+            "title": "Detector"
+          },
+          "band": {
+            "type": "string",
+            "title": "Band"
+          },
+          "wavelength_um": {
+            "type": "number",
+            "title": "Wavelength Um"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "exposure_id",
+          "mjd",
+          "detector",
+          "band",
+          "wavelength_um"
+        ],
+        "title": "DifferenceEpoch"
+      },
+      "DifferenceResponse": {
+        "properties": {
+          "valid": {
+            "type": "boolean",
+            "title": "Valid"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "'success' | 'rejected'",
+            "default": "success"
+          },
+          "method": {
+            "type": "string",
+            "title": "Method",
+            "description": "Subtraction algorithm",
+            "default": "ZOGY (Zackay, Ofek, & Gal-Yam 2016)"
+          },
+          "epoch_a": {
+            "$ref": "#/components/schemas/DifferenceEpoch"
+          },
+          "epoch_b": {
+            "$ref": "#/components/schemas/DifferenceEpoch"
+          },
+          "band_matched": {
+            "type": "boolean",
+            "title": "Band Matched"
+          },
+          "scorr_max": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scorr Max"
+          },
+          "scorr_min": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scorr Min"
+          },
+          "scorr_mean": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scorr Mean"
+          },
+          "scorr_std": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scorr Std"
+          },
+          "mismatch_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mismatch Reason"
+          },
+          "provenance": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Provenance"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "valid",
+          "epoch_a",
+          "epoch_b",
+          "band_matched"
+        ],
+        "title": "DifferenceResponse"
+      },
+      "DiscoveryCandidate": {
+        "properties": {
+          "ra": {
+            "type": "number",
+            "title": "Ra"
+          },
+          "dec": {
+            "type": "number",
+            "title": "Dec"
+          },
+          "object_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Object Type"
+          },
+          "motion_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Motion Type"
+          },
+          "target_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Name"
+          },
+          "candidate_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Candidate Name"
+          },
+          "user_handle": {
+            "type": "string",
+            "title": "User Handle",
+            "default": "@citizen_scientist"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes",
+            "default": ""
+          },
+          "proper_motion_mas": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Proper Motion Mas"
+          },
+          "confidence": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confidence",
+            "default": 5
+          }
+        },
+        "type": "object",
+        "required": [
+          "ra",
+          "dec"
+        ],
+        "title": "DiscoveryCandidate"
+      },
+      "ExposureItem": {
+        "properties": {
+          "exposure_id": {
+            "type": "string",
+            "title": "Exposure Id",
+            "description": "Unique exposure ID"
+          },
+          "mjd": {
+            "type": "number",
+            "title": "Mjd",
+            "description": "Mid-exposure MJD"
+          },
+          "utc": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Utc",
+            "description": "ISO 8601 UTC timestamp"
+          },
+          "detector": {
+            "type": "integer",
+            "title": "Detector",
+            "description": "SPHEREx detector array (1-6)"
+          },
+          "band": {
+            "type": "string",
+            "title": "Band",
+            "description": "Band name e.g. 'Band 6 (4.42 \u03bcm)'"
+          },
+          "wavelength_um": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wavelength Um",
+            "description": "Central wavelength in microns"
+          },
+          "wavelength_at_target_um": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wavelength At Target Um"
+          },
+          "spatial_containment": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Spatial Containment",
+            "description": "'fully_contained' | 'partially_contained' | 'edge'",
+            "default": "fully_contained"
+          },
+          "exptime_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Exptime S",
+            "description": "Exposure duration in seconds",
+            "default": 120.0
+          },
+          "download_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Download Url",
+            "description": "Direct IRSA FITS download URL"
+          },
+          "preview_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Preview Url",
+            "description": "Cached PNG cutout URL"
+          },
+          "matched_pair_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Matched Pair Id"
+          },
+          "s_region": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "S Region"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "exposure_id",
+          "mjd",
+          "detector",
+          "band"
+        ],
+        "title": "ExposureItem"
+      },
+      "ExposuresResponse": {
+        "properties": {
+          "target_id": {
+            "type": "string",
+            "title": "Target Id"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "'ok' | 'no_public_data'",
+            "default": "ok"
+          },
+          "total_found": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Found",
+            "description": "Total exposures count"
+          },
+          "count_public_total": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Count Public Total"
+          },
+          "count_precomputed_used": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Count Precomputed Used"
+          },
+          "exposures": {
+            "items": {
+              "$ref": "#/components/schemas/ExposureItem"
+            },
+            "type": "array",
+            "title": "Exposures"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "unavailable_code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unavailable Code"
+          },
+          "unavailable_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unavailable Reason"
+          },
+          "archive_version": {
+            "type": "string",
+            "title": "Archive Version",
+            "description": "Archive catalog queried",
+            "default": "IRSA spherex.obscore 2026"
+          },
+          "provenance": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Provenance"
+          }
+        },
+        "additionalProperties": true,
+        "type": "object",
+        "required": [
+          "target_id",
+          "exposures"
+        ],
+        "title": "ExposuresResponse"
+      },
+      "FeatureCapability": {
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "enabled"
+        ],
+        "title": "FeatureCapability"
+      },
+      "FlagCandidateRequest": {
+        "properties": {
+          "candidate_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Candidate Id"
+          },
+          "target_id": {
+            "type": "string",
+            "title": "Target Id"
+          },
+          "ra_deg": {
+            "type": "number",
+            "maximum": 360.0,
+            "minimum": 0.0,
+            "title": "Ra Deg"
+          },
+          "dec_deg": {
+            "type": "number",
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Dec Deg"
+          },
+          "category": {
+            "type": "string",
+            "title": "Category",
+            "description": "'mover' | 'transient' | 'known_sso' | 'artifact' | 'variable_star'"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes",
+            "default": ""
+          },
+          "user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Id",
+            "default": "@citizen_scientist"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "target_id",
+          "ra_deg",
+          "dec_deg",
+          "category"
+        ],
+        "title": "FlagCandidateRequest"
+      },
+      "FlagCandidateResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "default": "recorded"
+          },
+          "flag_id": {
+            "type": "string",
+            "title": "Flag Id"
+          },
+          "candidate_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Candidate Id"
+          },
+          "recorded_at": {
+            "type": "string",
+            "title": "Recorded At"
+          },
+          "duplicate": {
+            "type": "boolean",
+            "title": "Duplicate",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "flag_id",
+          "recorded_at"
+        ],
+        "title": "FlagCandidateResponse"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HealthResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "Liveness status",
+            "default": "ok"
+          },
+          "timestamp": {
+            "type": "string",
+            "title": "Timestamp",
+            "description": "ISO 8601 UTC timestamp"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "timestamp"
+        ],
+        "title": "HealthResponse"
+      },
+      "LightCurvePoint": {
+        "properties": {
+          "mjd": {
+            "type": "number",
+            "title": "Mjd"
+          },
+          "utc": {
+            "type": "string",
+            "title": "Utc"
+          },
+          "wavelength_um": {
+            "type": "number",
+            "title": "Wavelength Um"
+          },
+          "flux": {
+            "$ref": "#/components/schemas/PhysicalQuantity_float_"
+          },
+          "mag_ab": {
+            "$ref": "#/components/schemas/PhysicalQuantity_float_"
+          },
+          "exposure_id": {
+            "type": "string",
+            "title": "Exposure Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "mjd",
+          "utc",
+          "wavelength_um",
+          "flux",
+          "mag_ab",
+          "exposure_id"
+        ],
+        "title": "LightCurvePoint"
+      },
+      "LightCurveResponse": {
+        "properties": {
+          "target_id": {
+            "type": "string",
+            "title": "Target Id"
+          },
+          "selection_rule": {
+            "type": "string",
+            "title": "Selection Rule",
+            "description": "Calibration rule e.g. 'Like-wavelength exposures only'"
+          },
+          "points": {
+            "items": {
+              "$ref": "#/components/schemas/LightCurvePoint"
+            },
+            "type": "array",
+            "title": "Points"
+          },
+          "provenance": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Provenance"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "target_id",
+          "selection_rule",
+          "points"
+        ],
+        "title": "LightCurveResponse"
+      },
+      "PhotometryResponse": {
+        "properties": {
+          "target_id": {
+            "type": "string",
+            "title": "Target Id"
+          },
+          "target_name": {
+            "type": "string",
+            "title": "Target Name"
+          },
+          "ra_deg": {
+            "type": "number",
+            "title": "Ra Deg"
+          },
+          "dec_deg": {
+            "type": "number",
+            "title": "Dec Deg"
+          },
+          "bands": {
+            "items": {
+              "$ref": "#/components/schemas/BandPhotometry"
+            },
+            "type": "array",
+            "title": "Bands"
+          },
+          "provenance": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Provenance"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "target_id",
+          "target_name",
+          "ra_deg",
+          "dec_deg",
+          "bands"
+        ],
+        "title": "PhotometryResponse"
+      },
+      "PhysicalQuantity_float_": {
+        "properties": {
+          "value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value",
+            "description": "Physical scalar or array value"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Unit",
+            "description": "Standard unit string (e.g. 'uJy', 'mag (AB)', 'um', 'arcsec')"
+          },
+          "uncertainty": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Uncertainty",
+            "description": "1-sigma uncertainty in the same unit where applicable"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source",
+            "description": "Provenance source or derivation method"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "unit"
+        ],
+        "title": "PhysicalQuantity[float]"
+      },
+      "SceneEpoch": {
+        "properties": {
+          "mjd": {
+            "type": "number",
+            "title": "Mjd"
+          },
+          "utc": {
+            "type": "string",
+            "title": "Utc"
+          },
+          "exposure_id": {
+            "type": "string",
+            "title": "Exposure Id"
+          },
+          "detector": {
+            "type": "integer",
+            "title": "Detector"
+          },
+          "wavelength_um": {
+            "type": "number",
+            "title": "Wavelength Um"
+          },
+          "band": {
+            "type": "string",
+            "title": "Band"
+          },
+          "propagated_ra_deg": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Propagated Ra Deg"
+          },
+          "propagated_dec_deg": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Propagated Dec Deg"
+          },
+          "in_fov": {
+            "type": "boolean",
+            "title": "In Fov",
+            "description": "Whether target is inside SPHEREx field of view at this epoch",
+            "default": true
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "mjd",
+          "utc",
+          "exposure_id",
+          "detector",
+          "wavelength_um",
+          "band"
+        ],
+        "title": "SceneEpoch"
+      },
+      "SceneLayer": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "Unique layer identifier"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Layer display name"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type",
+            "description": "'reference' | 'science' | 'difference' | 'catalog' | 'orbit_track'"
+          },
+          "visible": {
+            "type": "boolean",
+            "title": "Visible",
+            "description": "Default layer visibility",
+            "default": true
+          },
+          "opacity": {
+            "type": "number",
+            "title": "Opacity",
+            "description": "Default opacity [0.0, 1.0]",
+            "default": 1.0
+          },
+          "fits_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fits Url"
+          },
+          "png_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Png Url"
+          },
+          "epoch_mjd": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Epoch Mjd"
+          },
+          "wavelength_um": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Wavelength Um"
+          },
+          "detector": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detector"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metadata"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "type"
+        ],
+        "title": "SceneLayer"
+      },
+      "SceneResponse": {
+        "properties": {
+          "target": {
+            "$ref": "#/components/schemas/TargetDetail"
+          },
+          "fov_arcmin": {
+            "type": "number",
+            "title": "Fov Arcmin"
+          },
+          "epochs": {
+            "items": {
+              "$ref": "#/components/schemas/SceneEpoch"
+            },
+            "type": "array",
+            "title": "Epochs"
+          },
+          "layers": {
+            "items": {
+              "$ref": "#/components/schemas/SceneLayer"
+            },
+            "type": "array",
+            "title": "Layers"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings",
+            "description": "Astronomical caveats or FOV notices"
+          },
+          "provenance": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Provenance"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "target",
+          "fov_arcmin",
+          "epochs",
+          "layers"
+        ],
+        "title": "SceneResponse"
+      },
+      "SearchResponse": {
+        "properties": {
+          "query": {
+            "type": "string",
+            "title": "Query"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/components/schemas/SearchResultItem"
+            },
+            "type": "array",
+            "title": "Results"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "query",
+          "results"
+        ],
+        "title": "SearchResponse"
+      },
+      "SearchResultItem": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "ra_deg": {
+            "type": "number",
+            "title": "Ra Deg"
+          },
+          "dec_deg": {
+            "type": "number",
+            "title": "Dec Deg"
+          },
+          "category": {
+            "type": "string",
+            "title": "Category"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "ra_deg",
+          "dec_deg",
+          "category",
+          "description"
+        ],
+        "title": "SearchResultItem"
+      },
+      "SpaceMotion": {
+        "properties": {
+          "pm_ra_cosdec_mas_yr": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pm Ra Cosdec Mas Yr",
+            "description": "Proper motion in RA * cos(Dec) in mas/yr"
+          },
+          "pm_dec_mas_yr": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Pm Dec Mas Yr",
+            "description": "Proper motion in Dec in mas/yr"
+          },
+          "parallax_mas": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Parallax Mas",
+            "description": "Parallax in milliarcseconds"
+          },
+          "radial_velocity_km_s": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Radial Velocity Km S",
+            "description": "Radial velocity in km/s"
+          },
+          "epoch_ref": {
+            "type": "number",
+            "title": "Epoch Ref",
+            "description": "Reference epoch for astrometry (e.g. 2016.0 for Gaia DR3)",
+            "default": 2016.0
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source",
+            "description": "Catalog citation",
+            "default": "Gaia DR3 / Kirkpatrick et al. (2014)"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "SpaceMotion"
+      },
+      "StatusResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "'ok' or 'degraded'",
+            "default": "ok"
+          },
+          "ready": {
+            "type": "boolean",
+            "title": "Ready",
+            "description": "System readiness for serving requests",
+            "default": true
+          },
+          "cache": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Cache",
+            "description": "Local RAM and disk cache metrics"
+          },
+          "archive": {
+            "$ref": "#/components/schemas/ArchiveReachability",
+            "description": "External archive network health"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "cache",
+          "archive"
+        ],
+        "title": "StatusResponse"
+      },
+      "TargetDetail": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "Target slug / identifier (e.g. 'wise0855')"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Official target name"
+          },
+          "ra_deg": {
+            "type": "number",
+            "title": "Ra Deg",
+            "description": "Right Ascension in ICRS decimal degrees"
+          },
+          "dec_deg": {
+            "type": "number",
+            "title": "Dec Deg",
+            "description": "Declination in ICRS decimal degrees"
+          },
+          "ra_sexagesimal": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ra Sexagesimal",
+            "description": "RA in HH:MM:SS.ss"
+          },
+          "dec_sexagesimal": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dec Sexagesimal",
+            "description": "Dec in +DD:MM:SS.s"
+          },
+          "target_type": {
+            "type": "string",
+            "title": "Target Type",
+            "description": "Astrophysical classification"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description",
+            "description": "Scientific significance summary"
+          },
+          "public_exposures_count": {
+            "type": "integer",
+            "title": "Public Exposures Count",
+            "description": "Count of public SPHEREx exposures available"
+          },
+          "has_demo_cache": {
+            "type": "boolean",
+            "title": "Has Demo Cache",
+            "description": "True if target has precomputed demo cache"
+          },
+          "space_motion": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SpaceMotion"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "known_mag_ab": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "number"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Known Mag Ab",
+            "description": "Known apparent magnitudes"
+          },
+          "citations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Citations",
+            "description": "Academic literature citations"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "ra_deg",
+          "dec_deg",
+          "target_type",
+          "description",
+          "public_exposures_count",
+          "has_demo_cache"
+        ],
+        "title": "TargetDetail"
+      },
+      "TargetSummary": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "Target slug / identifier (e.g. 'wise0855')"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Official target name"
+          },
+          "ra_deg": {
+            "type": "number",
+            "title": "Ra Deg",
+            "description": "Right Ascension in ICRS decimal degrees"
+          },
+          "dec_deg": {
+            "type": "number",
+            "title": "Dec Deg",
+            "description": "Declination in ICRS decimal degrees"
+          },
+          "ra_sexagesimal": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ra Sexagesimal",
+            "description": "RA in HH:MM:SS.ss"
+          },
+          "dec_sexagesimal": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dec Sexagesimal",
+            "description": "Dec in +DD:MM:SS.s"
+          },
+          "target_type": {
+            "type": "string",
+            "title": "Target Type",
+            "description": "Astrophysical classification"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description",
+            "description": "Scientific significance summary"
+          },
+          "public_exposures_count": {
+            "type": "integer",
+            "title": "Public Exposures Count",
+            "description": "Count of public SPHEREx exposures available"
+          },
+          "has_demo_cache": {
+            "type": "boolean",
+            "title": "Has Demo Cache",
+            "description": "True if target has precomputed demo cache"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "ra_deg",
+          "dec_deg",
+          "target_type",
+          "description",
+          "public_exposures_count",
+          "has_demo_cache"
+        ],
+        "title": "TargetSummary"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "ValidationMetric": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "value": {
+            "title": "Value"
+          },
+          "unit": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "description": "'verified' | 'under_review' | 'pending'",
+            "default": "verified"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name",
+          "value",
+          "description"
+        ],
+        "title": "ValidationMetric"
+      },
+      "ValidationResponse": {
+        "properties": {
+          "pipeline_version": {
+            "type": "string",
+            "title": "Pipeline Version",
+            "default": "6.0.0"
+          },
+          "metrics": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationMetric"
+            },
+            "type": "array",
+            "title": "Metrics"
+          },
+          "audit_reports": {
+            "items": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Audit Reports"
+          },
+          "last_updated": {
+            "type": "string",
+            "title": "Last Updated"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "metrics",
+          "audit_reports",
+          "last_updated"
+        ],
+        "title": "ValidationResponse"
+      }
+    }
+  }
+}
