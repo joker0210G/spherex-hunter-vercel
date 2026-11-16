@@ -1,1 +1,217 @@
-{"status": "success", "target_key": "epsindi", "target": {"name": "Epsilon Indi Bb", "ra_deg": 330.84042, "dec_deg": -56.78608, "object_type": "Binary Brown Dwarf", "spectral_type": "T1 + T6", "pm_ra_mas_yr": 3961.4, "pm_dec_mas_yr": -2538.3, "total_pm_mas_yr": 4704.9, "total_pm_arcsec_yr": 4.7049, "parallax_mas": 274.84, "distance_pc": 3.64, "effective_temp_k": 1300.0, "evidence_tier": "KNOWN_STELLAR_OR_BROWN_DWARF", "evidence_summary": "Benchmark binary brown dwarf system showing distinct methane absorption bands in near-infrared.", "confirmation_status": "CATALOG_VERIFIED (ESO / Gaia DR3)", "citations": ["Scholz et al. (2003) A&A 398:L29", "King et al. (2010) MNRAS 404:1817"]}, "epochs": [{"id": "epoch_2mass", "survey": "2MASS", "instrument": "2MASS 1.3m Mt. Hopkins", "band": "J-Band (1.25 \u03bcm)", "wavelength_um": 1.25, "mjd": 51227.0, "obs_date": "1999-02-18", "product_id": "2MASS_J_ALLSKY_COADD", "product_url": "https://irsa.ipac.caltech.edu/applications/2MASS/", "pixel_scale_arcsec": 1.0, "units": "DN / counts", "status": "loaded", "cutout_center": {"ra_deg": 330.838674, "dec_deg": -56.785467}, "fov_arcmin": 3.0, "displacement_arcsec": 4.09, "exceeds_fov": false, "warning": null, "n_exposures": null, "stack_snr": null, "mjd_min": null, "mjd_max": null}, {"id": "epoch_unwise_w1", "survey": "unWISE", "instrument": "WISE 0.4m Space Telescope", "band": "W1 (3.4 \u03bcm)", "wavelength_um": 3.4, "mjd": 55400.0, "obs_date": "2010-07-23", "product_id": "UNWISE_COADD_W1_1457p000", "product_url": "http://unwise.me/", "pixel_scale_arcsec": 2.75, "units": "Vega nanomaggies", "status": "loaded", "cutout_center": {"ra_deg": 330.861629, "dec_deg": -56.793521}, "fov_arcmin": 3.0, "displacement_arcsec": 49.663, "exceeds_fov": false, "warning": null, "n_exposures": null, "stack_snr": null, "mjd_min": null, "mjd_max": null}, {"id": "epoch_unwise_w2", "survey": "unWISE", "instrument": "WISE 0.4m Space Telescope", "band": "W2 (4.6 \u03bcm)", "wavelength_um": 4.6, "mjd": 58850.0, "obs_date": "2020-01-01", "product_id": "UNWISE_COADD_W2_1457p000", "product_url": "http://unwise.me/", "pixel_scale_arcsec": 2.75, "units": "Vega nanomaggies", "status": "loaded", "cutout_center": {"ra_deg": 330.880615, "dec_deg": -56.800176}, "fov_arcmin": 3.0, "displacement_arcsec": 94.104, "exceeds_fov": false, "warning": null, "n_exposures": null, "stack_snr": null, "mjd_min": null, "mjd_max": null}, {"id": "epoch_spherex", "survey": "SPHEREx", "instrument": "SPHEREx 0.2m Cryo Space Telescope", "band": "Array 3 (2.1 \u03bcm)", "wavelength_um": 2.1, "mjd": 60825.0, "obs_date": "2025-05-30", "product_id": "SPHEREX_L2_ALLSKY_2025", "product_url": "https://irsa.ipac.caltech.edu/Missions/spherex.html", "pixel_scale_arcsec": 6.2, "units": "MJy/sr", "status": "loaded", "cutout_center": {"ra_deg": 330.891487, "dec_deg": -56.803985}, "fov_arcmin": 3.0, "displacement_arcsec": 119.544, "exceeds_fov": false, "warning": null, "n_exposures": null, "stack_snr": null, "mjd_min": null, "mjd_max": null}], "layers": [{"id": "base_epoch_a", "name": "Blink Frame A (2MASS J-Band (1.25 \u03bcm))", "type": "raster", "epoch_id": "epoch_2mass", "visible": true, "opacity": 1.0, "status": "active", "info": "Base raster from 2MASS 1.3m Mt. Hopkins at MJD 51227.0 (1999-02-18). Units: DN / counts."}, {"id": "base_epoch_b", "name": "Blink Frame B (SPHEREx Array 3 (2.1 \u03bcm))", "type": "raster", "epoch_id": "epoch_spherex", "visible": true, "opacity": 1.0, "status": "active", "info": "Base raster from SPHEREx 0.2m Cryo Space Telescope at MJD 60825.0 (2025-05-30). Units: MJy/sr."}, {"id": "diff_image", "name": "Difference Map (Frame B - Frame A)", "type": "difference", "visible": false, "opacity": 1.0, "pair": ["epoch_2mass", "epoch_spherex"], "valid_bands": false, "tooltip": "Band Mismatch: J-Band (1.25 \u03bcm) (1.25\u03bcm) vs Array 3 (2.1 \u03bcm) (2.1\u03bcm). Physical difference subtraction requires identical or near-identical passbands to prevent stellar color false-positives.", "status": "disabled_mismatch", "info": "Sub-pixel Bramich / Alard-Lupton numerical subtraction. Highlights moving transients and variable stars."}, {"id": "coverage_mask", "name": "Coverage & NaN Mask", "type": "mask", "visible": false, "opacity": 0.5, "status": "ready", "info": "Highlights unobserved or zero-coverage boundary pixels (rendered as transparent NaN)."}, {"id": "gaia_overlay", "name": "Gaia DR3 Proper Motion Vectors", "type": "vector", "visible": true, "opacity": 0.85, "status": "active", "info": "Trigonometric proper motion vectors and G-band stellar positions from ESA Gaia DR3."}, {"id": "candidate_markers", "name": "Citizen Science Candidate Markers", "type": "overlay", "visible": true, "opacity": 1.0, "status": "active", "info": "User-flagged anomalies and candidate markers logged in the research registry."}, {"id": "known_object_markers", "name": "SIMBAD / MPC Catalog Markers", "type": "overlay", "visible": true, "opacity": 0.9, "status": "active", "info": "Cataloged astronomical sources, solar system tracks, and spectral benchmark references."}], "active_blink_pair": {"frame_a_id": "epoch_2mass", "frame_b_id": "epoch_spherex", "band_matched": false, "band_mismatch_reason": "Band Mismatch: J-Band (1.25 \u03bcm) (1.25\u03bcm) vs Array 3 (2.1 \u03bcm) (2.1\u03bcm). Physical difference subtraction requires identical or near-identical passbands to prevent stellar color false-positives."}, "provenance": {"source": "SPHEREx Hunter Scene State Engine", "data_release": "DR1", "pipeline_version": "2.1.0"}}
+{
+  "status": "success",
+  "target_key": "epsindi",
+  "target": {
+    "name": "Epsilon Indi B",
+    "ra_deg": 331.04379,
+    "dec_deg": -56.78272,
+    "object_type": "Binary Brown Dwarf",
+    "spectral_type": "T1 + T6",
+    "pm_ra_mas_yr": 3961.4,
+    "pm_dec_mas_yr": -2538.3,
+    "total_pm_mas_yr": 4704.9,
+    "total_pm_arcsec_yr": 4.7049,
+    "parallax_mas": 274.84,
+    "distance_pc": 3.64,
+    "effective_temp_k": 1300.0,
+    "evidence_tier": "KNOWN_STELLAR_OR_BROWN_DWARF",
+    "evidence_summary": "Benchmark binary brown dwarf system showing distinct methane absorption bands in near-infrared.",
+    "confirmation_status": "CATALOG_VERIFIED (ESO / Gaia DR3)",
+    "citations": [
+      "Scholz et al. (2003) A&A 398:L29",
+      "King et al. (2010) MNRAS 404:1817"
+    ]
+  },
+  "epochs": [
+    {
+      "id": "epoch_2mass",
+      "survey": "2MASS",
+      "instrument": "2MASS 1.3m Mt. Hopkins",
+      "band": "J-Band (1.25 \u03bcm)",
+      "wavelength_um": 1.25,
+      "mjd": 51227.0,
+      "obs_date": "1999-02-18",
+      "product_id": "2MASS_J_ALLSKY_COADD",
+      "product_url": "https://irsa.ipac.caltech.edu/applications/2MASS/",
+      "pixel_scale_arcsec": 1.0,
+      "units": "DN / counts",
+      "status": "loaded",
+      "cutout_center": {
+        "ra_deg": 330.838674,
+        "dec_deg": -56.785467
+      },
+      "fov_arcmin": 3.0,
+      "displacement_arcsec": 4.09,
+      "exceeds_fov": false,
+      "warning": null,
+      "n_exposures": null,
+      "stack_snr": null,
+      "mjd_min": null,
+      "mjd_max": null
+    },
+    {
+      "id": "epoch_unwise_w1",
+      "survey": "unWISE",
+      "instrument": "WISE 0.4m Space Telescope",
+      "band": "W1 (3.4 \u03bcm)",
+      "wavelength_um": 3.4,
+      "mjd": 55400.0,
+      "obs_date": "2010-07-23",
+      "product_id": "UNWISE_COADD_W1_1457p000",
+      "product_url": "http://unwise.me/",
+      "pixel_scale_arcsec": 2.75,
+      "units": "Vega nanomaggies",
+      "status": "loaded",
+      "cutout_center": {
+        "ra_deg": 330.861629,
+        "dec_deg": -56.793521
+      },
+      "fov_arcmin": 3.0,
+      "displacement_arcsec": 49.663,
+      "exceeds_fov": false,
+      "warning": null,
+      "n_exposures": null,
+      "stack_snr": null,
+      "mjd_min": null,
+      "mjd_max": null
+    },
+    {
+      "id": "epoch_unwise_w2",
+      "survey": "unWISE",
+      "instrument": "WISE 0.4m Space Telescope",
+      "band": "W2 (4.6 \u03bcm)",
+      "wavelength_um": 4.6,
+      "mjd": 58850.0,
+      "obs_date": "2020-01-01",
+      "product_id": "UNWISE_COADD_W2_1457p000",
+      "product_url": "http://unwise.me/",
+      "pixel_scale_arcsec": 2.75,
+      "units": "Vega nanomaggies",
+      "status": "loaded",
+      "cutout_center": {
+        "ra_deg": 330.880615,
+        "dec_deg": -56.800176
+      },
+      "fov_arcmin": 3.0,
+      "displacement_arcsec": 94.104,
+      "exceeds_fov": false,
+      "warning": null,
+      "n_exposures": null,
+      "stack_snr": null,
+      "mjd_min": null,
+      "mjd_max": null
+    },
+    {
+      "id": "epoch_spherex",
+      "survey": "SPHEREx",
+      "instrument": "SPHEREx 0.2m Cryo Space Telescope",
+      "band": "Array 3 (2.1 \u03bcm)",
+      "wavelength_um": 2.1,
+      "mjd": 60825.0,
+      "obs_date": "2025-05-30",
+      "product_id": "SPHEREX_L2_ALLSKY_2025",
+      "product_url": "https://irsa.ipac.caltech.edu/Missions/spherex.html",
+      "pixel_scale_arcsec": 6.2,
+      "units": "MJy/sr",
+      "status": "loaded",
+      "cutout_center": {
+        "ra_deg": 330.891487,
+        "dec_deg": -56.803985
+      },
+      "fov_arcmin": 3.0,
+      "displacement_arcsec": 119.544,
+      "exceeds_fov": false,
+      "warning": null,
+      "n_exposures": null,
+      "stack_snr": null,
+      "mjd_min": null,
+      "mjd_max": null
+    }
+  ],
+  "layers": [
+    {
+      "id": "base_epoch_a",
+      "name": "Blink Frame A (2MASS J-Band (1.25 \u03bcm))",
+      "type": "raster",
+      "epoch_id": "epoch_2mass",
+      "visible": true,
+      "opacity": 1.0,
+      "status": "active",
+      "info": "Base raster from 2MASS 1.3m Mt. Hopkins at MJD 51227.0 (1999-02-18). Units: DN / counts."
+    },
+    {
+      "id": "base_epoch_b",
+      "name": "Blink Frame B (SPHEREx Array 3 (2.1 \u03bcm))",
+      "type": "raster",
+      "epoch_id": "epoch_spherex",
+      "visible": true,
+      "opacity": 1.0,
+      "status": "active",
+      "info": "Base raster from SPHEREx 0.2m Cryo Space Telescope at MJD 60825.0 (2025-05-30). Units: MJy/sr."
+    },
+    {
+      "id": "diff_image",
+      "name": "Difference Map (Frame B - Frame A)",
+      "type": "difference",
+      "visible": false,
+      "opacity": 1.0,
+      "pair": [
+        "epoch_2mass",
+        "epoch_spherex"
+      ],
+      "valid_bands": false,
+      "tooltip": "Band Mismatch: J-Band (1.25 \u03bcm) (1.25\u03bcm) vs Array 3 (2.1 \u03bcm) (2.1\u03bcm). Physical difference subtraction requires identical or near-identical passbands to prevent stellar color false-positives.",
+      "status": "disabled_mismatch",
+      "info": "Sub-pixel Bramich / Alard-Lupton numerical subtraction. Highlights moving transients and variable stars."
+    },
+    {
+      "id": "coverage_mask",
+      "name": "Coverage & NaN Mask",
+      "type": "mask",
+      "visible": false,
+      "opacity": 0.5,
+      "status": "ready",
+      "info": "Highlights unobserved or zero-coverage boundary pixels (rendered as transparent NaN)."
+    },
+    {
+      "id": "gaia_overlay",
+      "name": "Gaia DR3 Proper Motion Vectors",
+      "type": "vector",
+      "visible": true,
+      "opacity": 0.85,
+      "status": "active",
+      "info": "Trigonometric proper motion vectors and G-band stellar positions from ESA Gaia DR3."
+    },
+    {
+      "id": "candidate_markers",
+      "name": "Citizen Science Candidate Markers",
+      "type": "overlay",
+      "visible": true,
+      "opacity": 1.0,
+      "status": "active",
+      "info": "User-flagged anomalies and candidate markers logged in the research registry."
+    },
+    {
+      "id": "known_object_markers",
+      "name": "SIMBAD / MPC Catalog Markers",
+      "type": "overlay",
+      "visible": true,
+      "opacity": 0.9,
+      "status": "active",
+      "info": "Cataloged astronomical sources, solar system tracks, and spectral benchmark references."
+    }
+  ],
+  "active_blink_pair": {
+    "frame_a_id": "epoch_2mass",
+    "frame_b_id": "epoch_spherex",
+    "band_matched": false,
+    "band_mismatch_reason": "Band Mismatch: J-Band (1.25 \u03bcm) (1.25\u03bcm) vs Array 3 (2.1 \u03bcm) (2.1\u03bcm). Physical difference subtraction requires identical or near-identical passbands to prevent stellar color false-positives."
+  },
+  "provenance": {
+    "source": "SPHEREx Hunter Scene State Engine",
+    "data_release": "DR1",
+    "pipeline_version": "2.1.0"
+  },
+  "ra": 331.04379,
+  "dec": -56.78272
+}
