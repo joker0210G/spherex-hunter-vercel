@@ -1757,10 +1757,17 @@
           <i data-lucide="film" class="w-3.5 h-3.5 text-cyan-400"></i>
           <span>Timeline (Flipbook)</span>
         </button>
-        <button id="dockTabSpectrum" class="blender-btn px-3 py-1 rounded text-xs font-medium flex items-center gap-1.5 transition" title="102-Band Spectrum (Scroll wheel up/down over spectrum to zoom sideways)">
-          <i data-lucide="line-chart" class="w-3.5 h-3.5 text-emerald-400"></i>
-          <span>102-Band Spectrum</span>
-        </button>
+        <div class="inline-flex items-center gap-1">
+          <button id="dockTabSpectrum" class="blender-btn px-3 py-1 rounded text-xs font-medium flex items-center gap-1.5 transition" title="102-Band Spectrum (Scroll wheel up/down over spectrum to zoom sideways)">
+            <i data-lucide="line-chart" class="w-3.5 h-3.5 text-emerald-400"></i>
+            <span>102-Band Spectrum</span>
+          </button>
+          <!-- 102-Band Science Explainer Trigger (Moved here next to 102-Band Spectrum tab to relieve spectrum toolbar congestion) -->
+          <button id="btnOpenBandScience" class="blender-btn px-2.5 py-1 rounded border border-cyan-500/40 hover:border-cyan-400 bg-space-850 hover:bg-space-800 text-cyan-300 hover:text-white transition text-xs font-semibold flex items-center gap-1.5 shadow-sm" title="Open SPHEREx 102-Band Science Explainer Modal">
+            <i data-lucide="info" class="w-3.5 h-3.5 text-cyan-400 shrink-0"></i>
+            <span>102-Band Science</span>
+          </button>
+        </div>
         <button id="dockTabLightCurve" class="blender-btn px-3 py-1 rounded text-xs font-medium flex items-center gap-1.5 transition">
           <i data-lucide="trending-up" class="w-3.5 h-3.5 text-amber-400"></i>
           <span>Light Curve</span>
@@ -1944,12 +1951,6 @@
               <button id="btnSpecZoomOut" class="blender-btn w-6 h-6 rounded flex items-center justify-center text-xs font-bold text-cyan-300 hover:text-white transition shrink-0" title="Zoom Out Sideways (Shrink Wavelength Axis)">−</button>
               <button id="btnSpecZoomReset" class="blender-btn px-1.5 sm:px-2 py-0.5 rounded text-xs font-bold text-gray-300 hover:text-white transition hover:bg-space-800 shrink-0" title="Reset Sideways Zoom (Show All 102 Bands)">Reset</button>
             </div>
-
-            <!-- 102-Band Science Explainer Trigger -->
-            <button id="btnOpenBandScience" class="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-lg bg-space-850 hover:bg-space-800 border border-cyan-400/50 text-cyan-200 hover:text-white transition text-xs font-bold shadow shrink-0" title="Open SPHEREx 102-Band Science Explainer Modal">
-              <i data-lucide="info" class="w-4 h-4 text-cyan-400 shrink-0"></i>
-              <span class="hidden sm:inline">102-Band </span><span>Science</span>
-            </button>
           </div>
         </div>
 
