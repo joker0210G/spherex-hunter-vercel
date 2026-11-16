@@ -1757,15 +1757,15 @@
           <i data-lucide="film" class="w-3.5 h-3.5 text-cyan-400"></i>
           <span>Timeline (Flipbook)</span>
         </button>
-        <div class="inline-flex items-center gap-1">
-          <button id="dockTabSpectrum" class="blender-btn px-3 py-1 rounded text-xs font-medium flex items-center gap-1.5 transition" title="102-Band Spectrum (Scroll wheel up/down over spectrum to zoom sideways)">
+        <!-- Merged 102-Band Spectrum & Science Guide Segmented Tab -->
+        <div class="inline-flex items-center rounded overflow-hidden shadow-sm border border-space-700/80" id="dockTabSpectrumGroup">
+          <button id="dockTabSpectrum" class="blender-btn !rounded-none !border-0 px-2.5 py-1 text-xs font-medium flex items-center gap-1.5 transition" title="102-Band Spectrum (Scroll wheel up/down over spectrum to zoom sideways)">
             <i data-lucide="line-chart" class="w-3.5 h-3.5 text-emerald-400"></i>
             <span>102-Band Spectrum</span>
           </button>
-          <!-- 102-Band Science Explainer Trigger (Moved here next to 102-Band Spectrum tab to relieve spectrum toolbar congestion) -->
-          <button id="btnOpenBandScience" class="blender-btn px-2.5 py-1 rounded border border-cyan-500/40 hover:border-cyan-400 bg-space-850 hover:bg-space-800 text-cyan-300 hover:text-white transition text-xs font-semibold flex items-center gap-1.5 shadow-sm" title="Open SPHEREx 102-Band Science Explainer Modal">
-            <i data-lucide="info" class="w-3.5 h-3.5 text-cyan-400 shrink-0"></i>
-            <span>102-Band Science</span>
+          <button id="btnOpenBandScience" class="blender-btn !rounded-none !border-0 border-l !border-space-700/80 px-2 py-1 text-cyan-300 hover:text-white hover:bg-cyan-500/20 transition text-xs font-semibold flex items-center gap-1" title="102-Band Science Guide (6 LVF Detector Arrays × 17 Narrow Bands)">
+            <i data-lucide="info" class="w-3.5 h-3.5 text-cyan-400"></i>
+            <span>Science</span>
           </button>
         </div>
         <button id="dockTabLightCurve" class="blender-btn px-3 py-1 rounded text-xs font-medium flex items-center gap-1.5 transition">
@@ -9054,6 +9054,17 @@
 
       if (activeBtn) activeBtn.classList.add('blender-btn-active');
       if (activePanel) activePanel.classList.remove('hidden');
+
+      const btnBandSci = document.getElementById('btnOpenBandScience');
+      if (btnBandSci) {
+        if (activeBtn === dockTabSpectrum) {
+          btnBandSci.classList.add('bg-blue-900/60', 'text-white');
+          btnBandSci.classList.remove('text-cyan-300');
+        } else {
+          btnBandSci.classList.remove('bg-blue-900/60', 'text-white');
+          btnBandSci.classList.add('text-cyan-300');
+        }
+      }
 
       activeDockTabMode = (activePanel === dockPanelTimeline) ? 'timeline' : ((activePanel === dockPanelSpectrum) ? 'spectrum' : 'chart');
       isDockCollapsed = false;
