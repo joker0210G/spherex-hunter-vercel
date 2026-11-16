@@ -1818,28 +1818,28 @@
         <div class="flex-1 flex flex-col justify-center px-3 max-w-2xl min-w-[200px]">
           <div id="timelineEpochCols" class="grid grid-cols-4 w-full text-[10px] text-gray-300 mb-1.5 whitespace-nowrap font-mono select-none">
             <div class="flex items-center justify-between px-1" data-timeline-epoch="1">
-              <span class="truncate font-medium text-gray-300" id="timelineEpochTitle_1">1999 (2MASS)</span>
+              <span class="font-bold text-gray-200" id="timelineEpochTitle_1" title="1999 (2MASS)">1999</span>
               <div class="flex items-center gap-0.5 ml-1">
                 <button type="button" onclick="setBlinkFrameFromTimeline('A', 0)" class="btn-timeline-set-a px-1.5 py-0.2 rounded text-[8px] font-bold font-mono transition bg-blender-blue text-white ring-1 ring-white/60 shadow-sm" title="Assign as Blink Frame A">A</button>
                 <button type="button" onclick="setBlinkFrameFromTimeline('B', 0)" class="btn-timeline-set-b px-1.5 py-0.2 rounded text-[8px] font-bold font-mono transition bg-blender-800 text-gray-400 hover:text-white" title="Assign as Blink Frame B">B</button>
               </div>
             </div>
             <div class="flex items-center justify-between px-1" data-timeline-epoch="2">
-              <span class="truncate font-medium text-gray-300" id="timelineEpochTitle_2">2010 (W1)</span>
+              <span class="font-bold text-gray-200" id="timelineEpochTitle_2" title="2010 (WISE W1)">2010</span>
               <div class="flex items-center gap-0.5 ml-1">
                 <button type="button" onclick="setBlinkFrameFromTimeline('A', 1)" class="btn-timeline-set-a px-1.5 py-0.2 rounded text-[8px] font-bold font-mono transition bg-blender-800 text-gray-400 hover:text-white" title="Assign as Blink Frame A">A</button>
                 <button type="button" onclick="setBlinkFrameFromTimeline('B', 1)" class="btn-timeline-set-b px-1.5 py-0.2 rounded text-[8px] font-bold font-mono transition bg-blender-800 text-gray-400 hover:text-white" title="Assign as Blink Frame B">B</button>
               </div>
             </div>
             <div class="flex items-center justify-between px-1" data-timeline-epoch="3">
-              <span class="truncate font-medium text-gray-300" id="timelineEpochTitle_3">2014 (unWISE)</span>
+              <span class="font-bold text-gray-200" id="timelineEpochTitle_3" title="2014 (unWISE)">2014</span>
               <div class="flex items-center gap-0.5 ml-1">
                 <button type="button" onclick="setBlinkFrameFromTimeline('A', 2)" class="btn-timeline-set-a px-1.5 py-0.2 rounded text-[8px] font-bold font-mono transition bg-blender-800 text-gray-400 hover:text-white" title="Assign as Blink Frame A">A</button>
                 <button type="button" onclick="setBlinkFrameFromTimeline('B', 2)" class="btn-timeline-set-b px-1.5 py-0.2 rounded text-[8px] font-bold font-mono transition bg-blender-800 text-gray-400 hover:text-white" title="Assign as Blink Frame B">B</button>
               </div>
             </div>
             <div class="flex items-center justify-between px-1" data-timeline-epoch="4">
-              <span class="truncate text-blender-orange font-bold" id="timelineEpochTitle_4">2025 (SPHEREx)</span>
+              <span class="font-bold text-blender-orange" id="timelineEpochTitle_4" title="2025 (SPHEREx)">2025</span>
               <div class="flex items-center gap-0.5 ml-1">
                 <button type="button" onclick="setBlinkFrameFromTimeline('A', 3)" class="btn-timeline-set-a px-1.5 py-0.2 rounded text-[8px] font-bold font-mono transition bg-blender-800 text-gray-400 hover:text-white" title="Assign as Blink Frame A">A</button>
                 <button type="button" onclick="setBlinkFrameFromTimeline('B', 3)" class="btn-timeline-set-b px-1.5 py-0.2 rounded text-[8px] font-bold font-mono transition bg-blender-orange text-white ring-1 ring-white/60 shadow-sm" title="Assign as Blink Frame B">B</button>
@@ -1855,18 +1855,18 @@
           </div>
         </div>
 
-        <!-- Right: Continuous Morph Toggle, Blend Slider & Blink Speed Slider -->
+        <!-- Right: Motion Mode Toggle & Blink Speed Slider -->
         <div class="flex items-center gap-3 shrink-0 pl-3 border-l border-space-700">
-          <!-- Continuous Morph vs Snap Blink Toggle -->
+          <!-- Snap Blink vs Smooth Morph Toggle -->
           <button id="btnToggleBlinkMorph"
-            class="px-2 py-1 rounded bg-space-800 hover:bg-space-750 border border-cyan-500/50 text-[10px] font-sans font-medium text-cyan-300 flex items-center gap-1 shadow-sm transition"
-            title="Toggle between Continuous Morph (smooth sine crossfade) and Snap Blink (discrete flip)">
-            <i data-lucide="waves" class="w-3.5 h-3.5 text-cyan-400"></i>
-            <span id="blinkMorphModeLabel">Smooth Morph</span>
+            class="px-2 py-1 rounded bg-amber-950/80 hover:bg-amber-900 border border-amber-500 text-[10px] font-sans font-medium text-amber-300 flex items-center gap-1 shadow-sm transition"
+            title="Toggle between Snap Blink (discrete 100% cut flip) and Smooth Morph (continuous sine crossfade)">
+            <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400"></i>
+            <span id="blinkMorphModeLabel">Snap Blink</span>
           </button>
 
-          <!-- Continuous Epoch Blend Slider -->
-          <div class="flex items-center gap-1.5" title="Continuously blend between Epoch 1 (2MASS) and Epoch 2 (SPHEREx)">
+          <!-- Continuous Epoch Blend Slider (Visible only in Smooth Morph mode) -->
+          <div id="dockEpochBlendContainer" class="hidden flex items-center gap-1.5" title="Continuously blend between Epoch A and Epoch B">
             <span class="text-gray-400 text-[10px]">Blend:</span>
             <input id="epochBlendSlider" type="range" min="0" max="100" value="25" class="w-20 h-1.5 bg-space-700 rounded cursor-pointer accent-cyan-400">
             <span id="epochBlendLabel" class="text-gray-200 text-[10px] w-9 font-mono">25%</span>
@@ -3046,10 +3046,10 @@
     let crossFadeAnimId = null;
 
     // CONTINUOUS VIEWPORT RENDERING & EPOCH BLEND STATE
-    let epochBlend = 0.25;         // Starts at 25% for Frame 1, increments by exact 25% each frame
-    let targetEpochBlend = 0.25;   // Target for continuous smooth blend
+    let epochBlend = 0.0;          // Starts at 0.0 (100% Frame A) for crisp astronomical blink
+    let targetEpochBlend = 0.0;    // Target for continuous smooth blend
     let morphPhase = 0.0;          // Phase angle for continuous sinusoidal blink morph
-    let blinkMorphMode = 'morph';  // 'morph' (continuous crossfade) or 'snap' (discrete hard cut)
+    let blinkMorphMode = 'snap';   // 'snap' (discrete hard cut, default) or 'morph' (continuous crossfade)
 
     // =========================================================================
     // STEP 5: SCOPED BYTE-BUDGETED CACHING ENGINE (Amendment A5)
@@ -3502,8 +3502,8 @@
         const titleEl = document.getElementById(`timelineEpochTitle_${colIdx}`);
         if (titleEl) {
           const year = (ep.obs_date || '').split('-')[0] || '';
-          titleEl.textContent = `${year} (${ep.survey})`;
-          titleEl.title = `${ep.survey} ${ep.band} · ${ep.obs_date} (MJD ${ep.mjd}) · Δθ: ${ep.displacement_arcsec?.toFixed?.(1) ?? '0.0'}"`;
+          titleEl.textContent = year || `E${colIdx}`;
+          titleEl.title = `${ep.survey || 'Epoch'} ${ep.band || ''} · ${year || ep.obs_date} (MJD ${ep.mjd || ''}) · Δθ: ${ep.displacement_arcsec?.toFixed?.(1) ?? '0.0'}"`;
         }
 
         const col = document.querySelector(`[data-timeline-epoch="${colIdx}"]`);
@@ -4554,8 +4554,12 @@
           const lodFade = (prevEpoch1Img && crossFadeAlpha < 1.0) ? crossFadeAlpha : 1.0;
 
           // Continuous Epoch Morphing & Blending
-          const alphaA = (1.0 - epochBlend) * opacityA * lodFade;
-          const alphaB = epochBlend * opacityB * lodFade;
+          let effectiveBlend = epochBlend;
+          if (blinkMorphMode === 'snap') {
+            effectiveBlend = (currentFrame === 1 || currentFrame % 2 === 1) ? 0.0 : 1.0;
+          }
+          const alphaA = (1.0 - effectiveBlend) * opacityA * lodFade;
+          const alphaB = effectiveBlend * opacityB * lodFade;
 
           if (visA && realEpoch1Img && realEpoch1Img.complete && alphaA > 0.005) {
             drawFeatheredImage(ctx, realEpoch1Img, -rw / 2, -rh / 2, rw, rh, alphaA, false);
@@ -4754,8 +4758,12 @@
 
       const visA = layerA ? layerA.visible : true;
       const visB = layerB ? layerB.visible : true;
-      const alphaA = (1.0 - epochBlend) * (layerA ? layerA.opacity : 1.0);
-      const alphaB = epochBlend * (layerB ? layerB.opacity : 1.0);
+      let effectiveBlend = epochBlend;
+      if (blinkMorphMode === 'snap') {
+        effectiveBlend = (currentFrame === 1 || currentFrame % 2 === 1) ? 0.0 : 1.0;
+      }
+      const alphaA = (1.0 - effectiveBlend) * (layerA ? layerA.opacity : 1.0);
+      const alphaB = effectiveBlend * (layerB ? layerB.opacity : 1.0);
       const diffVis = diffLayer ? diffLayer.visible : true;
       const diffAlpha = (diffLayer ? diffLayer.opacity : 1.0);
 
@@ -5662,7 +5670,12 @@
       }
       const prog = document.getElementById('timelineProgress');
       if (prog) {
-        prog.style.width = `${Math.round(epochBlend * 100)}%`;
+        if (blinkMorphMode === 'snap') {
+          const pct = totalFrames > 1 ? ((currentFrame - 1) / (totalFrames - 1)) * 100 : 0;
+          prog.style.width = `${Math.round(pct)}%`;
+        } else {
+          prog.style.width = `${Math.round(epochBlend * 100)}%`;
+        }
       }
       syncEpochRowHighlight(currentFrame);
 
@@ -5684,7 +5697,7 @@
     function setFlipbookFrame(frameNum) {
       const totalFrames = getTotalEpochCount();
       currentFrame = Math.max(1, Math.min(totalFrames, frameNum));
-      // Snapblink blend rate increases gradually by exact increment of 25% each frame
+      // Snapblink blend rate increments by exact 25% each frame (currentFrame * 0.25)
       epochBlend = Math.min(1.0, currentFrame * 0.25);
       targetEpochBlend = epochBlend;
       morphPhase = Math.acos(Math.max(-1, Math.min(1, 1.0 - 2.0 * epochBlend)));
@@ -5708,7 +5721,8 @@
         playTimer = setInterval(() => {
           if (!diffMode) {
             const totalFrames = getTotalEpochCount();
-            setFlipbookFrame((currentFrame % totalFrames) + 1);
+            const nextFrame = (currentFrame === 1) ? totalFrames : 1;
+            setFlipbookFrame(nextFrame);
           }
         }, 1000 / fps);
       }
@@ -5788,15 +5802,15 @@
       btnToggleBlinkMorph.addEventListener('click', () => {
         blinkMorphMode = (blinkMorphMode === 'morph') ? 'snap' : 'morph';
         if (blinkMorphMode === 'morph') {
-          if (blinkMorphModeLabel) blinkMorphModeLabel.innerText = 'Smooth Morph';
-          btnToggleBlinkMorph.classList.add('border-cyan-500/50', 'text-cyan-300');
-          btnToggleBlinkMorph.classList.remove('text-gray-300');
           if (playTimer) clearInterval(playTimer);
         } else {
-          if (blinkMorphModeLabel) blinkMorphModeLabel.innerText = 'Snap Blink';
-          btnToggleBlinkMorph.classList.remove('border-cyan-500/50', 'text-cyan-300');
-          btnToggleBlinkMorph.classList.add('text-gray-300');
           if (isPlaying) startFlipbook();
+        }
+        updateBlinkHUD();
+        updateFrameLabel();
+        drawFrame();
+        if (typeof showToast === 'function') {
+          showToast(blinkMorphMode === 'snap' ? '⚡ Mode: Discrete Snap Blink' : '🌊 Mode: Continuous Smooth Morph', 'info');
         }
       });
     }
@@ -12484,6 +12498,30 @@
         } else {
           optSmooth.className = "px-2 py-1 rounded bg-space-800 hover:bg-space-700 border border-space-700 text-gray-300 text-center flex items-center justify-center gap-1 transition";
           optSnap.className = "px-2 py-1 rounded bg-amber-950/80 border border-amber-500 text-amber-300 font-bold text-center flex items-center justify-center gap-1 transition";
+        }
+      }
+
+      const btnToggleBlink = document.getElementById('btnToggleBlinkMorph');
+      const blinkMorphLabel = document.getElementById('blinkMorphModeLabel');
+      const dockBlendContainer = document.getElementById('dockEpochBlendContainer');
+      if (btnToggleBlink) {
+        const iconEl = btnToggleBlink.querySelector('[data-lucide]');
+        if (blinkMorphMode === 'morph') {
+          btnToggleBlink.className = "px-2 py-1 rounded bg-space-800 hover:bg-space-750 border border-cyan-500/50 text-[10px] font-sans font-medium text-cyan-300 flex items-center gap-1 shadow-sm transition";
+          if (iconEl) {
+            iconEl.setAttribute('data-lucide', 'waves');
+            iconEl.className = 'w-3.5 h-3.5 text-cyan-400';
+          }
+          if (blinkMorphLabel) blinkMorphLabel.innerText = 'Smooth Morph';
+          if (dockBlendContainer) dockBlendContainer.classList.remove('hidden');
+        } else {
+          btnToggleBlink.className = "px-2 py-1 rounded bg-amber-950/80 hover:bg-amber-900 border border-amber-500 text-[10px] font-sans font-medium text-amber-300 flex items-center gap-1 shadow-sm transition";
+          if (iconEl) {
+            iconEl.setAttribute('data-lucide', 'zap');
+            iconEl.className = 'w-3.5 h-3.5 text-amber-400';
+          }
+          if (blinkMorphLabel) blinkMorphLabel.innerText = 'Snap Blink';
+          if (dockBlendContainer) dockBlendContainer.classList.add('hidden');
         }
       }
 
