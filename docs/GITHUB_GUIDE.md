@@ -45,7 +45,7 @@ flowchart LR
 | GitHub Term | Real-World Analogy | What It Does in SPHEREx Hunter |
 | :--- | :--- | :--- |
 | **`main`** | The Master Blueprint | The verified, live version of our application. |
-| **`origin`** | The Cloud Master | The GitHub cloud server (`github.com/joker0210G/spherex-hunter`). |
+| **`origin`** | The Cloud Master | The GitHub cloud server (`github.com/joker0210G/spherex-hunter-vercel`). |
 | **Clone** | Downloading a Project Copy | Downloads the entire project and its full history to your laptop. |
 | **Pull (`git pull`)** | Updating / Refreshing | Grabs the latest changes made by your teammates from GitHub. |
 | **Push (`git push`)** | Uploading / Publishing | Uploads your saved commits from your laptop to GitHub. |
@@ -58,7 +58,7 @@ flowchart LR
 You don't even need to open a terminal to explore SPHEREx Hunter!
 
 #### Option A: Use the GitHub Web Interface
-1. Visit the repository: [https://github.com/joker0210G/spherex-hunter](https://github.com/joker0210G/spherex-hunter)
+1. Visit the repository: [https://github.com/joker0210G/spherex-hunter-vercel](https://github.com/joker0210G/spherex-hunter-vercel)
 2. Click on the **Code** tab to browse folders like `frontend/` (the user interface) or `backend/` (FastAPI astronomy server).
 3. To search for any file (like `index.html`), simply press <kbd>T</kbd> on your keyboard.
 
@@ -94,7 +94,7 @@ Once you have the code on your computer:
 ### How to Report a Bug or Suggest an Idea
 
 If you spot an issue or visual glitch:
-1. Go to the [Issues Tab](https://github.com/joker0210G/spherex-hunter/issues).
+1. Go to the [Issues Tab](https://github.com/joker0210G/spherex-hunter-vercel/issues).
 2. Click the green **New Issue** button.
 3. Select the template that fits your discovery:
    - 🐛 **Bug / Visual Glitch Report**
@@ -208,7 +208,7 @@ ruff check backend/
 
 ### Submitting a Pull Request (PR)
 
-1. Navigate to [Pull Requests](https://github.com/joker0210G/spherex-hunter/pulls).
+1. Navigate to [Pull Requests](https://github.com/joker0210G/spherex-hunter-vercel/pulls).
 2. Click **New Pull Request**.
 3. Set **Base:** `main` $\leftarrow$ **Compare:** `your-branch` (e.g. `coolodu/web-frontend`).
 4. Title your PR clearly: `feat(hud): Streamline viewport overlays and merge active frame badge`.

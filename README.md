@@ -3,19 +3,36 @@
 > **Challenge:** Planet X and SPHEREx (Astrophysics / Planetary Defense / Citizen Science)
 
 [![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Observatory-orange.svg)](https://joker0210G.github.io/spherex-hunter/)
-[![Deploy with Vercel](https://img.shields.io/badge/Deploy%20with-Vercel-black?logo=vercel)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fjoker0210G%2Fspherex-hunter)
-[![Python Tests](https://img.shields.io/badge/pytest-62%2F62%20passing-brightgreen.svg)](tests/)
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-Live%20Observatory-black?logo=vercel)](https://spherex-hunter-vercel.vercel.app/)
+[![Deploy with Vercel](https://img.shields.io/badge/Deploy%20with-Vercel-black?logo=vercel)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fjoker0210G%2Fspherex-hunter-vercel)
+[![Python Tests](https://img.shields.io/badge/pytest-52%2F52%20passing-brightgreen.svg)](tests/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg)](https://fastapi.tiangolo.com)
 [![NASA SPHEREx](https://img.shields.io/badge/NASA-SPHEREx%20DR1-critical.svg)](https://spherex.caltech.edu)
 
 SPHEREx Hunter is an interactive astronomical observatory and multi-epoch blink comparator built for the **NASA Space Apps Challenge 2026**. It allows citizen scientists and professional astrophysicists to discover Solar System objects, extreme high-proper-motion brown dwarfs, and Planet X candidates by blinking temporal infrared surveys (**2MASS 1999**, **AllWISE 2010**, **unWISE 2014-2020**, and **SPHEREx 2025**).
 
-🌐 **Live Web Observatory (GitHub Pages):**  
-👉 **[https://joker0210G.github.io/spherex-hunter/](https://joker0210G.github.io/spherex-hunter/)**
+🌐 **Live Web Observatory (Vercel Serverless Edge):**  
+👉 **[https://spherex-hunter-vercel.vercel.app/](https://spherex-hunter-vercel.vercel.app/)**
 
 ⚡ **Deploy to Vercel (1-Click):**  
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fjoker0210G%2Fspherex-hunter)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fjoker0210G%2Fspherex-hunter-vercel)
+
+---
+
+## 🏗️ Dual-Tier Architecture
+
+SPHEREx Hunter operates on a hybrid dual-tier architecture:
+
+1. **Tier 1: Cloud Showcase (Vercel Serverless Edge)**
+   - Deployed at [`spherex-hunter-vercel.vercel.app`](https://spherex-hunter-vercel.vercel.app/).
+   - Instantaneous (<50ms) zero-cost delivery of authentic precomputed FITS cutouts, 102-band spectra, and scene metadata for all 6 benchmark targets (`wise0855`, `barnard`, `epsindi`, `rdraconis`, `rwaur`, `sample_leo`).
+   - Pure serverless Python 3.12 (`api/index.py`) + Global Edge CDN (`public/`), requiring zero heavy dependencies to fit comfortably inside Vercel's 250MB free tier.
+
+2. **Tier 2: Local Scientific Compute Engine (FastAPI + Astropy)**
+   - Local high-throughput astronomy pipeline (`backend/main.py` / `backend/api_v1.py`).
+   - Supports arbitrary celestial coordinate lookups via live NASA IRSA & ESA Gaia TAP queries.
+   - Concurrent FITS retrieval (`ThreadPoolExecutor`), Astropy WCS ZScale, and ZOGY difference imaging.
+   - In-memory circuit breaker state cache with TTL and background asynchronous disk pruning.
 
 ---
 
@@ -25,8 +42,8 @@ Run the complete observatory locally with zero setup:
 
 ```powershell
 # 1. Clone the repository
-git clone https://github.com/joker0210G/spherex-hunter.git
-cd spherex-hunter
+git clone https://github.com/joker0210G/spherex-hunter-vercel.git
+cd spherex-hunter-vercel
 
 # 2. Start the FastAPI Observatory Server
 python -m uvicorn backend.main:app --host 127.0.0.1 --port 8000 --reload
@@ -54,6 +71,7 @@ All project documentation is organized across specialized guides. Click any link
 * 🐞 **[Frontend Bug & Glitch Tracker](docs/frontend_issues.md)**: Resolved UI bugs, dropdown double-toggle prevention, and responsive layout scaling.
 
 ### 🛰️ 3. Backend, TAP Queries & Astronomy Pipeline
+* 🚀 **[Backend Optimization & Architecture Plan](docs/backend_optimization_plan.md)**: Dual-Tier Cloud Serverless vs Local Engine, concurrent ThreadPool downloads, in-memory circuit TTL, and benchmarks.
 * 📡 **[API Contract Specification](docs/API_CONTRACT.md)**: Complete endpoint documentation for FastAPI, NASA IRSA TAP, and Gaia DR3 queries.
 * 🔍 **[API Contract Audit](docs/API_CONTRACT_AUDIT.md)**: Formal verification of backend route contracts, parameters, and error clamping.
 * 🪐 **[SPHEREx DR1 Primer & Spectral Bands](docs/dr1_notes.md)**: 102-channel infrared spectroscopy ($0.75\text{--}5.0\,\mu\text{m}$), detector arrays, and resolving power.

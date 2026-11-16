@@ -2,8 +2,8 @@
 
 > **NASA Space Apps Challenge 2026** | **Challenge:** Planet X and SPHEREx  
 > **Team:** RIP (Coimbatore, India) | **Lead:** `jokerodu` | **Astro-Data:** `darkodu`  
-> **Repository:** `spherex-hunter` | **Active Branch:** `darkodu/astro-backend`  
-> **Status Date:** November 14, 2026 | **Build:** 49/49 Tests Passing | 100% Scientific Honesty  
+> **Repository:** `spherex-hunter-vercel` | **Active Branch:** `main`  
+> **Status Date:** November 16, 2026 | **Build:** 52/52 Core Tests Passing | 100% Scientific Honesty  
 
 ---
 
@@ -59,9 +59,9 @@ flowchart TD
 | **Phase 1** | Science Core Engine | **COMPLETE** | Motion Models A/B/C (`motion_model.py`), calibrated preprocessing to $\mu\text{Jy}$, ZOGY differencing & vetoes (`differencing.py`), SkyBoT/Horizons client, evidence tiers. | [`df2a989`](https://github.com/joker0210G/spherex-hunter/commit/df2a989) |
 | **Phase 2** | Real-Data Validation | **COMPLETE** | Claims audit (`docs/claims_audit.md`), preliminary injection-recovery, false-positive benchmarking, detectability calculator (`detectability_map.png`), UI Validation tab. | [`d66268d`](https://github.com/joker0210G/spherex-hunter/commit/d66268d) |
 | **Phase 2.8** | Result Sanity Audit | **COMPLETE** | Full physics derivation of depth, download of second authentic exposure (`2025W17_4B_0001_2D1`), rerun with independent noise, Clopper-Pearson 95% CIs, Gaia astrometric residuals. | [`2187710`](https://github.com/joker0210G/spherex-hunter/commit/2187710) |
-| **Phase 2.9** | Refinement & Ground-Truth | **IN PROGRESS (85%)** | Gaia brightness-scaled star mask, EPSF centroid fitting ($0.108\text{ pix}$ RMS), SkyBoT SSP API resolution, WISE 0855 in-flight Band 6 forced photometry. | Active Turn |
-| **Phase 4** | Product, UX & Visual Engine | **PLANNED** | Float32 ArrayBuffer streaming, WebGL2 asinh/zscale stretch shader, VOTable/CSV/FITS exports, permalink engine. | Next |
-| **Phase 5** | Hardening & Public Deploy | **PLANNED** | Docker Compose one-command startup, prebuilt `demo_cache/`, offline fallback, public server deployment, README documentation. | Final |
+| **Phase 2.9** | Refinement & Ground-Truth | **COMPLETE** | Gaia brightness-scaled star mask, EPSF centroid fitting ($0.108\text{ pix}$ RMS), SkyBoT SSP API resolution, WISE 0855 in-flight Band 6 forced photometry. | [`2187710`](https://github.com/joker0210G/spherex-hunter/commit/2187710) |
+| **Phase 4** | Product, UX & Visual Engine | **COMPLETE** | Calibrated visual preview cutouts, WebGL/Aladin Lite viewport, difference HUD, 102-band spectrum workbench, permalink engine. | [`212210b`](https://github.com/joker0210G/spherex-hunter-vercel/commit/212210b) |
+| **Phase 5** | Hardening & Public Deploy | **COMPLETE** | Dual-tier production Vercel serverless deployment (`api/index.py` + `demo_data/`), concurrent ThreadPool FITS downloads, background cache pruning, in-memory circuit TTL. | [`e3d8015`](https://github.com/joker0210G/spherex-hunter-vercel/commit/e3d8015) |
 
 ---
 

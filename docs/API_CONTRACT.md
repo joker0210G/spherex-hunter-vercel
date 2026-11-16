@@ -218,3 +218,33 @@ Serves dynamic, auditable verification figures directly from `validation/` CSV d
 | `INVALID_COORDINATES`| 400 | Invalid Coordinates | Coordinates out of physical bounds `[0, 360)` or `[-90, +90]`. |
 | `MISSING_PARAMETERS` | 400 | Missing Parameters | Required query parameters are missing. |
 | `CUTOUT_ERROR` | 500 | Cutout Retrieval Error | Archive query failure or FITS processing error. |
+
+---
+
+## 5. Dual-Tier Deployment Architecture
+
+SPHEREx Hunter supports two complementary execution environments:
+
+### 5.1 Tier 1: Cloud Serverless Edge (Vercel)
+* **Base URL:** `https://spherex-hunter-vercel.vercel.app/api`
+* **Entrypoint:** `api/index.py` (FastAPI Serverless Function)
+* **Design Philosophy:** Zero external compilation, zero-cost ($0 Hobby tier), ultra-low latency (<50ms).
+* **Endpoints Supported:**
+  - `GET /api/cutout?target={key}`: Instant calibrated multi-epoch cutouts with base64 PNGs from `api/demo_data/*.json`.
+  - `GET /api/scene?target={key}`: Authentic scene graph, layer tree, and coordinate frames.
+  - `GET /api/spectrum?target={key}`: 102-band infrared spectrophotometry.
+  - `GET /api/gaia?target={key}`: Gaia DR3 astrometric catalogue.
+  - `GET /api/targets` & `GET /api/benchmarks`: Target manifests.
+  - `GET /api/health`: Deployment liveness check.
+
+### 5.2 Tier 2: Local Scientific Compute Engine (FastAPI / Uvicorn)
+* **Base URL:** `http://127.0.0.1:8000/api` and `http://127.0.0.1:8000/api/v1`
+* **Entrypoint:** `backend/main.py`
+* **Capabilities:**
+  - Live TAP queries to NASA IRSA (`2MASS`, `DSS2`, `SPHEREx`) and ESA Gaia DR3 across arbitrary sky coordinates.
+  - Astropy ZScale normalization, dynamic WCS reprojection, and ZOGY optimal difference imaging.
+  - **OPT-1 Concurrent FITS Downloads:** Parallel download of multi-epoch FITS via `concurrent.futures.ThreadPoolExecutor`.
+  - **OPT-2 Background Disk Pruning:** Asynchronous cache cleanup running on a daemon thread.
+  - **OPT-3 Memory Circuit Breaker:** In-memory 5s TTL cache with `threading.RLock()` preventing re-entrant locks.
+  - **OPT-5 Lazy Git Metadata:** Deferred `git rev-parse` evaluation avoiding cold-start import lag.
+
