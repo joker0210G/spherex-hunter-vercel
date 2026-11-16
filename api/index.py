@@ -90,7 +90,16 @@ def get_cutout(
     lod: Optional[int] = Query(1)
 ):
     target_key = resolve_target(target, ra, dec)
-    return load_cached_json(f"cutout_{target_key}.json")
+    data = load_cached_json(f"cutout_{target_key}.json")
+    if ra is not None and dec is not None and not target:
+        import copy
+        data = copy.deepcopy(data)
+        if "coordinates" in data and isinstance(data["coordinates"], dict):
+            data["coordinates"]["ra_deg"] = float(ra)
+            data["coordinates"]["dec_deg"] = float(dec)
+            if fov:
+                data["coordinates"]["fov_arcmin"] = float(fov)
+    return data
 
 @app.get("/api/scene")
 @app.get("/scene")
@@ -101,7 +110,14 @@ def get_scene(
     fov: Optional[float] = Query(3.0)
 ):
     target_key = resolve_target(target, ra, dec)
-    return load_cached_json(f"scene_{target_key}.json")
+    data = load_cached_json(f"scene_{target_key}.json")
+    if ra is not None and dec is not None and not target:
+        import copy
+        data = copy.deepcopy(data)
+        if "coordinates" in data and isinstance(data["coordinates"], dict):
+            data["coordinates"]["ra_deg"] = float(ra)
+            data["coordinates"]["dec_deg"] = float(dec)
+    return data
 
 @app.get("/api/spectrum")
 @app.get("/spectrum")

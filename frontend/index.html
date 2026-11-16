@@ -5229,10 +5229,8 @@
         scaleLabel.innerText = chosen.label;
       }
 
-      const inputRA = document.getElementById('inputRA');
-      const inputDec = document.getElementById('inputDec');
-      if (document.activeElement !== inputRA) inputRA.value = coords.ra.toFixed(5);
-      if (document.activeElement !== inputDec) inputDec.value = coords.dec.toFixed(5);
+      const qcl = document.getElementById('quickCoordsLabel');
+      if (qcl) qcl.innerText = `${coords.ra.toFixed(3)}°, ${coords.dec.toFixed(3)}°`;
 
       const btnWiseView = document.getElementById('btnWiseView');
       if (btnWiseView) {
@@ -5457,8 +5455,8 @@
         activeCutoutData = data;
 
         if (data.coordinates) {
-          camera.ra = data.coordinates.ra_deg;
-          camera.dec = data.coordinates.dec_deg;
+          camera.ra = (isCustom && !isNaN(Number(ra))) ? Number(ra) : data.coordinates.ra_deg;
+          camera.dec = (isCustom && !isNaN(Number(dec))) ? Number(dec) : data.coordinates.dec_deg;
           camera.fov = data.coordinates.fov_arcmin || fov;
         }
 
@@ -6153,12 +6151,34 @@
       loadSpectrumData(t.raDeg, t.decDeg, key);
     }
 
+    function parseCoordinateStr(str, isDec = false) {
+      if (!str) return NaN;
+      const s = String(str).trim();
+      if (/^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$/.test(s)) {
+        return parseFloat(s);
+      }
+      const isNegative = s.startsWith('-');
+      const clean = s.replace(/^[-+]/, '').replace(/[hdms°'":]/gi, ' ').trim();
+      const parts = clean.split(/\s+/).filter(Boolean).map(Number);
+      if (parts.length >= 1 && !parts.some(isNaN)) {
+        let val = parts[0] + (parts[1] || 0) / 60.0 + (parts[2] || 0) / 3600.0;
+        if (!isDec && /[h]/i.test(s)) {
+          val *= 15.0; // convert hours to degrees for RA
+        }
+        return isNegative ? -val : val;
+      }
+      return parseFloat(s);
+    }
+    window.parseCoordinateStr = parseCoordinateStr;
+
     function slewToTypedCoordinates() {
-      const raInput = document.getElementById('inputRA').value.trim();
-      const decInput = document.getElementById('inputDec').value.trim();
+      const inputRAEl = document.getElementById('inputRA');
+      const inputDecEl = document.getElementById('inputDec');
+      const raInput = inputRAEl ? inputRAEl.value.trim() : '';
+      const decInput = inputDecEl ? inputDecEl.value.trim() : '';
       const fovVal = parseFloat(document.getElementById('selectFOV').value) || 3.0;
-      const raNum = parseFloat(raInput);
-      const decNum = parseFloat(decInput);
+      const raNum = parseCoordinateStr(raInput, false);
+      const decNum = parseCoordinateStr(decInput, true);
       if (!raInput || !decInput || Number.isNaN(raNum) || Number.isNaN(decNum) || raNum < 0 || raNum > 360 || decNum < -90 || decNum > 90) {
         if (typeof window.showFriendlyErrorBanner === 'function') {
           window.showFriendlyErrorBanner(new Error('INVALID_COORDINATES'), 'coordinates', () => slewToTypedCoordinates());
@@ -6168,6 +6188,14 @@
         return;
       }
 
+      // Close the coordinates popover on submit
+      const coordsPopover = document.getElementById('coordsPopover');
+      if (coordsPopover) coordsPopover.classList.add('hidden');
+
+      // Update the top quick coordinates readout
+      const qcl = document.getElementById('quickCoordsLabel');
+      if (qcl) qcl.innerText = `${raNum.toFixed(3)}°, ${decNum.toFixed(3)}°`;
+
       aiDetectedCandidates = [];
       measurementRuler.active = false;
       camera.ra = raNum;
@@ -6176,6 +6204,10 @@
       camera.panY = 0;
       camera.zoom = 1.0;
       camera.fov = fovVal;
+
+      if (typeof aladinInstance !== 'undefined' && aladinInstance && typeof aladinInstance.gotoRaDec === 'function') {
+        aladinInstance.gotoRaDec(raNum, decNum);
+      }
 
       document.querySelectorAll('.target-btn').forEach(b => b.classList.remove('blender-btn-active'));
       currentTargetKey = null;
@@ -6190,12 +6222,19 @@
       updateInspectorFriendlyDetails(null, null);
 
       playTargetLockChime();
-      loadSkyCutout(raInput, decInput, null, `Target (${raInput}, ${decInput})`, fovVal);
+      loadSkyCutout(raNum, decNum, null, `Target (${raNum.toFixed(4)}, ${decNum.toFixed(4)})`, fovVal);
       if (typeof resetSpectrumToDefaultA1Alignment === 'function') resetSpectrumToDefaultA1Alignment();
-      loadSpectrumData(raInput, decInput);
+      loadSpectrumData(raNum, decNum);
     }
 
-    document.getElementById('btnGoCoords').addEventListener('click', slewToTypedCoordinates);
+    const btnGoCoords = document.getElementById('btnGoCoords');
+    if (btnGoCoords) {
+      btnGoCoords.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        slewToTypedCoordinates();
+      });
+    }
     document.getElementById('selectFOV').addEventListener('change', slewToTypedCoordinates);
     document.getElementById('inputRA').addEventListener('keydown', (e) => {
       if (e.key === 'Enter') slewToTypedCoordinates();
@@ -7632,8 +7671,8 @@
                   if (propDec) propDec.innerText = `${camera.dec.toFixed(5)}°`;
                   const inputRA = document.getElementById('inputRA');
                   const inputDec = document.getElementById('inputDec');
-                  if (inputRA && document.activeElement !== inputRA) inputRA.value = camera.ra.toFixed(5);
-                  if (inputDec && document.activeElement !== inputDec) inputDec.value = camera.dec.toFixed(5);
+                  const qcl = document.getElementById('quickCoordsLabel');
+                  if (qcl) qcl.innerText = `${camera.ra.toFixed(3)}°, ${camera.dec.toFixed(3)}°`;
                 }
               });
 
@@ -8285,7 +8324,7 @@
 
       function validateRaHint() {
         if (!inputRA || !raHint) return;
-        const val = parseFloat(inputRA.value.trim());
+        const val = typeof parseCoordinateStr === 'function' ? parseCoordinateStr(inputRA.value.trim(), false) : parseFloat(inputRA.value.trim());
         if (inputRA.value.trim() === '' || Number.isNaN(val) || val < 0 || val > 360) {
           raHint.innerText = 'Must be 0° to 360°';
           raHint.className = 'text-xs font-mono text-rose-400 mt-0.5';
@@ -8297,7 +8336,7 @@
 
       function validateDecHint() {
         if (!inputDec || !decHint) return;
-        const val = parseFloat(inputDec.value.trim());
+        const val = typeof parseCoordinateStr === 'function' ? parseCoordinateStr(inputDec.value.trim(), true) : parseFloat(inputDec.value.trim());
         if (inputDec.value.trim() === '' || Number.isNaN(val) || val < -90 || val > 90) {
           decHint.innerText = 'Must be -90° to +90°';
           decHint.className = 'text-xs font-mono text-rose-400 mt-0.5';
@@ -9161,7 +9200,10 @@
       if (willShow) {
         popover.classList.remove('hidden');
         const inputRA = document.getElementById('inputRA');
-        if (inputRA) setTimeout(() => inputRA.focus(), 50);
+        const inputDec = document.getElementById('inputDec');
+        if (inputRA && (!inputRA.value || inputRA.value === '')) inputRA.value = camera.ra.toFixed(5);
+        if (inputDec && (!inputDec.value || inputDec.value === '')) inputDec.value = camera.dec.toFixed(5);
+        if (inputRA) setTimeout(() => { inputRA.focus(); inputRA.select(); }, 50);
       } else {
         popover.classList.add('hidden');
       }
@@ -9186,7 +9228,9 @@
     // TOP FETCH BUTTON
     const btnTopFetch = document.getElementById('btnTopFetch');
     if (btnTopFetch) {
-      btnTopFetch.addEventListener('click', () => {
+      btnTopFetch.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         slewToTypedCoordinates();
       });
     }
