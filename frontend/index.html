@@ -3519,7 +3519,7 @@
         const titleEl = document.getElementById(`timelineEpochTitle_${colIdx}`);
         if (titleEl) {
           const year = (ep.obs_date || '').split('-')[0] || '';
-          titleEl.textContent = year || `E${colIdx}`;
+          titleEl.textContent = ep.survey ? `${year} ${ep.survey}` : (year || `E${colIdx}`);
           titleEl.title = `${ep.survey || 'Epoch'} ${ep.band || ''} · ${year || ep.obs_date} (MJD ${ep.mjd || ''}) · Δθ: ${ep.displacement_arcsec?.toFixed?.(1) ?? '0.0'}"`;
         }
 
@@ -5144,9 +5144,9 @@
         if (sx < -halfW - 12 || sx > halfW + 12 || sy < -halfH - 12 || sy > halfH + 12) continue;
 
         const isHovered = hoveredGaiaStar && (hoveredGaiaStar.source_id === src.source_id);
-        const totalPM = src.total_pm_mas_yr || 0;
+        const totalPM = src.total_pm_mas_yr || (src.pmra_mas_yr ? Math.hypot(src.pmra_mas_yr, src.pmdec_mas_yr || 0) : 0);
         const hasHighPM = totalPM >= 100;
-        const mag = (src.phot_g_mag !== null && src.phot_g_mag !== undefined) ? src.phot_g_mag : 20.0;
+        const mag = (src.phot_g_mag !== null && src.phot_g_mag !== undefined) ? src.phot_g_mag : (src.g_mag !== undefined ? src.g_mag : (src.phot_g_mean_mag !== undefined ? src.phot_g_mean_mag : 20.0));
         const isBright = mag < 17.0;
 
         // Filtering by gaiaFilterMode

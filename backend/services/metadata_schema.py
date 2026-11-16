@@ -120,9 +120,9 @@ VERIFIED_PRESETS = {
         ]
     ),
     "epsindi": AstronomicalTargetMetadata(
-        name="Epsilon Indi Bb",
-        ra_deg=330.84042,
-        dec_deg=-56.78608,
+        name="Epsilon Indi Ba,Bb",
+        ra_deg=331.04379,
+        dec_deg=-56.78272,
         object_type="Binary Brown Dwarf",
         spectral_type="T1 + T6",
         pm_ra_mas_yr=3961.4,

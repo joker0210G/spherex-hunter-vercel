@@ -1,1 +1,238 @@
-{"status": "success", "target_key": "wise0855", "target": {"name": "WISE J085510.83-071442.5", "ra_deg": 133.79513, "dec_deg": -7.24515, "object_type": "Sub-stellar Brown Dwarf (Y-Dwarf)", "spectral_type": "Y4", "pm_ra_mas_yr": -8120.0, "pm_dec_mas_yr": 690.0, "total_pm_mas_yr": 8149.3, "total_pm_arcsec_yr": 8.1493, "parallax_mas": 438.0, "distance_pc": 2.28, "effective_temp_k": 250.0, "evidence_tier": "KNOWN_STELLAR_OR_BROWN_DWARF", "evidence_summary": "Coldest known brown dwarf in solar neighborhood (~250 K). Water ice clouds detected. High proper motion (~8.15 \"/yr).", "confirmation_status": "CATALOG_VERIFIED (NASA WISE / Spitzer / JWST)", "citations": ["Luhman, K. L. (2014) ApJ 786:L18", "Kirkpatrick et al. (2021) ApJS 253:7", "Miles et al. (2023) JWST NIRSpec Observation"]}, "epochs": [{"id": "epoch_allwise_w2", "survey": "AllWISE", "instrument": "WISE 0.4m Space Telescope", "band": "W2 (4.6 \u03bcm)", "wavelength_um": 4.6, "mjd": 55340.0, "obs_date": "2010-05-24", "product_id": "ALLWISE_COADD_W2_1337m072", "product_url": "https://irsa.ipac.caltech.edu/Missions/wise.html", "pixel_scale_arcsec": 2.75, "units": "Vega nanomaggies", "status": "loaded", "cutout_center": {"ra_deg": 133.771503, "dec_deg": -7.243158}, "fov_arcmin": 3.0, "displacement_arcsec": 84.683, "exceeds_fov": false, "warning": null, "n_exposures": null, "stack_snr": null, "mjd_min": null, "mjd_max": null}, {"id": "epoch_unwise_w2_2015", "survey": "unWISE", "instrument": "WISE 0.4m Space Telescope", "band": "W2 (4.6 \u03bcm)", "wavelength_um": 4.6, "mjd": 57160.0, "obs_date": "2015-05-18", "product_id": "UNWISE_NEO2_W2_1337m072", "product_url": "http://unwise.me/", "pixel_scale_arcsec": 2.75, "units": "Vega nanomaggies", "status": "loaded", "cutout_center": {"ra_deg": 133.760173, "dec_deg": -7.242202}, "fov_arcmin": 3.0, "displacement_arcsec": 125.29, "exceeds_fov": false, "warning": null, "n_exposures": null, "stack_snr": null, "mjd_min": null, "mjd_max": null}, {"id": "epoch_unwise_w2_2020", "survey": "unWISE", "instrument": "WISE 0.4m Space Telescope", "band": "W2 (4.6 \u03bcm)", "wavelength_um": 4.6, "mjd": 58980.0, "obs_date": "2020-05-12", "product_id": "UNWISE_NEO7_W2_1337m072", "product_url": "http://unwise.me/", "pixel_scale_arcsec": 2.75, "units": "Vega nanomaggies", "status": "loaded", "cutout_center": {"ra_deg": 133.748844, "dec_deg": -7.241246}, "fov_arcmin": 3.0, "displacement_arcsec": 165.897, "exceeds_fov": false, "warning": null, "n_exposures": null, "stack_snr": null, "mjd_min": null, "mjd_max": null}, {"id": "epoch_spherex_stack_4p6um", "survey": "SPHEREx", "instrument": "SPHEREx 0.2m Cryo Space Telescope", "band": "Band 6 Stack (4.6 \u03bcm)", "wavelength_um": 4.6, "mjd": 60810.25, "obs_date": "2025-05-15", "product_id": "SPHEREx_stack_wise0855_4p6um", "product_url": "https://irsa.ipac.caltech.edu/Missions/spherex.html", "pixel_scale_arcsec": 6.15, "units": "MJy/sr", "status": "loaded", "cutout_center": {"ra_deg": 133.737451, "dec_deg": -7.240284}, "fov_arcmin": 3.0, "displacement_arcsec": 206.732, "exceeds_fov": true, "warning": "Proper motion displacement (206.7\") exceeds the requested FOV (180.0\"). Object has migrated outside un-centered frame!", "n_exposures": 26, "stack_snr": 5.82, "mjd_min": 60807.12, "mjd_max": 60813.38}], "layers": [{"id": "base_epoch_a", "name": "Blink Frame A (AllWISE W2 (4.6 \u03bcm))", "type": "raster", "epoch_id": "epoch_allwise_w2", "visible": true, "opacity": 1.0, "status": "active", "info": "Base raster from WISE 0.4m Space Telescope at MJD 55340.0 (2010-05-24). Units: Vega nanomaggies."}, {"id": "base_epoch_b", "name": "Blink Frame B (SPHEREx Band 6 Stack (4.6 \u03bcm))", "type": "raster", "epoch_id": "epoch_spherex_stack_4p6um", "visible": true, "opacity": 1.0, "status": "active", "info": "Base raster from SPHEREx 0.2m Cryo Space Telescope at MJD 60810.25 (2025-05-15). Units: MJy/sr."}, {"id": "diff_image", "name": "Difference Map (Frame B - Frame A)", "type": "difference", "visible": false, "opacity": 1.0, "pair": ["epoch_allwise_w2", "epoch_spherex_stack_4p6um"], "valid_bands": true, "tooltip": "Direct numerical residual: I_B - I_A.", "status": "ready", "info": "Sub-pixel Bramich / Alard-Lupton numerical subtraction. Highlights moving transients and variable stars."}, {"id": "coverage_mask", "name": "Coverage & NaN Mask", "type": "mask", "visible": false, "opacity": 0.5, "status": "ready", "info": "Highlights unobserved or zero-coverage boundary pixels (rendered as transparent NaN)."}, {"id": "gaia_overlay", "name": "Gaia DR3 Proper Motion Vectors", "type": "vector", "visible": true, "opacity": 0.85, "status": "active", "info": "Trigonometric proper motion vectors and G-band stellar positions from ESA Gaia DR3."}, {"id": "candidate_markers", "name": "Citizen Science Candidate Markers", "type": "overlay", "visible": true, "opacity": 1.0, "status": "active", "info": "User-flagged anomalies and candidate markers logged in the research registry."}, {"id": "known_object_markers", "name": "SIMBAD / MPC Catalog Markers", "type": "overlay", "visible": true, "opacity": 0.9, "status": "active", "info": "Cataloged astronomical sources, solar system tracks, and spectral benchmark references."}], "active_blink_pair": {"frame_a_id": "epoch_allwise_w2", "frame_b_id": "epoch_spherex_stack_4p6um", "band_matched": true, "band_mismatch_reason": null}, "provenance": {"source": "SPHEREx Hunter Scene State Engine", "data_release": "DR1", "pipeline_version": "2.1.0"}}
+{
+  "status": "success",
+  "target_key": "wise0855",
+  "target": {
+    "name": "WISE J085510.83-071442.5",
+    "ra_deg": 133.79513,
+    "dec_deg": -7.24515,
+    "object_type": "Sub-stellar Brown Dwarf (Y-Dwarf)",
+    "spectral_type": "Y4",
+    "pm_ra_mas_yr": -8120.0,
+    "pm_dec_mas_yr": 690.0,
+    "total_pm_mas_yr": 8149.3,
+    "total_pm_arcsec_yr": 8.1493,
+    "parallax_mas": 438.0,
+    "distance_pc": 2.28,
+    "effective_temp_k": 250.0,
+    "evidence_tier": "KNOWN_STELLAR_OR_BROWN_DWARF",
+    "evidence_summary": "Coldest known brown dwarf in solar neighborhood (~250 K). Water ice clouds detected. High proper motion (~8.15 \"/yr).",
+    "confirmation_status": "CATALOG_VERIFIED (NASA WISE / Spitzer / JWST)",
+    "citations": [
+      "Luhman, K. L. (2014) ApJ 786:L18",
+      "Kirkpatrick et al. (2021) ApJS 253:7",
+      "Miles et al. (2023) JWST NIRSpec Observation"
+    ]
+  },
+  "epochs": [
+    {
+      "id": "epoch_allwise_w2",
+      "survey": "AllWISE",
+      "instrument": "WISE 0.4m Space Telescope",
+      "band": "W2 (4.6 \u03bcm)",
+      "wavelength_um": 4.6,
+      "mjd": 55340.0,
+      "obs_date": "2010-05-24",
+      "year": 2010,
+      "product_id": "ALLWISE_COADD_W2_1337m072",
+      "product_url": "https://irsa.ipac.caltech.edu/Missions/wise.html",
+      "pixel_scale_arcsec": 2.75,
+      "units": "Vega nanomaggies",
+      "status": "loaded",
+      "cutout_center": {
+        "ra_deg": 133.771503,
+        "dec_deg": -7.243158
+      },
+      "fov_arcmin": 3.0,
+      "displacement_arcsec": 84.683,
+      "exceeds_fov": false,
+      "warning": null,
+      "n_exposures": null,
+      "stack_snr": null,
+      "mjd_min": null,
+      "mjd_max": null
+    },
+    {
+      "id": "epoch_unwise_w2_2015",
+      "survey": "unWISE",
+      "instrument": "WISE 0.4m Space Telescope",
+      "band": "W2 (4.6 \u03bcm)",
+      "wavelength_um": 4.6,
+      "mjd": 57160.0,
+      "obs_date": "2015-05-18",
+      "year": 2015,
+      "product_id": "UNWISE_NEO2_W2_1337m072",
+      "product_url": "http://unwise.me/",
+      "pixel_scale_arcsec": 2.75,
+      "units": "Vega nanomaggies",
+      "status": "loaded",
+      "cutout_center": {
+        "ra_deg": 133.760173,
+        "dec_deg": -7.242202
+      },
+      "fov_arcmin": 3.0,
+      "displacement_arcsec": 125.29,
+      "exceeds_fov": false,
+      "warning": null,
+      "n_exposures": null,
+      "stack_snr": null,
+      "mjd_min": null,
+      "mjd_max": null
+    },
+    {
+      "id": "epoch_unwise_w2_2020",
+      "survey": "unWISE",
+      "instrument": "WISE 0.4m Space Telescope",
+      "band": "W2 (4.6 \u03bcm)",
+      "wavelength_um": 4.6,
+      "mjd": 58980.0,
+      "obs_date": "2020-05-12",
+      "year": 2020,
+      "product_id": "UNWISE_NEO7_W2_1337m072",
+      "product_url": "http://unwise.me/",
+      "pixel_scale_arcsec": 2.75,
+      "units": "Vega nanomaggies",
+      "status": "loaded",
+      "cutout_center": {
+        "ra_deg": 133.748844,
+        "dec_deg": -7.241246
+      },
+      "fov_arcmin": 3.0,
+      "displacement_arcsec": 165.897,
+      "exceeds_fov": false,
+      "warning": null,
+      "n_exposures": null,
+      "stack_snr": null,
+      "mjd_min": null,
+      "mjd_max": null
+    },
+    {
+      "id": "epoch_spherex_stack_4p6um",
+      "survey": "SPHEREx",
+      "instrument": "SPHEREx 0.2m Cryo Space Telescope",
+      "band": "Band 6 Stack (4.6 \u03bcm)",
+      "wavelength_um": 4.6,
+      "mjd": 60810.25,
+      "obs_date": "2025-05-15",
+      "year": 2025,
+      "product_id": "SPHEREx_stack_wise0855_4p6um",
+      "product_url": "https://irsa.ipac.caltech.edu/Missions/spherex.html",
+      "pixel_scale_arcsec": 6.15,
+      "units": "MJy/sr",
+      "status": "loaded",
+      "cutout_center": {
+        "ra_deg": 133.737451,
+        "dec_deg": -7.240284
+      },
+      "fov_arcmin": 3.0,
+      "displacement_arcsec": 206.732,
+      "exceeds_fov": true,
+      "warning": "Proper motion displacement (206.7\") exceeds the requested FOV (180.0\"). Object has migrated outside un-centered frame!",
+      "n_exposures": 26,
+      "stack_snr": 5.82,
+      "mjd_min": 60807.12,
+      "mjd_max": 60813.38
+    }
+  ],
+  "layers": [
+    {
+      "id": "base_epoch_a",
+      "name": "Blink Frame A (AllWISE W2 (4.6 \u03bcm))",
+      "type": "raster",
+      "epoch_id": "epoch_allwise_w2",
+      "visible": true,
+      "opacity": 1.0,
+      "status": "active",
+      "info": "Base raster from WISE 0.4m Space Telescope at MJD 55340.0 (2010-05-24). Units: Vega nanomaggies."
+    },
+    {
+      "id": "base_epoch_b",
+      "name": "Blink Frame B (SPHEREx Band 6 Stack (4.6 \u03bcm))",
+      "type": "raster",
+      "epoch_id": "epoch_spherex_stack_4p6um",
+      "visible": true,
+      "opacity": 1.0,
+      "status": "active",
+      "info": "Base raster from SPHEREx 0.2m Cryo Space Telescope at MJD 60810.25 (2025-05-15). Units: MJy/sr."
+    },
+    {
+      "id": "diff_image",
+      "name": "Difference Map (Frame B - Frame A)",
+      "type": "difference",
+      "visible": false,
+      "opacity": 1.0,
+      "pair": [
+        "epoch_allwise_w2",
+        "epoch_spherex_stack_4p6um"
+      ],
+      "valid_bands": true,
+      "tooltip": "Direct numerical residual: I_B - I_A.",
+      "status": "ready",
+      "info": "Sub-pixel Bramich / Alard-Lupton numerical subtraction. Highlights moving transients and variable stars."
+    },
+    {
+      "id": "coverage_mask",
+      "name": "Coverage & NaN Mask",
+      "type": "mask",
+      "visible": false,
+      "opacity": 0.5,
+      "status": "ready",
+      "info": "Highlights unobserved or zero-coverage boundary pixels (rendered as transparent NaN)."
+    },
+    {
+      "id": "gaia_overlay",
+      "name": "Gaia DR3 Proper Motion Vectors",
+      "type": "vector",
+      "visible": true,
+      "opacity": 0.85,
+      "status": "active",
+      "info": "Trigonometric proper motion vectors and G-band stellar positions from ESA Gaia DR3."
+    },
+    {
+      "id": "candidate_markers",
+      "name": "Citizen Science Candidate Markers",
+      "type": "overlay",
+      "visible": true,
+      "opacity": 1.0,
+      "status": "active",
+      "info": "User-flagged anomalies and candidate markers logged in the research registry."
+    },
+    {
+      "id": "known_object_markers",
+      "name": "SIMBAD / MPC Catalog Markers",
+      "type": "overlay",
+      "visible": true,
+      "opacity": 0.9,
+      "status": "active",
+      "info": "Cataloged astronomical sources, solar system tracks, and spectral benchmark references."
+    }
+  ],
+  "active_blink_pair": {
+    "frame_a_id": "epoch_allwise_w2",
+    "frame_b_id": "epoch_spherex_stack_4p6um",
+    "band_matched": true,
+    "band_mismatch_reason": null
+  },
+  "provenance": {
+    "source": "SPHEREx Hunter Scene State Engine",
+    "data_release": "DR1",
+    "pipeline_version": "2.1.0"
+  },
+  "candidates": [
+    {
+      "id": "CAND-WISE0855-1",
+      "name": "WISE 0855-0714",
+      "ra": 133.79513,
+      "dec": -7.24515,
+      "ra_center": 133.79513,
+      "dec_center": -7.24515,
+      "pm_arcsec_yr": 8.15,
+      "pm_ra_mas_yr": -8070.0,
+      "pm_dec_mas_yr": 540.0,
+      "transient_type": "PROPER_MOTION_DIPOLE",
+      "label": "WISE J085510.83-071442.5 (Substellar Y-Dwarf)",
+      "spectral_type": "Y4",
+      "snr": 92.4,
+      "confidence": "99.8%"
+    }
+  ]
+}

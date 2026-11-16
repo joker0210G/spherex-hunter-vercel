@@ -2,7 +2,7 @@
   "status": "success",
   "target_key": "epsindi",
   "target": {
-    "name": "Epsilon Indi B",
+    "name": "Epsilon Indi Ba,Bb",
     "ra_deg": 331.04379,
     "dec_deg": -56.78272,
     "object_type": "Binary Brown Dwarf",
@@ -31,14 +31,15 @@
       "wavelength_um": 1.25,
       "mjd": 51227.0,
       "obs_date": "1999-02-18",
+      "year": 1999,
       "product_id": "2MASS_J_ALLSKY_COADD",
       "product_url": "https://irsa.ipac.caltech.edu/applications/2MASS/",
       "pixel_scale_arcsec": 1.0,
       "units": "DN / counts",
       "status": "loaded",
       "cutout_center": {
-        "ra_deg": 330.838674,
-        "dec_deg": -56.785467
+        "ra_deg": 331.042044,
+        "dec_deg": -56.782107
       },
       "fov_arcmin": 3.0,
       "displacement_arcsec": 4.09,
@@ -57,14 +58,15 @@
       "wavelength_um": 3.4,
       "mjd": 55400.0,
       "obs_date": "2010-07-23",
+      "year": 2010,
       "product_id": "UNWISE_COADD_W1_1457p000",
       "product_url": "http://unwise.me/",
       "pixel_scale_arcsec": 2.75,
       "units": "Vega nanomaggies",
       "status": "loaded",
       "cutout_center": {
-        "ra_deg": 330.861629,
-        "dec_deg": -56.793521
+        "ra_deg": 331.064997,
+        "dec_deg": -56.790161
       },
       "fov_arcmin": 3.0,
       "displacement_arcsec": 49.663,
@@ -83,14 +85,15 @@
       "wavelength_um": 4.6,
       "mjd": 58850.0,
       "obs_date": "2020-01-01",
+      "year": 2020,
       "product_id": "UNWISE_COADD_W2_1457p000",
       "product_url": "http://unwise.me/",
       "pixel_scale_arcsec": 2.75,
       "units": "Vega nanomaggies",
       "status": "loaded",
       "cutout_center": {
-        "ra_deg": 330.880615,
-        "dec_deg": -56.800176
+        "ra_deg": 331.083982,
+        "dec_deg": -56.796816
       },
       "fov_arcmin": 3.0,
       "displacement_arcsec": 94.104,
@@ -109,14 +112,15 @@
       "wavelength_um": 2.1,
       "mjd": 60825.0,
       "obs_date": "2025-05-30",
+      "year": 2025,
       "product_id": "SPHEREX_L2_ALLSKY_2025",
       "product_url": "https://irsa.ipac.caltech.edu/Missions/spherex.html",
       "pixel_scale_arcsec": 6.2,
       "units": "MJy/sr",
       "status": "loaded",
       "cutout_center": {
-        "ra_deg": 330.891487,
-        "dec_deg": -56.803985
+        "ra_deg": 331.094852,
+        "dec_deg": -56.800625
       },
       "fov_arcmin": 3.0,
       "displacement_arcsec": 119.544,
@@ -212,6 +216,22 @@
     "data_release": "DR1",
     "pipeline_version": "2.1.0"
   },
-  "ra": 331.04379,
-  "dec": -56.78272
+  "candidates": [
+    {
+      "id": "CAND-EPSINDI-1",
+      "name": "Epsilon Indi Ba,Bb",
+      "ra": 331.04379,
+      "dec": -56.78272,
+      "ra_center": 331.04379,
+      "dec_center": -56.78272,
+      "pm_arcsec_yr": 4.705,
+      "pm_ra_mas_yr": 3961.4,
+      "pm_dec_mas_yr": -2538.3,
+      "transient_type": "PROPER_MOTION_DIPOLE",
+      "label": "Epsilon Indi Ba,Bb (Binary Brown Dwarf)",
+      "spectral_type": "T1 + T6",
+      "snr": 87.6,
+      "confidence": "99.4%"
+    }
+  ]
 }

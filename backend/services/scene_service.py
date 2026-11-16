@@ -206,6 +206,7 @@ def get_target_scene(
             "wavelength_um": spec["wavelength_um"],
             "mjd": spec["mjd"],
             "obs_date": spec["obs_date"],
+            "year": int(spec["obs_date"].split("-")[0]),
             "product_id": spec["product_id"],
             "product_url": spec["product_url"],
             "pixel_scale_arcsec": spec["pixel_scale_arcsec"],

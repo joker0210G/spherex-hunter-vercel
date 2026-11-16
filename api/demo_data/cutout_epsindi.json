@@ -64,15 +64,15 @@
   },
   "motion_vector": {
     "epoch1_pos": {
-      "x": 358,
-      "y": 355
+      "x": 317,
+      "y": 125
     },
     "epoch2_pos": {
-      "x": 358,
-      "y": 355
+      "x": 83,
+      "y": 275
     },
     "shift_arcsec": 124.66,
-    "dist_px": 485.5,
+    "dist_px": 278.0,
     "is_variable": false,
     "transient_type": "PROPER_MOTION_DIPOLE",
     "peak_significance_sigma": 17.4,
