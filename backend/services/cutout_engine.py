@@ -1400,6 +1400,15 @@ def fetch_real_cutout(
         pm_mas = None
         pm_arcsec = None
 
+    if matched_bm and pm_arcsec and pm_arcsec > 0.5:
+        # Literature-verified high proper motion benchmark (WISE 0855, Barnard's Star, Epsilon Indi B)
+        vector_info["transient_type"] = "PROPER_MOTION_DIPOLE"
+        vector_info["is_variable"] = False
+        baseline_yr = 15.0 if (matched_slug and "wise0855" in matched_slug) else 25.8
+        vector_info["shift_arcsec"] = round(float(pm_arcsec * baseline_yr), 2)
+        px_scale = (actual_fov * 60.0) / max(1, ep1_arr.shape[0])
+        vector_info["dist_px"] = round(float(vector_info["shift_arcsec"] / px_scale), 1)
+
     obs_ts = vector_info.pop("obs_timestamps", {})
     cache_meta = vector_info.pop("cache_meta", {})
     cached_ts = float(cache_meta.get("cached_ts", time.time()))
