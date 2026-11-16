@@ -107,26 +107,47 @@ def _query_vizier_tsv(
 
 
 _CIRCUIT_STATE_PATH = os.path.join(os.path.dirname(__file__), "..", "cache", "circuit_state.json")
-_CIRCUIT_LOCK = threading.Lock()
+_CIRCUIT_LOCK = threading.RLock()
 _IRSA_PROBE_LOCK = threading.Lock()
 _ESA_PROBE_LOCK = threading.Lock()
 
+_CIRCUIT_MEM_CACHE: dict = {}
+_CIRCUIT_MEM_EXPIRY: float = 0.0
+CIRCUIT_CACHE_TTL: float = 5.0  # seconds in-memory TTL
+
 
 def _load_circuit_state() -> dict:
-    if os.path.exists(_CIRCUIT_STATE_PATH):
-        try:
-            with open(_CIRCUIT_STATE_PATH, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except Exception:
-            pass
-    return {"irsa_tap_cooldown": 0.0, "esa_gaia_cooldown": 0.0}
+    global _CIRCUIT_MEM_CACHE, _CIRCUIT_MEM_EXPIRY
+    now = time.time()
+    if now < _CIRCUIT_MEM_EXPIRY and _CIRCUIT_MEM_CACHE:
+        return _CIRCUIT_MEM_CACHE
+    with _CIRCUIT_LOCK:
+        if now < _CIRCUIT_MEM_EXPIRY and _CIRCUIT_MEM_CACHE:
+            return _CIRCUIT_MEM_CACHE
+        state = {"irsa_tap_cooldown": 0.0, "esa_gaia_cooldown": 0.0}
+        if os.path.exists(_CIRCUIT_STATE_PATH):
+            try:
+                with open(_CIRCUIT_STATE_PATH, "r", encoding="utf-8") as f:
+                    state = json.load(f)
+            except Exception:
+                pass
+        _CIRCUIT_MEM_CACHE = state
+        _CIRCUIT_MEM_EXPIRY = now + CIRCUIT_CACHE_TTL
+        return state
 
 
 def _save_circuit_state(state: dict):
+    global _CIRCUIT_MEM_CACHE, _CIRCUIT_MEM_EXPIRY, _IRSA_TAP_CIRCUIT_OPEN_UNTIL, _ESA_GAIA_CIRCUIT_OPEN_UNTIL
     try:
         os.makedirs(os.path.dirname(_CIRCUIT_STATE_PATH), exist_ok=True)
         with open(_CIRCUIT_STATE_PATH, "w", encoding="utf-8") as f:
             json.dump(state, f)
+        _CIRCUIT_MEM_CACHE = dict(state)
+        _CIRCUIT_MEM_EXPIRY = time.time() + CIRCUIT_CACHE_TTL
+        if "irsa_tap_cooldown" in state:
+            _IRSA_TAP_CIRCUIT_OPEN_UNTIL = float(state["irsa_tap_cooldown"])
+        if "esa_gaia_cooldown" in state:
+            _ESA_GAIA_CIRCUIT_OPEN_UNTIL = float(state["esa_gaia_cooldown"])
     except Exception:
         pass
 

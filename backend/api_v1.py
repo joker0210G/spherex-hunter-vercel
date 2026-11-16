@@ -79,14 +79,24 @@ MANIFEST_PATH = os.path.join(DEMO_CACHE_DIR, "manifest.json")
 DISCOVERIES_FILE = os.path.join(BASE_DIR, "07 - Team Memory & Sync", "candidate_discoveries.json")
 VALIDATION_DIR = os.path.join(BASE_DIR, "validation")
 
-# Git deployment hash, data release & pipeline version
-try:
-    GIT_HASH = subprocess.check_output(
-        ["git", "rev-parse", "HEAD"], cwd=BASE_DIR, stderr=subprocess.DEVNULL
-    ).decode().strip()
-except Exception:
-    GIT_HASH = "71a9daaaa9d8b27d415c2d79d1be389da460baff"
+# Git deployment hash, data release & pipeline version (lazy memoized evaluation)
+_CACHED_GIT_HASH: Optional[str] = None
 
+
+def get_git_hash() -> str:
+    global _CACHED_GIT_HASH
+    if _CACHED_GIT_HASH is not None:
+        return _CACHED_GIT_HASH
+    try:
+        _CACHED_GIT_HASH = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], cwd=BASE_DIR, stderr=subprocess.DEVNULL
+        ).decode().strip()
+    except Exception:
+        _CACHED_GIT_HASH = "71a9daaaa9d8b27d415c2d79d1be389da460baff"
+    return _CACHED_GIT_HASH
+
+
+GIT_HASH = "71a9daaaa9d8b27d415c2d79d1be389da460baff"
 DATA_RELEASE = "DR1"
 PIPELINE_VERSION = "2.1.0"
 
@@ -96,7 +106,7 @@ def make_provenance(base: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         "source": "SPHEREx Hunter Core Pipeline",
         "data_release": DATA_RELEASE,
         "pipeline_version": PIPELINE_VERSION,
-        "git_hash": GIT_HASH,
+        "git_hash": get_git_hash(),
     }
     if base:
         prov.update(base)
@@ -355,7 +365,7 @@ def get_capabilities(request: Request):
     response_data = CapabilitiesResponse(
         version="6.0.0",
         api_version="v1",
-        git_hash=GIT_HASH,
+        git_hash=get_git_hash(),
         environment="production",
         capabilities={
             "live_archive": FeatureCapability(
