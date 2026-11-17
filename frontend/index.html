@@ -3571,38 +3571,7 @@
 
     function syncTimelineEpochControls() {
       if (!window.scene || !Array.isArray(window.scene.epochs)) return;
-      const epochs = window.scene.epochs;
-      const activePair = window.scene.active_blink_pair || {};
-
-      epochs.forEach((ep, idx) => {
-        const colIdx = idx + 1;
-        const titleEl = document.getElementById(`timelineEpochTitle_${colIdx}`);
-        if (titleEl) {
-          const year = (ep.obs_date || '').split('-')[0] || '';
-          titleEl.textContent = ep.survey ? `${year} ${ep.survey}` : (year || `E${colIdx}`);
-          titleEl.title = `${ep.survey || 'Epoch'} ${ep.band || ''} · ${year || ep.obs_date} (MJD ${ep.mjd || ''}) · Δθ: ${ep.displacement_arcsec?.toFixed?.(1) ?? '0.0'}"`;
-        }
-
-        const col = document.querySelector(`[data-timeline-epoch="${colIdx}"]`);
-        if (col) {
-          const btnA = col.querySelector('.btn-timeline-set-a');
-          const btnB = col.querySelector('.btn-timeline-set-b');
-
-          const isFrameA = (activePair.frame_a_id === ep.id);
-          const isFrameB = (activePair.frame_b_id === ep.id);
-
-          if (btnA) {
-            btnA.className = isFrameA
-              ? 'btn-timeline-set-a px-1.5 py-0.2 rounded text-[8px] font-bold font-mono transition bg-blender-blue text-white ring-1 ring-white/60 shadow-sm'
-              : 'btn-timeline-set-a px-1.5 py-0.2 rounded text-[8px] font-bold font-mono transition bg-blender-800 text-gray-400 hover:text-white';
-          }
-          if (btnB) {
-            btnB.className = isFrameB
-              ? 'btn-timeline-set-b px-1.5 py-0.2 rounded text-[8px] font-bold font-mono transition bg-blender-orange text-white ring-1 ring-white/60 shadow-sm'
-              : 'btn-timeline-set-b px-1.5 py-0.2 rounded text-[8px] font-bold font-mono transition bg-blender-800 text-gray-400 hover:text-white';
-          }
-        }
-      });
+      updateCompareReadouts();
     }
 
     function openEpochsProvenanceModal() {
