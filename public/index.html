@@ -1759,10 +1759,10 @@
   <!-- ========================================================================= -->
   <!-- 3. BOTTOM OBSERVATORY DOCK (Compact & Viewport-Safe)                       -->
   <!-- ========================================================================= -->
-  <footer id="bottomDock" class="bg-space-900 border-t border-space-700 flex flex-col shrink-0 z-30 shadow-2xl transition-all duration-200 max-h-[120px] overflow-hidden">
+  <footer id="bottomDock" class="bg-space-900 border-t border-space-700 flex flex-col shrink-0 z-30 shadow-2xl transition-all duration-200 overflow-hidden">
 
     <!-- Bottom Dock Resize Splitter (Issue #16) -->
-    <div id="bottomDockSplitter" class="h-1.5 bg-space-800 hover:bg-cyan-500/60 active:bg-cyan-400 cursor-row-resize shrink-0 z-40 transition-colors" title="Drag to resize Bottom Dock (Double-click to reset)"></div>
+    <div id="bottomDockSplitter" class="relative h-1.5 bg-space-800 hover:bg-cyan-500/70 active:bg-cyan-400 cursor-row-resize shrink-0 z-40 transition-colors before:absolute before:-top-2 before:-bottom-2 before:left-0 before:right-0 before:content-['']" title="Drag with cursor to resize Bottom Dock (Double-click to reset to 80px)"></div>
 
     <!-- Dock Header & Tab Bar -->
     <div class="h-9 px-3 bg-space-850 border-b border-space-700 flex items-center justify-between text-xs shrink-0 select-none">
@@ -1804,7 +1804,7 @@
     </div>
 
     <!-- Dock Content Body (Strict 80px Compact Height for All Tabs - Viewport Safe) -->
-    <div id="dockContentBody" class="h-20 max-h-20 overflow-hidden transition-all duration-200 flex flex-col">
+    <div id="dockContentBody" class="overflow-hidden transition-all duration-200 flex flex-col" style="height: 80px;">
 
       <!-- PANEL 1: TIMELINE (Modern 2-Tier Astronomical Filmstrip & Scrubber) -->
       <div id="dockPanelTimeline" class="h-full px-3.5 py-1.5 flex flex-col justify-between select-none font-mono text-xs">
@@ -2028,7 +2028,7 @@
         </div>
 
         <!-- Tier 2: 102-Band Spectrophotometry Rainbow Filmstrip + Molecular Signatures Sidebar -->
-        <div class="h-10 max-h-10 w-full relative bg-space-950/60 rounded-lg border border-space-800/80 overflow-hidden shadow-inner flex items-stretch">
+        <div class="flex-1 min-h-[40px] w-full relative bg-space-950/60 rounded-lg border border-space-800/80 overflow-hidden shadow-inner flex items-stretch">
           <div class="flex-1 h-full min-w-0 relative" id="specChartContainer">
             <canvas id="spectrumChart" class="w-full h-full block"></canvas>
             <!-- Floating Rich Interactive Popup for 102-Band Spectrum Spots -->
@@ -2128,7 +2128,7 @@
         </div>
 
         <!-- Tier 2: Multi-Epoch Historical Photometric Sparkline (40px) + Inline Telemetry Badges -->
-        <div class="h-10 max-h-10 w-full flex items-center gap-2 min-h-0 relative">
+        <div class="flex-1 min-h-[40px] w-full flex items-center gap-2 relative">
           <!-- Canvas Container -->
           <div class="flex-1 h-full relative bg-space-950/40 rounded-lg border border-space-800/80 overflow-hidden" id="lightCurveChartContainer">
             <canvas id="lightCurveChart" class="w-full h-full block"></canvas>
@@ -9403,8 +9403,8 @@
     }
 
     function getTargetOpenDockHeight() {
-      // Invariant compact height (80px) across all bottom dock tabs: Timeline, Spectrum, and Light Curve!
-      return TIMELINE_COMPACT_HEIGHT;
+      // Preserve user-adjusted dock height (or default 80px), safely clamped
+      return Math.max(60, Math.min(500, savedDockBodyHeight || TIMELINE_COMPACT_HEIGHT));
     }
 
     function switchDockTab(activeBtn, activePanel) {
@@ -9496,10 +9496,12 @@
         sidebarEl.style.width = `${clampedSide}px`;
       }
 
-      // Viewport Protection: Sanitize stored bottom dock height to prevent legacy blown-out viewports
+      // Viewport Protection: Restore stored bottom dock height with safe clamping
       const storedDockH = parseInt(localStorage.getItem('spherex_bottom_dock_height') || '', 10);
-      if (!Number.isNaN(storedDockH) && storedDockH > 80) {
-        localStorage.setItem('spherex_bottom_dock_height', '80');
+      if (!Number.isNaN(storedDockH) && storedDockH >= 60 && storedDockH <= 500) {
+        savedDockBodyHeight = storedDockH;
+      } else {
+        savedDockBodyHeight = 80;
       }
 
       if (dockContentBody && !isDockCollapsed) {
@@ -9556,8 +9558,9 @@
 
         window.addEventListener('mousemove', (e) => {
           if (!draggingBottom) return;
-          // Viewport protection: strictly clamp between 56px and 140px so bottom dock never eats the sky
-          const newHeight = Math.max(56, Math.min(140, window.innerHeight - e.clientY - 36));
+          // Smooth cursor dragging: allow user to adjust between 60px and 60% of window height (max 500px)
+          const maxAllowed = Math.min(Math.floor(window.innerHeight * 0.60), 500);
+          const newHeight = Math.max(60, Math.min(maxAllowed, window.innerHeight - e.clientY - 42));
           if (isDockCollapsed) {
             isDockCollapsed = false;
             if (dockCollapseIcon) {
