@@ -1156,3 +1156,51 @@ def test_viewport_draw_frame_canvas_transform_hygiene_and_cosdec_contract():
 
 
 
+
+
+def test_cosmic_time_scrubber_plan_v2_contract():
+    """Validates Plan v2 Cosmic Time Scrubber:
+    1. TELESCOPES configuration in JavaScript
+    2. Viewport Telescope HUD Watermark
+    3. 4 Connected Capsules with distinct colors and baseline labels
+    4. Minimalist Filter Menu Select
+    5. Continuous Scrub Bar & Aligned Tick Nodes
+    """
+    html, soup = _get_html_and_soup()
+
+    # 1. TELESCOPES single source of truth in script
+    assert "TELESCOPES" in html, "Missing TELESCOPES config in script"
+    assert "#4DA3FF" in html, "Missing 2MASS accent #4DA3FF"
+    assert "#2DD4BF" in html, "Missing WISE accent #2DD4BF"
+    assert "#A78BFA" in html, "Missing unWISE accent #A78BFA"
+    assert "#FFB020" in html, "Missing SPHEREx accent #FFB020"
+
+    # 2. Viewport Telescope HUD Watermark Badge
+    vp_hud = soup.find(id="viewportTelescopeHUD")
+    assert vp_hud is not None, "Missing #viewportTelescopeHUD watermark"
+    assert soup.find(id="vpHudTelescope") is not None, "Missing #vpHudTelescope"
+    assert soup.find(id="vpHudBand") is not None, "Missing #vpHudBand"
+    assert soup.find(id="vpHudEpoch") is not None, "Missing #vpHudEpoch"
+
+    # 3. 4 Connected Capsules in Timeline Panel
+    capsules = soup.find_all(attrs={"data-timeline-epoch": True})
+    assert len(capsules) == 4, f"Expected 4 telescope capsules, found {len(capsules)}"
+    assert soup.find(id="timelineEpochTitle_1") is not None, "Missing #timelineEpochTitle_1"
+    assert soup.find(id="timelineEpochTitle_2") is not None, "Missing #timelineEpochTitle_2"
+    assert soup.find(id="timelineEpochTitle_3") is not None, "Missing #timelineEpochTitle_3"
+    assert soup.find(id="timelineEpochTitle_4") is not None, "Missing #timelineEpochTitle_4"
+
+    # 4. Minimalist Filter Menu Select
+    filter_menu = soup.find(id="timelineFilterMenuSelect")
+    assert filter_menu is not None, "Missing #timelineFilterMenuSelect"
+    options = [opt.get("value") for opt in filter_menu.find_all("option")]
+    assert "all" in options
+    assert "thermal" in options
+    assert "optical_ir" in options
+    assert "jump_26yr" in options
+
+    # 5. Continuous Scrub Bar with 4 Ticks and Blend Slider
+    slider = soup.find(id="epochBlendSlider")
+    assert slider is not None, "Missing #epochBlendSlider input"
+    assert soup.find(attrs={"data-frame-tick": "1"}) is not None
+    assert soup.find(attrs={"data-frame-tick": "4"}) is not None
