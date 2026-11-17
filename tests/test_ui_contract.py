@@ -542,41 +542,29 @@ def test_merged_102_band_information_bar_in_spectrum_panel_toolbar():
 
 
 def test_snapblink_25_percent_increment_and_blend_timeline_alignment_contract():
-    """Validates that snapblink blend rate increments by exactly 25% each frame and timeline aligns with blend toolbar."""
+    """Validates Plan v4: Dynamic manifest linear scale and continuous single playhead scrubber."""
     html, soup = _get_html_and_soup()
 
-    # 1. Timeline tick dots exist and are positioned at 25%, 50%, 75%, 100%
+    # 1. Timeline Panel and Continuous Scrub Track exist
     timeline_panel = soup.find(id="dockPanelTimeline")
     assert timeline_panel is not None, "Missing #dockPanelTimeline in bottom dock"
 
-    tick1 = timeline_panel.find(attrs={"data-frame-tick": "1"})
-    tick2 = timeline_panel.find(attrs={"data-frame-tick": "2"})
-    tick3 = timeline_panel.find(attrs={"data-frame-tick": "3"})
-    tick4 = timeline_panel.find(attrs={"data-frame-tick": "4"})
-    assert tick1 is not None and tick2 is not None and tick3 is not None and tick4 is not None, "All 4 tick dots must exist"
+    scrub_track = timeline_panel.find(id="timelineScrubTrack")
+    assert scrub_track is not None, "Missing #timelineScrubTrack"
 
-    # Ticks align to 25%, 50%, 75%, 100%
-    assert "25%" in (tick1.get("style", "") + " " + " ".join(tick1.get("class", []))), "Tick 1 must align at 25%"
-    assert "50%" in (tick2.get("style", "") + " " + " ".join(tick2.get("class", []))), "Tick 2 must align at 50%"
-    assert "75%" in (tick3.get("style", "") + " " + " ".join(tick3.get("class", []))), "Tick 3 must align at 75%"
-    assert "100%" in (tick4.get("style", "") + " " + " ".join(tick4.get("class", []))), "Tick 4 must align at 100%"
-
-    # 2. Timeline progress bar exists and initializes to 25% for Frame 1
+    # 2. Single Playhead Node and Progress Bar
     prog = timeline_panel.find(id="timelineProgress")
+    playhead = timeline_panel.find(id="timelinePlayheadNode")
     assert prog is not None, "Missing #timelineProgress"
-    assert "25%" in prog.get("style", ""), "#timelineProgress must initialize to width 25%"
+    assert playhead is not None, "Missing #timelinePlayheadNode single playhead"
 
-    # 3. Blend toolbar controls exist with 25% initial value
+    # 3. Slider input exists for scrubbing
     blend_slider = timeline_panel.find(id="epochBlendSlider")
-    blend_label = timeline_panel.find(id="epochBlendLabel")
     assert blend_slider is not None, "Missing #epochBlendSlider"
-    assert blend_label is not None, "Missing #epochBlendLabel"
-    assert blend_slider.get("value") == "25", "#epochBlendSlider must initialize to 25"
-    assert "25%" in blend_label.get_text(), "#epochBlendLabel must initialize to 25%"
 
-    # 4. JavaScript increments epochBlend by exact 25% increments
-    assert "currentFrame * 0.25" in html, "setFlipbookFrame must increment epochBlend by exact 25% increments"
-    assert "epochBlend / 0.25" in html, "Slider and loop mapping must use 25% increments"
+    # 4. Dynamic Manifest & Linear Time Scale
+    assert "EPOCH_MANIFEST" in html, "Missing EPOCH_MANIFEST in script"
+    assert "renderTimelineLandmarks" in html, "Missing renderTimelineLandmarks in script"
 
 
 def test_spectrum_102_horizontal_sideways_zoom_contract():
@@ -646,30 +634,40 @@ def test_ice_jump_chips_positioned_below_molecular_signatures():
 
 
 def test_observation_epochs_option_2_streamlining_contract():
-    """Validates Option 2 streamlining: A/B pair toggles on timeline bar, provenance modal, and streamlined sidebar."""
+    """Validates Plan v4: Dedicated Compare Pair module with Slot ① & ②, band selects, and provenance modal."""
     html, soup = _get_html_and_soup()
 
-    # 1. Timeline Track Pair Controls (A / B buttons)
+    # 1. Timeline Panel exists
     timeline_panel = soup.find(id="dockPanelTimeline")
     assert timeline_panel is not None, "Missing #dockPanelTimeline in bottom dock"
 
-    timeline_epoch_cols = timeline_panel.find(id="timelineEpochCols")
-    assert timeline_epoch_cols is not None, "Missing #timelineEpochCols in timeline panel"
+    # 2. Dedicated Compare Pair Module
+    compare_module = timeline_panel.find(id="comparePairModule")
+    assert compare_module is not None, "Missing #comparePairModule in timeline dock"
 
-    cols = timeline_epoch_cols.find_all(attrs={"data-timeline-epoch": True})
-    assert len(cols) == 4, f"Expected 4 timeline epoch columns, found {len(cols)}"
+    slot_a = timeline_panel.find(id="compareSlotA")
+    slot_b = timeline_panel.find(id="compareSlotB")
+    assert slot_a is not None, "Missing #compareSlotA (Slot ①)"
+    assert slot_b is not None, "Missing #compareSlotB (Slot ②)"
 
-    btns_a = timeline_epoch_cols.find_all(class_=lambda c: c and "btn-timeline-set-a" in c)
-    btns_b = timeline_epoch_cols.find_all(class_=lambda c: c and "btn-timeline-set-b" in c)
-    assert len(btns_a) == 4, f"Expected 4 Frame A buttons on timeline, found {len(btns_a)}"
-    assert len(btns_b) == 4, f"Expected 4 Frame B buttons on timeline, found {len(btns_b)}"
+    band_a = timeline_panel.find(id="compareBandSelectA")
+    band_b = timeline_panel.find(id="compareBandSelectB")
+    assert band_a is not None, "Missing #compareBandSelectA dropdown on Slot ①"
+    assert band_b is not None, "Missing #compareBandSelectB dropdown on Slot ②"
 
-    # 2. Provenance Modal Trigger Button on Timeline Dock
+    btn_blink = timeline_panel.find(id="btnBlinkPair")
+    assert btn_blink is not None, "Missing #btnBlinkPair button"
+    assert "toggleBlinkPair" in btn_blink.get("onclick", ""), "#btnBlinkPair must trigger toggleBlinkPair()"
+
+    tag_baseline = timeline_panel.find(id="compareBaselineTag")
+    assert tag_baseline is not None, "Missing #compareBaselineTag discovery readout"
+
+    # 3. Provenance Modal Trigger Button on Timeline Dock
     btn_prov = timeline_panel.find(id="btnOpenEpochProvenance")
     assert btn_prov is not None, "Missing #btnOpenEpochProvenance on timeline dock"
     assert "openEpochsProvenanceModal" in btn_prov.get("onclick", ""), "#btnOpenEpochProvenance must trigger openEpochsProvenanceModal()"
 
-    # 3. NASA Observation Epochs Provenance Modal
+    # 4. NASA Observation Epochs Provenance Modal
     modal = soup.find(id="epochProvenanceModal")
     assert modal is not None, "Missing #epochProvenanceModal"
     assert modal.find(id="btnCloseEpochProvenanceModal") is not None, "Missing #btnCloseEpochProvenanceModal"
@@ -1159,17 +1157,18 @@ def test_viewport_draw_frame_canvas_transform_hygiene_and_cosdec_contract():
 
 
 def test_cosmic_time_scrubber_plan_v2_contract():
-    """Validates Plan v2 Cosmic Time Scrubber:
+    """Validates Plan v4 Cosmic Flipbook + Dedicated Compare Pair:
     1. TELESCOPES configuration in JavaScript
     2. Viewport Telescope HUD Watermark
-    3. 4 Connected Capsules with distinct colors and baseline labels
+    3. Dedicated Compare Pair with Slot ① and Slot ②
     4. Minimalist Filter Menu Select
-    5. Continuous Scrub Bar & Aligned Tick Nodes
+    5. Continuous Scrub Bar with Single Playhead & Proportional Landmarks
     """
     html, soup = _get_html_and_soup()
 
-    # 1. TELESCOPES single source of truth in script
+    # 1. TELESCOPES & EPOCH_MANIFEST in script
     assert "TELESCOPES" in html, "Missing TELESCOPES config in script"
+    assert "EPOCH_MANIFEST" in html, "Missing EPOCH_MANIFEST in script"
     assert "#4DA3FF" in html, "Missing 2MASS accent #4DA3FF"
     assert "#2DD4BF" in html, "Missing WISE accent #2DD4BF"
     assert "#A78BFA" in html, "Missing unWISE accent #A78BFA"
@@ -1182,13 +1181,14 @@ def test_cosmic_time_scrubber_plan_v2_contract():
     assert soup.find(id="vpHudBand") is not None, "Missing #vpHudBand"
     assert soup.find(id="vpHudEpoch") is not None, "Missing #vpHudEpoch"
 
-    # 3. 4 Connected Capsules in Timeline Panel
-    capsules = soup.find_all(attrs={"data-timeline-epoch": True})
-    assert len(capsules) == 4, f"Expected 4 telescope capsules, found {len(capsules)}"
-    assert soup.find(id="timelineEpochTitle_1") is not None, "Missing #timelineEpochTitle_1"
-    assert soup.find(id="timelineEpochTitle_2") is not None, "Missing #timelineEpochTitle_2"
-    assert soup.find(id="timelineEpochTitle_3") is not None, "Missing #timelineEpochTitle_3"
-    assert soup.find(id="timelineEpochTitle_4") is not None, "Missing #timelineEpochTitle_4"
+    # 3. Dedicated Compare Pair Module
+    assert soup.find(id="comparePairModule") is not None
+    assert soup.find(id="compareSlotA") is not None
+    assert soup.find(id="compareSlotB") is not None
+    assert soup.find(id="compareBandSelectA") is not None
+    assert soup.find(id="compareBandSelectB") is not None
+    assert soup.find(id="btnBlinkPair") is not None
+    assert soup.find(id="compareBaselineTag") is not None
 
     # 4. Minimalist Filter Menu Select
     filter_menu = soup.find(id="timelineFilterMenuSelect")
@@ -1199,8 +1199,8 @@ def test_cosmic_time_scrubber_plan_v2_contract():
     assert "optical_ir" in options
     assert "jump_26yr" in options
 
-    # 5. Continuous Scrub Bar with 4 Ticks and Blend Slider
+    # 5. Continuous Scrub Bar with Single Playhead
     slider = soup.find(id="epochBlendSlider")
     assert slider is not None, "Missing #epochBlendSlider input"
-    assert soup.find(attrs={"data-frame-tick": "1"}) is not None
-    assert soup.find(attrs={"data-frame-tick": "4"}) is not None
+    assert soup.find(id="timelineProgress") is not None
+    assert soup.find(id="timelinePlayheadNode") is not None

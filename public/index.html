@@ -1851,21 +1851,19 @@
 
       <!-- PANEL 1: TIMELINE (Modern 2-Tier Astronomical Filmstrip & Scrubber) -->
             <!-- PANEL 1: TIMELINE (Cosmic Time Scrubber - Plan v2 Award-Winning Minimalist UX) -->
+            <!-- PANEL 1: TIMELINE (Flipbook Timeline + Dedicated Compare Pair - Production Architecture v4) -->
       <div id="dockPanelTimeline" class="h-full px-3 py-1 flex flex-col justify-between select-none font-mono text-xs">
         
-        <!-- ROW 1: Hero Media Transport, Connected Telescope Capsules & Clean Utility Menu -->
+        <!-- ROW 1: Media Transport, Dedicated Compare Pair & Utility Menu -->
         <div class="flex items-center justify-between gap-2 text-xs shrink-0 h-10 min-w-0 w-full">
           
-          <!-- LEFT: Hero Media Transport -->
+          <!-- LEFT: Movie Transport -->
           <div class="flex items-center gap-1 shrink-0">
-            <!-- Hidden DOM anchors for keyboard shortcuts & test suite -->
-            <button id="btnJumpStart" class="hidden" title="Jump to First Frame (Home)"></button>
-            
             <button id="btnStepBack" class="blender-btn w-7 h-7 rounded-lg flex items-center justify-center text-gray-400 hover:text-white transition border border-space-800 hover:border-space-700 bg-space-950/70" title="Step Back 1 Epoch (Left Arrow ←)">
               <i data-lucide="chevron-left" class="w-4 h-4"></i>
             </button>
             
-            <button id="btnPlayPause" class="blender-btn px-3 h-7 rounded-lg flex items-center gap-1.5 bg-blender-orange hover:bg-orange-500 text-white font-bold text-xs shadow-md transition group border border-orange-400/40" title="Play / Pause Cosmic Movie (Spacebar)">
+            <button id="btnPlayPause" class="blender-btn px-3 h-7 rounded-lg flex items-center gap-1.5 bg-blender-orange hover:bg-orange-500 text-white font-bold text-xs shadow-md transition group border border-orange-400/40" title="Play Movie: Steps sequentially across all epochs (Spacebar)">
               <i id="playPauseIcon" data-lucide="play" class="w-3.5 h-3.5 fill-current"></i>
               <span id="playPauseBtnText" class="tracking-wide">Play Movie</span>
             </button>
@@ -1873,192 +1871,117 @@
             <button id="btnStepFwd" class="blender-btn w-7 h-7 rounded-lg flex items-center justify-center text-gray-400 hover:text-white transition border border-space-800 hover:border-space-700 bg-space-950/70" title="Step Forward 1 Epoch (Right Arrow →)">
               <i data-lucide="chevron-right" class="w-4 h-4"></i>
             </button>
-            
+
+            <!-- Hidden DOM anchors for keyboard shortcuts & test backward compatibility -->
+            <button id="btnJumpStart" class="hidden" title="Jump to First Frame (Home)"></button>
             <button id="btnJumpEnd" class="hidden" title="Jump to Latest Frame (End)"></button>
-            
-            <!-- Hidden Frame Counter (asserted in contracts) -->
             <span class="hidden">Frame: <span id="frameBadge">1</span> / 4</span>
           </div>
 
-          <!-- CENTER: 4 Connected Glassmorphic Telescope Capsules (Single Source of Truth) -->
-          <div id="timelineEpochCols" class="flex-1 max-w-2xl mx-1 grid grid-cols-4 gap-1.5 min-w-0" role="group" aria-label="Observation Epochs">
+          <!-- CENTER: Dedicated Compare Pair Module (Decoupled from Filmstrip) -->
+          <div id="comparePairModule" class="flex-1 max-w-2xl mx-1 flex items-center justify-between gap-1.5 px-2 py-0.5 rounded-xl bg-space-950/85 border border-cyan-500/30 shadow-inner min-w-0">
             
-            <!-- Capsule 1: 1999 2MASS (Ground) -->
-            <div data-timeline-epoch="1" onclick="setFlipbookFrame(1)" 
-                 class="tel-capsule active-epoch-1 relative px-2 py-1 rounded-lg bg-space-950/80 border border-[#4DA3FF]/40 hover:border-[#4DA3FF] transition-all cursor-pointer flex items-center justify-between shadow-sm group min-w-0" 
-                 role="button" tabindex="0" aria-current="step"
-                 title="🔭 2MASS: Ground-based near-infrared survey from 1999. Cold brown dwarfs appear faint here (26-year historical baseline).">
-              <div class="flex items-center gap-1 min-w-0 overflow-hidden">
-                <span class="text-sm shrink-0">🔭</span>
-                <div class="flex flex-col min-w-0 leading-tight">
-                  <div class="flex items-center gap-1 truncate">
-                    <span class="font-bold text-[#4DA3FF] text-[11px]" id="timelineEpochTitle_1">1999 2MASS</span>
-                    <span class="text-[9px] text-gray-400 font-sans hidden xl:inline" id="timelineEpochDelta_1">(Ref)</span>
-                  </div>
-                  <span class="text-[9px] text-gray-400 truncate hidden sm:inline" id="timelineEpochSub_1">Near-IR Ks (2.16µm)</span>
+            <!-- Slot ① Chip (Baseline) -->
+            <div id="compareSlotA" onclick="selectCompareSlot('A')" class="flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-space-900/90 border border-blue-500/60 min-w-0 transition cursor-pointer hover:border-blue-400" title="Compare Slot ① (Baseline Epoch)">
+              <span class="w-4 h-4 rounded-full bg-blue-500/30 text-[#4DA3FF] flex items-center justify-center text-[10px] font-bold shrink-0">①</span>
+              <div class="flex flex-col min-w-0 leading-tight">
+                <div class="flex items-center gap-1">
+                  <span id="compareSlotLabelA" class="font-bold text-[#4DA3FF] text-[11px] truncate">1999 2MASS</span>
                 </div>
-              </div>
-              <div class="flex items-center gap-1 shrink-0 ml-0.5">
-                <select onclick="event.stopPropagation()" onchange="assignCustomImagesetToSlot(0, this.value)" class="bg-space-900 text-gray-300 hover:text-white border border-space-700 rounded px-1 py-0.2 text-[9px] font-mono cursor-pointer" title="Select filter for Frame 1">
-                  <option value="2MASS_KS" selected>Ks (2.16µm)</option>
-                  <option value="2MASS_J">J (1.25µm)</option>
-                  <option value="DSS2_RED">DSS2 Optical</option>
-                  <option value="ALLWISE_W1">WISE W1</option>
-                  <option value="ALLWISE_W2">WISE W2</option>
-                </select>
-                <!-- A/B Comparison Buttons (Visible on active frame for difference imaging) -->
-                <button type="button" onclick="event.stopPropagation(); setBlinkFrameFromTimeline('A', 0)" class="btn-timeline-set-a px-1 py-0.2 rounded text-[8px] font-bold font-mono transition bg-blue-600 text-white ring-1 ring-white/60 shadow-sm" title="Set as Baseline (A)">A</button>
-                <button type="button" onclick="event.stopPropagation(); setBlinkFrameFromTimeline('B', 0)" class="btn-timeline-set-b px-1 py-0.2 rounded text-[8px] font-bold font-mono transition bg-space-850 text-gray-400 hover:text-white opacity-40 hover:opacity-100" title="Set as Comparison (B)">B</button>
+                <div class="flex items-center gap-0.5 text-[9px] text-gray-300">
+                  <select id="compareBandSelectA" onchange="onCompareSlotBandChange('A', this.value)" onclick="event.stopPropagation()" class="bg-space-950 text-gray-200 border border-space-700 rounded px-1 py-0.2 text-[9px] font-mono cursor-pointer outline-none">
+                    <option value="2MASS_KS" selected>Ks (2.16µm)</option>
+                    <option value="2MASS_J">J (1.25µm)</option>
+                    <option value="DSS2_RED">DSS2 Optical</option>
+                    <option value="ALLWISE_W1">WISE W1</option>
+                    <option value="ALLWISE_W2">WISE W2</option>
+                  </select>
+                </div>
               </div>
             </div>
 
-            <!-- Capsule 2: 2010 WISE (Space) -->
-            <div data-timeline-epoch="2" onclick="setFlipbookFrame(2)" 
-                 class="tel-capsule relative px-2 py-1 rounded-lg bg-space-950/80 border border-space-800 hover:border-[#2DD4BF] transition-all cursor-pointer flex items-center justify-between shadow-sm group min-w-0" 
-                 role="button" tabindex="0"
-                 title="🛰️ AllWISE: NASA cryo space telescope from 2010. Space-based mid-IR detects thermal glow of cool substellar targets.">
-              <div class="flex items-center gap-1 min-w-0 overflow-hidden">
-                <span class="text-sm shrink-0">🛰️</span>
-                <div class="flex flex-col min-w-0 leading-tight">
-                  <div class="flex items-center gap-1 truncate">
-                    <span class="font-bold text-[#2DD4BF] text-[11px]" id="timelineEpochTitle_2">2010 WISE</span>
-                    <span class="text-[9px] text-gray-400 font-sans hidden xl:inline" id="timelineEpochDelta_2">(+11 yr)</span>
-                  </div>
-                  <span class="text-[9px] text-gray-400 truncate hidden sm:inline" id="timelineEpochSub_2">Mid-IR W1 (3.4µm)</span>
+            <!-- Central Blink Toggle Button -->
+            <button id="btnBlinkPair" type="button" onclick="toggleBlinkPair()" class="px-2.5 py-1 rounded-lg blender-btn bg-amber-950/80 hover:bg-amber-900 border border-amber-500/80 text-amber-300 font-bold text-xs flex items-center gap-1 shadow-md transition shrink-0 group" title="Blink: Rapidly toggle between Slot ① and Slot ② (Shortcut: B)">
+              <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400 group-hover:scale-110 transition-transform"></i>
+              <span id="blinkPairBtnText">Blink ① ↔ ②</span>
+            </button>
+
+            <!-- Slot ② Chip (Comparison) -->
+            <div id="compareSlotB" onclick="selectCompareSlot('B')" class="flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-space-900/90 border border-orange-500/60 min-w-0 transition cursor-pointer hover:border-orange-400" title="Compare Slot ② (Comparison Epoch)">
+              <span class="w-4 h-4 rounded-full bg-orange-500/30 text-[#FFB020] flex items-center justify-center text-[10px] font-bold shrink-0">②</span>
+              <div class="flex flex-col min-w-0 leading-tight">
+                <div class="flex items-center gap-1">
+                  <span id="compareSlotLabelB" class="font-bold text-[#FFB020] text-[11px] truncate">2025 SPHEREx</span>
                 </div>
-              </div>
-              <div class="flex items-center gap-1 shrink-0 ml-0.5">
-                <select onclick="event.stopPropagation()" onchange="assignCustomImagesetToSlot(1, this.value)" class="bg-space-900 text-gray-300 hover:text-white border border-space-700 rounded px-1 py-0.2 text-[9px] font-mono cursor-pointer" title="Select filter for Frame 2">
-                  <option value="ALLWISE_W1" selected>W1 (3.4µm)</option>
-                  <option value="ALLWISE_W2">W2 (4.6µm)</option>
-                  <option value="2MASS_KS">2MASS Ks</option>
-                  <option value="DSS2_RED">DSS2 Optical</option>
-                </select>
-                <button type="button" onclick="event.stopPropagation(); setBlinkFrameFromTimeline('A', 1)" class="btn-timeline-set-a px-1 py-0.2 rounded text-[8px] font-bold font-mono transition bg-space-850 text-gray-400 hover:text-white opacity-40 hover:opacity-100" title="Set as Baseline (A)">A</button>
-                <button type="button" onclick="event.stopPropagation(); setBlinkFrameFromTimeline('B', 1)" class="btn-timeline-set-b px-1 py-0.2 rounded text-[8px] font-bold font-mono transition bg-space-850 text-gray-400 hover:text-white opacity-40 hover:opacity-100" title="Set as Comparison (B)">B</button>
+                <div class="flex items-center gap-0.5 text-[9px] text-gray-300">
+                  <select id="compareBandSelectB" onchange="onCompareSlotBandChange('B', this.value)" onclick="event.stopPropagation()" class="bg-space-950 text-gray-200 border border-space-700 rounded px-1 py-0.2 text-[9px] font-mono cursor-pointer outline-none">
+                    <option value="SPHEREX_PASS1" selected>Pass 1 Stack (4.6µm)</option>
+                    <option value="SPHEREX_PASS2">Pass 2 Stack</option>
+                    <option value="ALLWISE_W2">WISE W2</option>
+                    <option value="2MASS_KS">2MASS Ks</option>
+                  </select>
+                </div>
               </div>
             </div>
 
-            <!-- Capsule 3: 2014 unWISE (Deep Coadd) -->
-            <div data-timeline-epoch="3" onclick="setFlipbookFrame(3)" 
-                 class="tel-capsule relative px-2 py-1 rounded-lg bg-space-950/80 border border-space-800 hover:border-[#A78BFA] transition-all cursor-pointer flex items-center justify-between shadow-sm group min-w-0" 
-                 role="button" tabindex="0"
-                 title="🛰️ unWISE: Coadded multi-year deep survey. Deep integration exposes displacement and proper motion drift.">
-              <div class="flex items-center gap-1 min-w-0 overflow-hidden">
-                <span class="text-sm shrink-0">🛰️</span>
-                <div class="flex flex-col min-w-0 leading-tight">
-                  <div class="flex items-center gap-1 truncate">
-                    <span class="font-bold text-[#A78BFA] text-[11px]" id="timelineEpochTitle_3">2014 unWISE</span>
-                    <span class="text-[9px] text-gray-400 font-sans hidden xl:inline" id="timelineEpochDelta_3">(+15 yr)</span>
-                  </div>
-                  <span class="text-[9px] text-gray-400 truncate hidden sm:inline" id="timelineEpochSub_3">Thermal W2 (4.6µm)</span>
-                </div>
-              </div>
-              <div class="flex items-center gap-1 shrink-0 ml-0.5">
-                <select onclick="event.stopPropagation()" onchange="assignCustomImagesetToSlot(2, this.value)" class="bg-space-900 text-gray-300 hover:text-white border border-space-700 rounded px-1 py-0.2 text-[9px] font-mono cursor-pointer" title="Select filter for Frame 3">
-                  <option value="UNWISE_W2" selected>unWISE W2</option>
-                  <option value="UNWISE_2020">unWISE 2020</option>
-                  <option value="ALLWISE_W2">AllWISE W2</option>
-                  <option value="DSS2_RED">DSS2 Optical</option>
-                </select>
-                <button type="button" onclick="event.stopPropagation(); setBlinkFrameFromTimeline('A', 2)" class="btn-timeline-set-a px-1 py-0.2 rounded text-[8px] font-bold font-mono transition bg-space-850 text-gray-400 hover:text-white opacity-40 hover:opacity-100" title="Set as Baseline (A)">A</button>
-                <button type="button" onclick="event.stopPropagation(); setBlinkFrameFromTimeline('B', 2)" class="btn-timeline-set-b px-1 py-0.2 rounded text-[8px] font-bold font-mono transition bg-space-850 text-gray-400 hover:text-white opacity-40 hover:opacity-100" title="Set as Comparison (B)">B</button>
-              </div>
-            </div>
-
-            <!-- Capsule 4: 2025 SPHEREx (NASA Flagship) -->
-            <div data-timeline-epoch="4" onclick="setFlipbookFrame(4)" 
-                 class="tel-capsule relative px-2 py-1 rounded-lg bg-space-950/80 border border-space-800 hover:border-[#FFB020] transition-all cursor-pointer flex items-center justify-between shadow-sm group min-w-0" 
-                 role="button" tabindex="0"
-                 title="🪐 SPHEREx: NASA's 2025 all-sky spectroscopic observatory (0.75-5.0 µm across 102 bands). Pinpoints current astrometric position.">
-              <div class="flex items-center gap-1 min-w-0 overflow-hidden">
-                <span class="text-sm shrink-0">🪐</span>
-                <div class="flex flex-col min-w-0 leading-tight">
-                  <div class="flex items-center gap-1 truncate">
-                    <span class="font-bold text-[#FFB020] text-[11px]" id="timelineEpochTitle_4">2025 SPHEREx</span>
-                    <span class="text-[9px] text-gray-400 font-sans hidden xl:inline" id="timelineEpochDelta_4">(+26 yr)</span>
-                  </div>
-                  <span class="text-[9px] text-gray-400 truncate hidden sm:inline" id="timelineEpochSub_4">Pass 1 Stack (4.6µm)</span>
-                </div>
-              </div>
-              <div class="flex items-center gap-1 shrink-0 ml-0.5">
-                <select onclick="event.stopPropagation()" onchange="assignCustomImagesetToSlot(3, this.value)" class="bg-space-900 text-gray-300 hover:text-white border border-space-700 rounded px-1 py-0.2 text-[9px] font-mono cursor-pointer" title="Select filter for Frame 4">
-                  <option value="SPHEREX_PASS1" selected>Pass 1 Stack</option>
-                  <option value="SPHEREX_PASS2">Pass 2 Stack</option>
-                  <option value="ALLWISE_W2">WISE W2</option>
-                  <option value="2MASS_KS">2MASS Ks</option>
-                </select>
-                <button type="button" onclick="event.stopPropagation(); setBlinkFrameFromTimeline('A', 3)" class="btn-timeline-set-a px-1 py-0.2 rounded text-[8px] font-bold font-mono transition bg-space-850 text-gray-400 hover:text-white opacity-40 hover:opacity-100" title="Set as Baseline (A)">A</button>
-                <button type="button" onclick="event.stopPropagation(); setBlinkFrameFromTimeline('B', 3)" class="btn-timeline-set-b px-1 py-0.2 rounded text-[8px] font-bold font-mono transition bg-orange-600 text-white ring-1 ring-white/60 shadow-sm" title="Set as Comparison (B)">B</button>
-              </div>
+            <!-- Discovery Baseline Readout -->
+            <div class="flex flex-col items-end shrink-0 pl-1 border-l border-space-800 text-right leading-tight">
+              <span class="text-[9px] text-gray-400 font-sans uppercase">Baseline</span>
+              <span id="compareBaselineTag" class="text-amber-300 font-bold text-[11px]" title="Temporal baseline between Slot ① and Slot ②">Δt = 26.2 yr</span>
             </div>
           </div>
 
-          <!-- RIGHT: Streamlined Filter Pill Menu, Speed & Provenance -->
+          <!-- RIGHT: Streamlined Filter, Speed & Provenance -->
           <div class="flex items-center gap-1.5 shrink-0">
-            <!-- Sleek Filter Dropdown Menu (Plan v2 Proxy) -->
-            <div class="relative inline-flex items-center">
-              <select id="timelineFilterMenuSelect" onchange="setImagesetFilterMode(this.value)" class="bg-space-950 text-cyan-300 hover:text-white border border-space-700 hover:border-cyan-500/60 rounded-lg px-2 py-1 text-xs font-medium cursor-pointer shadow-sm transition outline-none">
-                <option value="all" selected>🌐 Full Movie</option>
-                <option value="thermal">🔥 Thermal IR (4.6µm)</option>
-                <option value="optical_ir">👁️ Optical vs IR</option>
-                <option value="spherex">🛰️ SPHEREx Only</option>
-                <option value="2mass">🔵 2MASS Only</option>
-                <option value="jump_26yr">🕰️ 26-Yr Jump</option>
-              </select>
-            </div>
+            <select id="timelineFilterMenuSelect" onchange="setImagesetFilterMode(this.value)" class="bg-space-950 text-cyan-300 hover:text-white border border-space-700 hover:border-cyan-500/60 rounded-lg px-2 py-1 text-xs font-medium cursor-pointer shadow-sm transition outline-none">
+              <option value="all" selected>🌐 All Epochs</option>
+              <option value="thermal">🔥 Thermal IR (4.6µm)</option>
+              <option value="optical_ir">👁️ Optical vs IR</option>
+              <option value="spherex">🛰️ SPHEREx Only</option>
+              <option value="2mass">🔵 2MASS Only</option>
+              <option value="jump_26yr">🕰️ 26-Yr Jump</option>
+            </select>
 
-            <!-- Speed Pill / Input -->
             <div class="flex items-center gap-1 bg-space-950 px-2 py-1 rounded-lg border border-space-800 shadow-sm" title="Playback Speed">
               <input id="speedSlider" type="range" min="0.5" max="4.0" step="0.5" value="1.0" class="w-12 h-1 bg-space-700 rounded cursor-pointer accent-cyan-400">
-              <span id="speedLabel" class="text-gray-300 text-[10px] font-mono font-semibold">1.0x</span>
+              <span id="speedLabel" class="text-gray-300 text-[10px] font-mono font-semibold">1.0 fps</span>
             </div>
 
-            <!-- Provenance Modal Trigger Button -->
             <button id="btnOpenEpochProvenance" type="button" onclick="openEpochsProvenanceModal()" 
               class="px-2 py-1 rounded-lg blender-btn text-cyan-300 hover:text-white border border-cyan-500/30 text-[10px] font-mono flex items-center gap-1 transition shadow-sm" 
-              title="View NASA Astrometric Provenance & Telescope Metadata">
+              title="View Full NASA Provenance & Telescope Metadata">
               <i data-lucide="info" class="w-3.5 h-3.5 text-cyan-400"></i>
               <span class="hidden xl:inline">Sources</span>
             </button>
-
-            <!-- Hidden Nodes Kept in DOM for Test Contract Assertions -->
-            <div class="hidden" aria-hidden="true">
-              <button id="btnFilterAllSurveys">Full Movie</button>
-              <button id="btnFilterThermalIR">Thermal IR</button>
-              <button id="btnFilterOpticalIR">Optical vs IR</button>
-              <button id="btnFilterSpherexOnly">SPHEREx</button>
-              <button id="btnFilter2MassOnly">2MASS</button>
-              <button id="btnFilterBaselinePair">26-Yr Jump</button>
-              <button id="btnToggleBlinkMorph"><span id="blinkMorphModeLabel">Instant Flip</span></button>
-              <div id="dockEpochBlendContainer"></div>
-            </div>
           </div>
         </div>
 
-        <!-- ROW 2: Luminous Continuous Progress Scrub Bar & Baseline Indicator -->
-        <div class="pt-0.5 flex items-center gap-2 w-full shrink-0 h-5">
-          <div class="relative flex-1 h-2 bg-space-900 rounded-full flex items-center shadow-inner overflow-visible cursor-pointer group" id="timelineScrubTrackContainer">
+        <!-- ROW 2: Proportional Continuous Filmstrip Timeline (Single Playhead & True Date Landmarks) -->
+        <div class="pt-0.5 flex flex-col gap-0.5 w-full shrink-0">
+          
+          <!-- Landmark Era Tags above track -->
+          <div id="timelineLandmarkHeader" class="relative w-full h-4 text-[9px] font-mono select-none overflow-hidden text-gray-400">
+            <!-- Dynamically populated by renderTimelineLandmarks() -->
+          </div>
+
+          <!-- Continuous Track Container -->
+          <div class="relative w-full h-3 bg-space-900 rounded-full flex items-center shadow-inner overflow-visible cursor-pointer group" id="timelineScrubTrack">
             <!-- Progress Fill -->
             <div id="timelineProgress" class="absolute left-0 h-full bg-gradient-to-r from-[#4DA3FF] via-[#2DD4BF] via-[#A78BFA] to-[#FFB020] rounded-full transition-all duration-150 shadow-sm" style="width: 25%;"></div>
             
-            <!-- Real Interactive Slider Input (Tucked for accessibility & test contracts) -->
+            <!-- Real Interactive Slider Input for Dragging & Accessibility -->
             <input id="epochBlendSlider" type="range" min="0" max="100" value="25" 
                    class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-20" 
                    title="Drag to smoothly scrub across epochs" 
                    aria-label="Cosmic Timeline Scrub Bar">
             
-            <!-- 4 Aligned Contract Tick Dots (Asserted in tests at 25%, 50%, 75%, 100%) -->
-            <div data-frame-tick="1" class="timeline-tick-dot absolute left-[25%] -translate-x-1/2 w-3 h-3 rounded-full bg-white border-2 border-[#4DA3FF] cursor-pointer transition-all shadow-md z-10 scale-110 shadow-blue-500/50" style="left: 25%;" title="Frame 1: 1999 (2MASS) — 25% Blend"></div>
-            <div data-frame-tick="2" class="timeline-tick-dot absolute left-[50%] -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-space-700 hover:bg-[#2DD4BF] cursor-pointer border border-space-500 transition-all z-10" style="left: 50%;" title="Frame 2: 2010 (WISE W1) — 50% Blend"></div>
-            <div data-frame-tick="3" class="timeline-tick-dot absolute left-[75%] -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-space-700 hover:bg-[#A78BFA] cursor-pointer border border-space-500 transition-all z-10" style="left: 75%;" title="Frame 3: 2014 (unWISE) — 75% Blend"></div>
-            <div data-frame-tick="4" class="timeline-tick-dot absolute left-[100%] -translate-x-1/2 w-3 h-3 rounded-full bg-space-700 hover:bg-[#FFB020] cursor-pointer border border-space-500 transition-all z-10" style="left: 100%;" title="Frame 4: 2025 (SPHEREx Stack) — 100% Blend"></div>
-          </div>
+            <!-- Single Glowing Playhead Node -->
+            <div id="timelinePlayheadNode" class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-white border-2 border-blender-orange shadow-lg shadow-orange-500/50 z-30 transition-all pointer-events-none" style="left: 25%;"></div>
 
-          <!-- Baseline Delta Tag & Blend Label -->
-          <div class="flex items-center gap-1.5 shrink-0 text-[10px] font-mono text-gray-400">
-            <span id="epochBlendLabel" class="hidden">25%</span>
-            <span class="px-1.5 py-0.2 rounded bg-space-950 border border-space-800 text-amber-300 font-bold" title="Total Temporal Baseline from 1999 to 2025">Δt 26.2 yr</span>
+            <!-- Proportional Landmark Nodes (Calculated on Continuous Time Scale) -->
+            <div id="timelineLandmarkNodes" class="absolute inset-0 w-full h-full pointer-events-none">
+              <!-- Dynamically populated by renderTimelineLandmarks() -->
+            </div>
           </div>
         </div>
 
@@ -5964,6 +5887,149 @@
     };
     window.TELESCOPES = TELESCOPES;
 
+    
+    // =========================================================================
+    // PRODUCTION FLIPBOOK + COMPARE PAIR ENGINE (Plan v4 Specification)
+    // =========================================================================
+    window.EPOCH_MANIFEST = [
+      { id: 'ep_1999', date: '1999-02-14', decimalYear: 1999.12, survey: '2MASS', band: 'Ks', wavelength_um: 2.16, kind: 'ground', accent: '#4DA3FF', coverage: true, label: '1999 2MASS' },
+      { id: 'ep_2010', date: '2010-04-18', decimalYear: 2010.30, survey: 'WISE', band: 'W1', wavelength_um: 3.40, kind: 'space', accent: '#2DD4BF', coverage: true, label: '2010 WISE' },
+      { id: 'ep_2014', date: '2014-10-22', decimalYear: 2014.81, survey: 'unWISE', band: 'W2', wavelength_um: 4.60, kind: 'space', accent: '#A78BFA', coverage: true, label: '2014 unWISE' },
+      { id: 'ep_2025', date: '2025-05-15', decimalYear: 2025.37, survey: 'SPHEREx', band: 'Pass 1 Stack', wavelength_um: 4.60, kind: 'space', accent: '#FFB020', coverage: true, label: '2025 SPHEREx' }
+    ];
+
+    window.compareSlotA = 0; // Epoch index 0 (1999)
+    window.compareSlotB = 3; // Epoch index 3 (2025)
+    window.isBlinkingPair = false;
+    window.blinkPairTimer = null;
+
+    function renderTimelineLandmarks() {
+      const header = document.getElementById('timelineLandmarkHeader');
+      const nodes = document.getElementById('timelineLandmarkNodes');
+      if (!header || !nodes) return;
+      
+      const manifest = window.EPOCH_MANIFEST || [];
+      if (manifest.length < 2) return;
+      
+      const minYear = manifest[0].decimalYear;
+      const maxYear = manifest[manifest.length - 1].decimalYear;
+      const range = maxYear - minYear || 1;
+      
+      let headerHtml = '';
+      let nodesHtml = '';
+      
+      manifest.forEach((ep, idx) => {
+        // Proportional percentage on linear astronomical time scale
+        const pct = Math.max(0, Math.min(100, ((ep.decimalYear - minYear) / range) * 100));
+        
+        // Landmark header label with date & survey
+        headerHtml += `
+          <div class="absolute -translate-x-1/2 cursor-pointer hover:text-white transition font-mono" 
+               style="left: ${pct}%;" 
+               onclick="setFlipbookFrame(${idx + 1})" 
+               title="${ep.label} (${ep.date}) · ${ep.band}">
+            <span class="font-bold" style="color: ${ep.accent};">${ep.date.slice(0, 7)}</span>
+            <span class="hidden sm:inline text-gray-400">(${ep.survey})</span>
+          </div>`;
+          
+        // Landmark tick node
+        nodesHtml += `
+          <div class="timeline-landmark-node absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full cursor-pointer transition-all z-20 hover:scale-125" 
+               style="left: ${pct}%; background: #1a2333; border: 2px solid ${ep.accent};" 
+               data-epoch-idx="${idx}" 
+               onclick="event.stopPropagation(); setFlipbookFrame(${idx + 1})" 
+               title="${ep.label} (${ep.date}) · ${ep.band}">
+          </div>`;
+      });
+      
+      header.innerHTML = headerHtml;
+      nodes.innerHTML = nodesHtml;
+    }
+    window.renderTimelineLandmarks = renderTimelineLandmarks;
+
+    function updateCompareReadouts() {
+      const manifest = window.EPOCH_MANIFEST || [];
+      const epA = manifest[window.compareSlotA] || manifest[0];
+      const epB = manifest[window.compareSlotB] || manifest[manifest.length - 1];
+
+      const lblA = document.getElementById('compareSlotLabelA');
+      const lblB = document.getElementById('compareSlotLabelB');
+      const tag = document.getElementById('compareBaselineTag');
+
+      if (lblA) lblA.textContent = epA.label;
+      if (lblB) lblB.textContent = epB.label;
+      if (tag) {
+        const dt = Math.abs(epB.decimalYear - epA.decimalYear).toFixed(1);
+        tag.textContent = `Δt = ${dt} yr`;
+        tag.title = `Baseline between ${epA.label} (${epA.date}) and ${epB.label} (${epB.date})`;
+      }
+    }
+    window.updateCompareReadouts = updateCompareReadouts;
+
+    function onCompareSlotBandChange(slot, value) {
+      console.log(`Compare Slot ${slot} band changed to ${value}`);
+      if (slot === 'A') {
+        const epA = window.EPOCH_MANIFEST[window.compareSlotA];
+        if (epA) epA.band = value;
+      } else {
+        const epB = window.EPOCH_MANIFEST[window.compareSlotB];
+        if (epB) epB.band = value;
+      }
+      updateCompareReadouts();
+      drawFrame();
+    }
+    window.onCompareSlotBandChange = onCompareSlotBandChange;
+
+    function selectCompareSlot(slot) {
+      // Travel to the slot's current epoch
+      const targetIdx = (slot === 'A') ? window.compareSlotA : window.compareSlotB;
+      setFlipbookFrame(targetIdx + 1);
+    }
+    window.selectCompareSlot = selectCompareSlot;
+
+    function toggleBlinkPair() {
+      if (window.isBlinkingPair) {
+        stopBlinkPair();
+      } else {
+        startBlinkPair();
+      }
+    }
+    window.toggleBlinkPair = toggleBlinkPair;
+
+    function startBlinkPair() {
+      if (isPlaying) stopFlipbook();
+      window.isBlinkingPair = true;
+      const btn = document.getElementById('btnBlinkPair');
+      if (btn) {
+        btn.classList.add('ring-2', 'ring-amber-400', 'bg-amber-800');
+        const text = document.getElementById('blinkPairBtnText');
+        if (text) text.textContent = 'Blinking... (Stop)';
+      }
+      let currentBlinkSlot = 'A';
+      if (window.blinkPairTimer) clearInterval(window.blinkPairTimer);
+      window.blinkPairTimer = setInterval(() => {
+        currentBlinkSlot = (currentBlinkSlot === 'A') ? 'B' : 'A';
+        const targetIdx = (currentBlinkSlot === 'A') ? window.compareSlotA : window.compareSlotB;
+        setFlipbookFrame(targetIdx + 1);
+      }, 500);
+    }
+    window.startBlinkPair = startBlinkPair;
+
+    function stopBlinkPair() {
+      window.isBlinkingPair = false;
+      if (window.blinkPairTimer) {
+        clearInterval(window.blinkPairTimer);
+        window.blinkPairTimer = null;
+      }
+      const btn = document.getElementById('btnBlinkPair');
+      if (btn) {
+        btn.classList.remove('ring-2', 'ring-amber-400', 'bg-amber-800');
+        const text = document.getElementById('blinkPairBtnText');
+        if (text) text.textContent = 'Blink ① ↔ ②';
+      }
+    }
+    window.stopBlinkPair = stopBlinkPair;
+
     function syncEpochRowHighlight(frameNum) {
       document.querySelectorAll('#sceneContent .epoch-card[data-epoch-index]').forEach(card => {
         const idx = parseInt(card.getAttribute('data-epoch-index') || '0', 10);
@@ -6105,13 +6171,31 @@
         badgeEl.className = style.badge;
       }
       const prog = document.getElementById('timelineProgress');
-      if (prog) {
-        if (blinkMorphMode === 'snap') {
-          const pct = totalFrames > 1 ? ((currentFrame - 1) / (totalFrames - 1)) * 100 : 0;
-          prog.style.width = `${Math.round(pct)}%`;
-        } else {
-          prog.style.width = `${Math.round(epochBlend * 100)}%`;
-        }
+      const playhead = document.getElementById('timelinePlayheadNode');
+      const manifest = window.EPOCH_MANIFEST || [];
+      if (manifest.length >= 2 && currentFrame <= manifest.length) {
+        const minYear = manifest[0].decimalYear;
+        const maxYear = manifest[manifest.length - 1].decimalYear;
+        const range = maxYear - minYear || 1;
+        const curEp = manifest[currentFrame - 1];
+        const pct = Math.max(0, Math.min(100, ((curEp.decimalYear - minYear) / range) * 100));
+        
+        if (prog) prog.style.width = `${pct}%`;
+        if (playhead) playhead.style.left = `${pct}%`;
+        
+        // Highlight active landmark node
+        document.querySelectorAll('.timeline-landmark-node').forEach(node => {
+          const idx = parseInt(node.getAttribute('data-epoch-idx') || '0', 10);
+          if (idx === (currentFrame - 1)) {
+            node.classList.add('scale-150', 'ring-2', 'ring-white');
+            node.style.background = curEp.accent;
+          } else {
+            node.classList.remove('scale-150', 'ring-2', 'ring-white');
+            node.style.background = '#1a2333';
+          }
+        });
+      } else if (prog) {
+        prog.style.width = `${Math.round(epochBlend * 100)}%`;
       }
       syncEpochRowHighlight(currentFrame);
 
@@ -14060,6 +14144,8 @@
         });
       }
 
+    if (typeof renderTimelineLandmarks === 'function') renderTimelineLandmarks();
+      if (typeof updateCompareReadouts === 'function') updateCompareReadouts();
     window.initAutoIDAndHUDListeners = initAutoIDAndHUDListeners;
 
     // Run immediately so event listeners are active right away
