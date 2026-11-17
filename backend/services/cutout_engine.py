@@ -1255,12 +1255,13 @@ def fetch_real_cutout(
         if (now_ts - cached_ts) <= DEFAULT_CACHE_TTL_SECONDS:
             _L1_MEMORY_CACHE.move_to_end(cache_key)
             cached_entry = dict(_L1_MEMORY_CACHE[cache_key])
+            orig_cached_at = _L1_MEMORY_CACHE[cache_key].get("cached_at")
             cached_entry["status"] = "success"
             cached_entry["archive_reachability"] = "nominal"
             cached_entry["cache_tier"] = "L1_RAM"
             cached_entry["cache_hit"] = True
             cached_entry["cache_status"] = "HIT"
-            cached_entry["cached_at"] = _utc_iso(cached_ts)
+            cached_entry["cached_at"] = orig_cached_at or _utc_iso(cached_ts)
             cached_entry["retrieved_at"] = _utc_iso(now_ts)
             cached_entry["is_stale"] = False
             cached_entry["spatial_cell_id"] = cell_id

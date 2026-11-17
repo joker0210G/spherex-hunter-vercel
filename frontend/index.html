@@ -1878,18 +1878,19 @@
             <span class="hidden">Frame: <span id="frameBadge">1</span> / 4</span>
           </div>
 
-          <!-- CENTER: Dedicated Compare Pair Module (Decoupled from Filmstrip) -->
-          <div id="comparePairModule" class="flex-1 max-w-2xl mx-1 flex items-center justify-between gap-1.5 px-2 py-0.5 rounded-xl bg-space-950/85 border border-cyan-500/30 shadow-inner min-w-0">
+          <!-- CENTER: Dedicated Compare Pair Module (Decoupled Bilateral Lens Comparator) -->
+          <div id="comparePairModule" class="flex-1 max-w-2xl mx-1 flex items-center justify-between gap-2 px-3 py-1 rounded-2xl bg-space-950/90 backdrop-blur-md border border-cyan-500/30 shadow-[inset_0_1px_4px_rgba(0,0,0,0.6)] min-w-0">
             
-            <!-- Slot ① Chip (Baseline) -->
-            <div id="compareSlotA" onclick="selectCompareSlot('A')" class="flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-space-900/90 border border-blue-500/60 min-w-0 transition cursor-pointer hover:border-blue-400" title="Compare Slot ① (Baseline Epoch)">
-              <span class="w-4 h-4 rounded-full bg-blue-500/30 text-[#4DA3FF] flex items-center justify-center text-[10px] font-bold shrink-0">①</span>
+            <!-- Slot ① Lens Capsule (Baseline) -->
+            <div id="compareSlotA" onclick="selectCompareSlot('A')" class="flex items-center gap-2 px-2.5 py-1 rounded-xl bg-gradient-to-r from-blue-950/60 via-space-900/60 to-space-950/70 border border-blue-500/40 min-w-0 transition-all duration-200 cursor-pointer hover:border-blue-400/80 shadow-sm group" title="Compare Slot ① (Baseline Epoch)">
+              <span class="w-4 h-4 rounded-full bg-blue-500/30 text-[#4DA3FF] flex items-center justify-center text-[10px] font-bold shrink-0 border border-blue-500/50 shadow-[0_0_8px_rgba(59,130,246,0.3)]">①</span>
               <div class="flex flex-col min-w-0 leading-tight">
-                <div class="flex items-center gap-1">
-                  <span id="compareSlotLabelA" class="font-bold text-[#4DA3FF] text-[11px] truncate">1999 2MASS</span>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs">🔭</span>
+                  <span id="compareSlotLabelA" class="font-bold text-[#4DA3FF] text-[11px] truncate tracking-wide">1999 2MASS</span>
                 </div>
-                <div class="flex items-center gap-0.5 text-[9px] text-gray-300">
-                  <select id="compareBandSelectA" onchange="onCompareSlotBandChange('A', this.value)" onclick="event.stopPropagation()" class="bg-space-950 text-gray-200 border border-space-700 rounded px-1 py-0.2 text-[9px] font-mono cursor-pointer outline-none">
+                <div class="flex items-center gap-1 mt-0.5">
+                  <select id="compareBandSelectA" onchange="onCompareSlotBandChange('A', this.value)" onclick="event.stopPropagation()" class="bg-blue-950/80 hover:bg-blue-900/90 text-blue-200 hover:text-white border border-blue-500/40 hover:border-blue-400 rounded-md px-1.5 py-0.2 text-[9px] font-mono cursor-pointer outline-none transition shadow-inner">
                     <option value="2MASS_KS" selected>Ks (2.16µm)</option>
                     <option value="2MASS_J">J (1.25µm)</option>
                     <option value="DSS2_RED">DSS2 Optical</option>
@@ -1900,21 +1901,22 @@
               </div>
             </div>
 
-            <!-- Central Blink Toggle Button -->
-            <button id="btnBlinkPair" type="button" onclick="toggleBlinkPair()" class="px-2.5 py-1 rounded-lg blender-btn bg-amber-950/80 hover:bg-amber-900 border border-amber-500/80 text-amber-300 font-bold text-xs flex items-center gap-1 shadow-md transition shrink-0 group" title="Blink — the technique Clyde Tombaugh used to discover Pluto in 1930. Anything that jumps between ① and ② is moving. (Shortcut: B)">
-              <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400 group-hover:scale-110 transition-transform"></i>
-              <span id="blinkPairBtnText">Blink ① ↔ ②</span>
+            <!-- Central Blink Toggle Button with Electric Neon Glow -->
+            <button id="btnBlinkPair" type="button" onclick="toggleBlinkPair()" class="px-3 py-1 rounded-xl bg-gradient-to-r from-amber-950/90 via-amber-900/80 to-amber-950/90 hover:from-amber-900 hover:to-amber-800 border border-amber-500/80 text-amber-300 font-bold text-xs flex items-center gap-1.5 shadow-[0_0_12px_rgba(245,158,11,0.25)] hover:shadow-[0_0_18px_rgba(245,158,11,0.45)] active:scale-95 transition-all shrink-0 group" title="Blink — the technique Clyde Tombaugh used to discover Pluto in 1930. Anything that jumps between ① and ② is moving. (Shortcut: B)">
+              <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400 group-hover:scale-125 transition-transform"></i>
+              <span id="blinkPairBtnText" class="tracking-wide">Blink ① ↔ ②</span>
             </button>
 
-            <!-- Slot ② Chip (Comparison) -->
-            <div id="compareSlotB" onclick="selectCompareSlot('B')" class="flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-space-900/90 border border-orange-500/60 min-w-0 transition cursor-pointer hover:border-orange-400" title="Compare Slot ② (Comparison Epoch)">
-              <span class="w-4 h-4 rounded-full bg-orange-500/30 text-[#FFB020] flex items-center justify-center text-[10px] font-bold shrink-0">②</span>
+            <!-- Slot ② Lens Capsule (Comparison) -->
+            <div id="compareSlotB" onclick="selectCompareSlot('B')" class="flex items-center gap-2 px-2.5 py-1 rounded-xl bg-gradient-to-r from-space-950/70 via-space-900/60 to-amber-950/60 border border-amber-500/40 min-w-0 transition-all duration-200 cursor-pointer hover:border-amber-400/80 shadow-sm group" title="Compare Slot ② (Comparison Epoch)">
+              <span class="w-4 h-4 rounded-full bg-orange-500/30 text-[#FFB020] flex items-center justify-center text-[10px] font-bold shrink-0 border border-orange-500/50 shadow-[0_0_8px_rgba(245,158,11,0.3)]">②</span>
               <div class="flex flex-col min-w-0 leading-tight">
-                <div class="flex items-center gap-1">
-                  <span id="compareSlotLabelB" class="font-bold text-[#FFB020] text-[11px] truncate">2025 SPHEREx</span>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-xs">🛰️</span>
+                  <span id="compareSlotLabelB" class="font-bold text-[#FFB020] text-[11px] truncate tracking-wide">2025 SPHEREx</span>
                 </div>
-                <div class="flex items-center gap-0.5 text-[9px] text-gray-300">
-                  <select id="compareBandSelectB" onchange="onCompareSlotBandChange('B', this.value)" onclick="event.stopPropagation()" class="bg-space-950 text-gray-200 border border-space-700 rounded px-1 py-0.2 text-[9px] font-mono cursor-pointer outline-none">
+                <div class="flex items-center gap-1 mt-0.5">
+                  <select id="compareBandSelectB" onchange="onCompareSlotBandChange('B', this.value)" onclick="event.stopPropagation()" class="bg-amber-950/80 hover:bg-amber-900/90 text-amber-200 hover:text-white border border-amber-500/40 hover:border-amber-400 rounded-md px-1.5 py-0.2 text-[9px] font-mono cursor-pointer outline-none transition shadow-inner">
                     <option value="SPHEREX_PASS1" selected>Pass 1 Stack (4.6µm)</option>
                     <option value="SPHEREX_PASS2">Pass 2 Stack</option>
                     <option value="ALLWISE_W2">WISE W2</option>
@@ -1925,9 +1927,9 @@
             </div>
 
             <!-- Discovery Baseline Readout -->
-            <div class="flex flex-col items-end shrink-0 pl-1 border-l border-space-800 text-right leading-tight">
-              <span class="text-[9px] text-gray-400 font-sans uppercase">Baseline</span>
-              <span id="compareBaselineTag" class="text-amber-300 font-bold text-[11px]" title="Temporal baseline between Slot ① and Slot ②">Δt = 26.2 yr</span>
+            <div class="flex flex-col items-end shrink-0 pl-2 border-l border-space-800/80 text-right leading-tight">
+              <span class="text-[9px] text-gray-400 font-sans uppercase tracking-wider">Baseline</span>
+              <span id="compareBaselineTag" class="text-amber-300 font-bold font-mono text-[11px] drop-shadow-[0_0_6px_rgba(245,158,11,0.3)]" title="Temporal baseline between Slot ① and Slot ②">Δt = 26.2 yr</span>
             </div>
           </div>
 
@@ -6025,6 +6027,26 @@
           card.classList.add('border-space-800');
         }
       });
+
+      // Bilateral active pulse lighting for Compare Pair Lens Capsules
+      const slotAEl = document.getElementById('compareSlotA');
+      const slotBEl = document.getElementById('compareSlotB');
+      if (slotAEl && slotBEl) {
+        const slotAIdx = (window.compareSlotA !== undefined) ? window.compareSlotA : 0;
+        const slotBIdx = (window.compareSlotB !== undefined) ? window.compareSlotB : 3;
+        const isSlotAActive = (frameNum === (slotAIdx + 1));
+        const isSlotBActive = (frameNum === (slotBIdx + 1));
+
+        slotAEl.classList.toggle('ring-2', isSlotAActive);
+        slotAEl.classList.toggle('ring-blue-400', isSlotAActive);
+        slotAEl.classList.toggle('shadow-[0_0_18px_rgba(59,130,246,0.6)]', isSlotAActive);
+        slotAEl.classList.toggle('opacity-70', !isSlotAActive && (window.isBlinkingPair || false));
+
+        slotBEl.classList.toggle('ring-2', isSlotBActive);
+        slotBEl.classList.toggle('ring-amber-400', isSlotBActive);
+        slotBEl.classList.toggle('shadow-[0_0_18px_rgba(245,158,11,0.6)]', isSlotBActive);
+        slotBEl.classList.toggle('opacity-70', !isSlotBActive && (window.isBlinkingPair || false));
+      }
 
       // Synchronize Floating Celestial Sky Viewport HUD Watermark
       const vpHud = document.getElementById('viewportTelescopeHUD');

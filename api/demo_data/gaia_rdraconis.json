@@ -1,1 +1,479 @@
-{"status": "success", "message": null, "catalog": "Gaia Data Release 3 (Gaia DR3)", "archive_host": "Harvard CfA VizieR (I/355/gaiadr3)", "search_center": {"ra_deg": 246.54167, "dec_deg": 66.86944, "radius_arcmin": 3.0}, "matched_count": 44, "sources": [{"source_id": "1642385804544872320", "ra": 246.54098, "dec": 66.82261, "pm_ra_mas_yr": -1.76, "pm_dec_mas_yr": -5.89, "total_pm_mas_yr": 6.15, "parallax_mas": 0.46, "phot_g_mag": 19.43}, {"source_id": "1642385843200573184", "ra": 246.57653, "dec": 66.82794, "pm_ra_mas_yr": -9.21, "pm_dec_mas_yr": 27.1, "total_pm_mas_yr": 28.62, "parallax_mas": 3.5, "phot_g_mag": 19.36}, {"source_id": "1642385976343565824", "ra": 246.49478, "dec": 66.83082, "pm_ra_mas_yr": 5.33, "pm_dec_mas_yr": -11.77, "total_pm_mas_yr": 12.92, "parallax_mas": 1.01, "phot_g_mag": 19.84}, {"source_id": "1642386079422781696", "ra": 246.50587, "dec": 66.83195, "pm_ra_mas_yr": 0.1, "pm_dec_mas_yr": 15.6, "total_pm_mas_yr": 15.6, "parallax_mas": 0.47, "phot_g_mag": 19.64}, {"source_id": "1642386083718108544", "ra": 246.52116, "dec": 66.83689, "pm_ra_mas_yr": -9.02, "pm_dec_mas_yr": 18.36, "total_pm_mas_yr": 20.46, "parallax_mas": 1.52, "phot_g_mag": 20.92}, {"source_id": "1642386152438221184", "ra": 246.61578, "dec": 66.83183, "pm_ra_mas_yr": -8.98, "pm_dec_mas_yr": -3.64, "total_pm_mas_yr": 9.69, "parallax_mas": 0.48, "phot_g_mag": 16.04}, {"source_id": "1642386216861736832", "ra": 246.60076, "dec": 66.83299, "pm_ra_mas_yr": -18.08, "pm_dec_mas_yr": 17.57, "total_pm_mas_yr": 25.21, "parallax_mas": 2.04, "phot_g_mag": 19.81}, {"source_id": "1642386221157697152", "ra": 246.60437, "dec": 66.83732, "pm_ra_mas_yr": -10.34, "pm_dec_mas_yr": 8.84, "total_pm_mas_yr": 13.6, "parallax_mas": 1.06, "phot_g_mag": 15.95}, {"source_id": "1642386221158250240", "ra": 246.61789, "dec": 66.83676, "pm_ra_mas_yr": -7.95, "pm_dec_mas_yr": 5.93, "total_pm_mas_yr": 9.91, "parallax_mas": 2.6, "phot_g_mag": 18.51}, {"source_id": "1642386354300102016", "ra": 246.6659, "dec": 66.85881, "pm_ra_mas_yr": 0.61, "pm_dec_mas_yr": -1.47, "total_pm_mas_yr": 1.59, "parallax_mas": 0.53, "phot_g_mag": 19.61}, {"source_id": "1642386423020172032", "ra": 246.60064, "dec": 66.84766, "pm_ra_mas_yr": -5.62, "pm_dec_mas_yr": -1.44, "total_pm_mas_yr": 5.8, "parallax_mas": -0.16, "phot_g_mag": 19.83}, {"source_id": "1642386423020172800", "ra": 246.58838, "dec": 66.8519, "pm_ra_mas_yr": -3.86, "pm_dec_mas_yr": -2.25, "total_pm_mas_yr": 4.47, "parallax_mas": 0.28, "phot_g_mag": 20.51}, {"source_id": "1642386423020174080", "ra": 246.6119, "dec": 66.85521, "pm_ra_mas_yr": null, "pm_dec_mas_yr": null, "total_pm_mas_yr": null, "parallax_mas": null, "phot_g_mag": 21.07}, {"source_id": "1642386461674679040", "ra": 246.62664, "dec": 66.86765, "pm_ra_mas_yr": -14.13, "pm_dec_mas_yr": 4.04, "total_pm_mas_yr": 14.69, "parallax_mas": 2.04, "phot_g_mag": 20.55}, {"source_id": "1642386491741869056", "ra": 246.59045, "dec": 66.87205, "pm_ra_mas_yr": 2.89, "pm_dec_mas_yr": -15.93, "total_pm_mas_yr": 16.19, "parallax_mas": 1.03, "phot_g_mag": 18.34}, {"source_id": "1642386530395343616", "ra": 246.60591, "dec": 66.87788, "pm_ra_mas_yr": 0.59, "pm_dec_mas_yr": -5.55, "total_pm_mas_yr": 5.58, "parallax_mas": 0.74, "phot_g_mag": 18.16}, {"source_id": "1642386633474140288", "ra": 246.63527, "dec": 66.88026, "pm_ra_mas_yr": null, "pm_dec_mas_yr": null, "total_pm_mas_yr": null, "parallax_mas": null, "phot_g_mag": 20.88}, {"source_id": "1642397731670044416", "ra": 246.47609, "dec": 66.8441, "pm_ra_mas_yr": -14.98, "pm_dec_mas_yr": 40.68, "total_pm_mas_yr": 43.35, "parallax_mas": 3.17, "phot_g_mag": 12.85}, {"source_id": "1642397731670602496", "ra": 246.47679, "dec": 66.84361, "pm_ra_mas_yr": -15.43, "pm_dec_mas_yr": 41.02, "total_pm_mas_yr": 43.82, "parallax_mas": 2.72, "phot_g_mag": 18.52}, {"source_id": "1642397731670602624", "ra": 246.48019, "dec": 66.84472, "pm_ra_mas_yr": 0.1, "pm_dec_mas_yr": -1.66, "total_pm_mas_yr": 1.66, "parallax_mas": 2.38, "phot_g_mag": 20.73}, {"source_id": "1642397830453395840", "ra": 246.50525, "dec": 66.84585, "pm_ra_mas_yr": -7.61, "pm_dec_mas_yr": 0.81, "total_pm_mas_yr": 7.65, "parallax_mas": 0.86, "phot_g_mag": 20.12}, {"source_id": "1642397834747771008", "ra": 246.49553, "dec": 66.85583, "pm_ra_mas_yr": -2.66, "pm_dec_mas_yr": -4.91, "total_pm_mas_yr": 5.59, "parallax_mas": 0.95, "phot_g_mag": 19.47}, {"source_id": "1642397834749261568", "ra": 246.51303, "dec": 66.86059, "pm_ra_mas_yr": -3.37, "pm_dec_mas_yr": 0.86, "total_pm_mas_yr": 3.48, "parallax_mas": 0.66, "phot_g_mag": 15.81}, {"source_id": "1642397864813053056", "ra": 246.55428, "dec": 66.86197, "pm_ra_mas_yr": -5.56, "pm_dec_mas_yr": -5.82, "total_pm_mas_yr": 8.05, "parallax_mas": 0.48, "phot_g_mag": 19.29}, {"source_id": "1642397869108374016", "ra": 246.5192, "dec": 66.863, "pm_ra_mas_yr": null, "pm_dec_mas_yr": null, "total_pm_mas_yr": null, "parallax_mas": null, "phot_g_mag": 20.81}, {"source_id": "1642397869109000704", "ra": 246.53461, "dec": 66.86356, "pm_ra_mas_yr": -5.99, "pm_dec_mas_yr": 4.9, "total_pm_mas_yr": 7.74, "parallax_mas": 0.9, "phot_g_mag": 16.97}, {"source_id": "1642397903468112128", "ra": 246.48091, "dec": 66.8634, "pm_ra_mas_yr": null, "pm_dec_mas_yr": null, "total_pm_mas_yr": null, "parallax_mas": null, "phot_g_mag": 21.05}, {"source_id": "1642397903468737920", "ra": 246.50792, "dec": 66.86212, "pm_ra_mas_yr": -2.22, "pm_dec_mas_yr": -2.25, "total_pm_mas_yr": 3.16, "parallax_mas": 0.2, "phot_g_mag": 14.18}, {"source_id": "1642398002252008576", "ra": 246.44944, "dec": 66.87146, "pm_ra_mas_yr": 0.46, "pm_dec_mas_yr": -4.31, "total_pm_mas_yr": 4.33, "parallax_mas": 0.66, "phot_g_mag": 20.13}, {"source_id": "1642398006546762496", "ra": 246.44637, "dec": 66.86508, "pm_ra_mas_yr": 0.44, "pm_dec_mas_yr": -6.41, "total_pm_mas_yr": 6.42, "parallax_mas": 0.97, "phot_g_mag": 20.44}, {"source_id": "1642398075267424000", "ra": 246.42563, "dec": 66.86461, "pm_ra_mas_yr": -8.72, "pm_dec_mas_yr": 0.41, "total_pm_mas_yr": 8.73, "parallax_mas": 0.33, "phot_g_mag": 16.4}, {"source_id": "1642398075267425664", "ra": 246.44167, "dec": 66.87598, "pm_ra_mas_yr": 10.2, "pm_dec_mas_yr": -16.09, "total_pm_mas_yr": 19.05, "parallax_mas": 1.12, "phot_g_mag": 16.88}, {"source_id": "1642398139690966016", "ra": 246.5086, "dec": 66.8807, "pm_ra_mas_yr": -2.54, "pm_dec_mas_yr": -6.58, "total_pm_mas_yr": 7.06, "parallax_mas": -0.27, "phot_g_mag": 19.07}, {"source_id": "1642398178346643584", "ra": 246.47232, "dec": 66.88889, "pm_ra_mas_yr": -1.73, "pm_dec_mas_yr": 8.02, "total_pm_mas_yr": 8.21, "parallax_mas": 0.98, "phot_g_mag": 16.35}, {"source_id": "1642398208410447104", "ra": 246.48791, "dec": 66.89561, "pm_ra_mas_yr": -0.97, "pm_dec_mas_yr": -9.52, "total_pm_mas_yr": 9.57, "parallax_mas": 1.44, "phot_g_mag": 19.47}, {"source_id": "1642398247066123904", "ra": 246.56143, "dec": 66.86534, "pm_ra_mas_yr": -8.7, "pm_dec_mas_yr": -2.58, "total_pm_mas_yr": 9.08, "parallax_mas": 1.45, "phot_g_mag": 13.14}, {"source_id": "1642398277129919232", "ra": 246.59614, "dec": 66.87821, "pm_ra_mas_yr": -15.84, "pm_dec_mas_yr": 10.31, "total_pm_mas_yr": 18.9, "parallax_mas": 0.91, "phot_g_mag": 20.19}, {"source_id": "1642398311489660288", "ra": 246.57407, "dec": 66.88733, "pm_ra_mas_yr": 2.71, "pm_dec_mas_yr": -3.96, "total_pm_mas_yr": 4.8, "parallax_mas": 0.84, "phot_g_mag": 19.1}, {"source_id": "1642398345849404288", "ra": 246.60367, "dec": 66.90488, "pm_ra_mas_yr": -0.52, "pm_dec_mas_yr": -8.22, "total_pm_mas_yr": 8.24, "parallax_mas": 1.72, "phot_g_mag": 19.09}, {"source_id": "1642398521943233792", "ra": 246.53236, "dec": 66.89549, "pm_ra_mas_yr": -0.68, "pm_dec_mas_yr": -6.86, "total_pm_mas_yr": 6.89, "parallax_mas": 2.86, "phot_g_mag": 20.79}, {"source_id": "1642398521943408640", "ra": 246.56517, "dec": 66.9036, "pm_ra_mas_yr": null, "pm_dec_mas_yr": null, "total_pm_mas_yr": null, "parallax_mas": null, "phot_g_mag": 20.99}, {"source_id": "1642398620727313280", "ra": 246.56939, "dec": 66.91626, "pm_ra_mas_yr": null, "pm_dec_mas_yr": null, "total_pm_mas_yr": null, "parallax_mas": null, "phot_g_mag": 21.55}, {"source_id": "1642398831181670016", "ra": 246.43693, "dec": 66.89469, "pm_ra_mas_yr": -10.29, "pm_dec_mas_yr": 2.01, "total_pm_mas_yr": 10.49, "parallax_mas": 0.35, "phot_g_mag": 16.52}, {"source_id": "1642398929964954240", "ra": 246.47275, "dec": 66.89812, "pm_ra_mas_yr": 0.02, "pm_dec_mas_yr": -1.84, "total_pm_mas_yr": 1.85, "parallax_mas": 0.08, "phot_g_mag": 18.96}], "telemetry": {"cache_tier": "LIVE_VIZIER_MIRROR", "fetch_time_ms": 2937.66}}
+{
+  "status": "success",
+  "ra": 248.16763,
+  "dec": 66.75506,
+  "radius_arcmin": 3.0,
+  "sources_count": 47,
+  "sources": [
+    {
+      "source_id": "1648328016354496384",
+      "ra": 248.16738,
+      "dec": 66.75501,
+      "pm_ra_mas_yr": -20.64,
+      "pm_dec_mas_yr": 6.15,
+      "total_pm_mas_yr": 21.54,
+      "parallax_mas": 1.25,
+      "phot_g_mag": 6.37
+    },
+    {
+      "source_id": "1648327226079824640",
+      "ra": 248.2198,
+      "dec": 66.72672,
+      "pm_ra_mas_yr": -0.42,
+      "pm_dec_mas_yr": -3.91,
+      "total_pm_mas_yr": 3.93,
+      "parallax_mas": 0.95,
+      "phot_g_mag": 13.75
+    },
+    {
+      "source_id": "1648328085073287040",
+      "ra": 248.23839,
+      "dec": 66.77694,
+      "pm_ra_mas_yr": -1.23,
+      "pm_dec_mas_yr": 3.9,
+      "total_pm_mas_yr": 4.09,
+      "parallax_mas": 0.85,
+      "phot_g_mag": 14.2
+    },
+    {
+      "source_id": "1648328119433021824",
+      "ra": 248.19573,
+      "dec": 66.77809,
+      "pm_ra_mas_yr": -64.11,
+      "pm_dec_mas_yr": 21.49,
+      "total_pm_mas_yr": 67.62,
+      "parallax_mas": 1.75,
+      "phot_g_mag": 14.29
+    },
+    {
+      "source_id": "1648328355654678784",
+      "ra": 248.23045,
+      "dec": 66.79235,
+      "pm_ra_mas_yr": -1.94,
+      "pm_dec_mas_yr": -3.4,
+      "total_pm_mas_yr": 3.91,
+      "parallax_mas": 0.52,
+      "phot_g_mag": 15.41
+    },
+    {
+      "source_id": "1648328325591451776",
+      "ra": 248.18811,
+      "dec": 66.78208,
+      "pm_ra_mas_yr": -0.8,
+      "pm_dec_mas_yr": -9.28,
+      "total_pm_mas_yr": 9.31,
+      "parallax_mas": 0.47,
+      "phot_g_mag": 15.43
+    },
+    {
+      "source_id": "1648328359951193216",
+      "ra": 248.22816,
+      "dec": 66.79103,
+      "pm_ra_mas_yr": 4.07,
+      "pm_dec_mas_yr": 11.36,
+      "total_pm_mas_yr": 12.07,
+      "parallax_mas": 1.31,
+      "phot_g_mag": 15.71
+    },
+    {
+      "source_id": "1648328119433021184",
+      "ra": 248.18622,
+      "dec": 66.76672,
+      "pm_ra_mas_yr": 4.67,
+      "pm_dec_mas_yr": -0.8,
+      "total_pm_mas_yr": 4.74,
+      "parallax_mas": 1.12,
+      "phot_g_mag": 16.18
+    },
+    {
+      "source_id": "1648328222512233088",
+      "ra": 248.14693,
+      "dec": 66.7768,
+      "pm_ra_mas_yr": -5.02,
+      "pm_dec_mas_yr": 4.31,
+      "total_pm_mas_yr": 6.62,
+      "parallax_mas": 0.31,
+      "phot_g_mag": 16.83
+    },
+    {
+      "source_id": "1648327226079825280",
+      "ra": 248.22255,
+      "dec": 66.73249,
+      "pm_ra_mas_yr": -0.47,
+      "pm_dec_mas_yr": 2.53,
+      "total_pm_mas_yr": 2.57,
+      "parallax_mas": 0.27,
+      "phot_g_mag": 17.2
+    },
+    {
+      "source_id": "1648327878914843776",
+      "ra": 248.05295,
+      "dec": 66.75703,
+      "pm_ra_mas_yr": -5.07,
+      "pm_dec_mas_yr": -4.8,
+      "total_pm_mas_yr": 6.98,
+      "parallax_mas": 1.19,
+      "phot_g_mag": 17.84
+    },
+    {
+      "source_id": "1648327187423664000",
+      "ra": 248.18419,
+      "dec": 66.74167,
+      "pm_ra_mas_yr": -4.27,
+      "pm_dec_mas_yr": -3.28,
+      "total_pm_mas_yr": 5.38,
+      "parallax_mas": 0.25,
+      "phot_g_mag": 17.88
+    },
+    {
+      "source_id": "1648327221783398016",
+      "ra": 248.22854,
+      "dec": 66.73191,
+      "pm_ra_mas_yr": 0.14,
+      "pm_dec_mas_yr": 5.58,
+      "total_pm_mas_yr": 5.58,
+      "parallax_mas": 1.5,
+      "phot_g_mag": 17.91
+    },
+    {
+      "source_id": "1648330829555947136",
+      "ra": 248.06158,
+      "dec": 66.77336,
+      "pm_ra_mas_yr": -5.65,
+      "pm_dec_mas_yr": -39.26,
+      "total_pm_mas_yr": 39.66,
+      "parallax_mas": 1.1,
+      "phot_g_mag": 18.1
+    },
+    {
+      "source_id": "1648328355654799360",
+      "ra": 248.21486,
+      "dec": 66.79629,
+      "pm_ra_mas_yr": -3.93,
+      "pm_dec_mas_yr": -1.94,
+      "total_pm_mas_yr": 4.38,
+      "parallax_mas": -0.1,
+      "phot_g_mag": 18.55
+    },
+    {
+      "source_id": "1648328050713545856",
+      "ra": 248.21065,
+      "dec": 66.76662,
+      "pm_ra_mas_yr": -9.81,
+      "pm_dec_mas_yr": 2.45,
+      "total_pm_mas_yr": 10.11,
+      "parallax_mas": 1.14,
+      "phot_g_mag": 18.66
+    },
+    {
+      "source_id": "1648328183856084992",
+      "ra": 248.12701,
+      "dec": 66.75833,
+      "pm_ra_mas_yr": 1.71,
+      "pm_dec_mas_yr": -4.15,
+      "total_pm_mas_yr": 4.49,
+      "parallax_mas": 0.3,
+      "phot_g_mag": 18.68
+    },
+    {
+      "source_id": "1648328424374276480",
+      "ra": 248.19115,
+      "dec": 66.79802,
+      "pm_ra_mas_yr": 1.66,
+      "pm_dec_mas_yr": 11.22,
+      "total_pm_mas_yr": 11.34,
+      "parallax_mas": 1.5,
+      "phot_g_mag": 18.69
+    },
+    {
+      "source_id": "1648327118704176512",
+      "ra": 248.18932,
+      "dec": 66.71877,
+      "pm_ra_mas_yr": -8.34,
+      "pm_dec_mas_yr": 1.84,
+      "total_pm_mas_yr": 8.54,
+      "parallax_mas": 0.51,
+      "phot_g_mag": 18.7
+    },
+    {
+      "source_id": "1648327294799302400",
+      "ra": 248.21741,
+      "dec": 66.75359,
+      "pm_ra_mas_yr": null,
+      "pm_dec_mas_yr": null,
+      "total_pm_mas_yr": null,
+      "parallax_mas": null,
+      "phot_g_mag": 18.88
+    },
+    {
+      "source_id": "1648328286935313408",
+      "ra": 248.1312,
+      "dec": 66.7808,
+      "pm_ra_mas_yr": 11.65,
+      "pm_dec_mas_yr": -18.22,
+      "total_pm_mas_yr": 21.63,
+      "parallax_mas": 1.78,
+      "phot_g_mag": 18.92
+    },
+    {
+      "source_id": "1648327810195368576",
+      "ra": 248.08379,
+      "dec": 66.74446,
+      "pm_ra_mas_yr": -0.25,
+      "pm_dec_mas_yr": 0.97,
+      "total_pm_mas_yr": 1.0,
+      "parallax_mas": 1.6,
+      "phot_g_mag": 18.93
+    },
+    {
+      "source_id": "1648327810193953152",
+      "ra": 248.08349,
+      "dec": 66.74468,
+      "pm_ra_mas_yr": -4.84,
+      "pm_dec_mas_yr": -1.32,
+      "total_pm_mas_yr": 5.02,
+      "parallax_mas": 0.46,
+      "phot_g_mag": 19.22
+    },
+    {
+      "source_id": "1648328016354500352",
+      "ra": 248.1698,
+      "dec": 66.75556,
+      "pm_ra_mas_yr": null,
+      "pm_dec_mas_yr": null,
+      "total_pm_mas_yr": null,
+      "parallax_mas": null,
+      "phot_g_mag": 19.24
+    },
+    {
+      "source_id": "1648327226079826432",
+      "ra": 248.23158,
+      "dec": 66.74041,
+      "pm_ra_mas_yr": -1.53,
+      "pm_dec_mas_yr": 0.0,
+      "total_pm_mas_yr": 1.53,
+      "parallax_mas": -0.04,
+      "phot_g_mag": 19.35
+    },
+    {
+      "source_id": "1648328016354504064",
+      "ra": 248.16793,
+      "dec": 66.75617,
+      "pm_ra_mas_yr": null,
+      "pm_dec_mas_yr": null,
+      "total_pm_mas_yr": null,
+      "parallax_mas": null,
+      "phot_g_mag": 19.44
+    },
+    {
+      "source_id": "1648327290502883456",
+      "ra": 248.21438,
+      "dec": 66.74713,
+      "pm_ra_mas_yr": -6.69,
+      "pm_dec_mas_yr": 3.11,
+      "total_pm_mas_yr": 7.38,
+      "parallax_mas": 0.58,
+      "phot_g_mag": 19.45
+    },
+    {
+      "source_id": "1648327015624963072",
+      "ra": 248.22373,
+      "dec": 66.72138,
+      "pm_ra_mas_yr": 12.17,
+      "pm_dec_mas_yr": 11.99,
+      "total_pm_mas_yr": 17.08,
+      "parallax_mas": 2.22,
+      "phot_g_mag": 19.46
+    },
+    {
+      "source_id": "1648328359949795584",
+      "ra": 248.22974,
+      "dec": 66.79235,
+      "pm_ra_mas_yr": null,
+      "pm_dec_mas_yr": null,
+      "total_pm_mas_yr": null,
+      "parallax_mas": null,
+      "phot_g_mag": 19.46
+    },
+    {
+      "source_id": "1648327874618438528",
+      "ra": 248.0759,
+      "dec": 66.75675,
+      "pm_ra_mas_yr": -5.44,
+      "pm_dec_mas_yr": -4.04,
+      "total_pm_mas_yr": 6.78,
+      "parallax_mas": 0.13,
+      "phot_g_mag": 19.48
+    },
+    {
+      "source_id": "1648327260439565568",
+      "ra": 248.24565,
+      "dec": 66.74262,
+      "pm_ra_mas_yr": -0.87,
+      "pm_dec_mas_yr": 1.44,
+      "total_pm_mas_yr": 1.68,
+      "parallax_mas": 0.57,
+      "phot_g_mag": 19.48
+    },
+    {
+      "source_id": "1648327049984711424",
+      "ra": 248.27927,
+      "dec": 66.73848,
+      "pm_ra_mas_yr": -2.26,
+      "pm_dec_mas_yr": -6.93,
+      "total_pm_mas_yr": 7.29,
+      "parallax_mas": 0.48,
+      "phot_g_mag": 19.53
+    },
+    {
+      "source_id": "1648328806627793792",
+      "ra": 248.27148,
+      "dec": 66.76314,
+      "pm_ra_mas_yr": -2.26,
+      "pm_dec_mas_yr": -5.91,
+      "total_pm_mas_yr": 6.33,
+      "parallax_mas": 0.46,
+      "phot_g_mag": 19.67
+    },
+    {
+      "source_id": "1648328149496356480",
+      "ra": 248.21627,
+      "dec": 66.77168,
+      "pm_ra_mas_yr": -4.51,
+      "pm_dec_mas_yr": -7.58,
+      "total_pm_mas_yr": 8.82,
+      "parallax_mas": -0.26,
+      "phot_g_mag": 19.72
+    },
+    {
+      "source_id": "1648328325592152448",
+      "ra": 248.17188,
+      "dec": 66.77234,
+      "pm_ra_mas_yr": -7.8,
+      "pm_dec_mas_yr": -1.92,
+      "total_pm_mas_yr": 8.03,
+      "parallax_mas": 0.34,
+      "phot_g_mag": 19.75
+    },
+    {
+      "source_id": "1648327187423661312",
+      "ra": 248.19289,
+      "dec": 66.73767,
+      "pm_ra_mas_yr": -1.68,
+      "pm_dec_mas_yr": -0.84,
+      "total_pm_mas_yr": 1.88,
+      "parallax_mas": 0.62,
+      "phot_g_mag": 20.12
+    },
+    {
+      "source_id": "1648327604036937728",
+      "ra": 248.07663,
+      "dec": 66.72877,
+      "pm_ra_mas_yr": -4.4,
+      "pm_dec_mas_yr": 0.86,
+      "total_pm_mas_yr": 4.48,
+      "parallax_mas": 0.16,
+      "phot_g_mag": 20.14
+    },
+    {
+      "source_id": "1648328222511049088",
+      "ra": 248.15476,
+      "dec": 66.77446,
+      "pm_ra_mas_yr": -3.43,
+      "pm_dec_mas_yr": -1.94,
+      "total_pm_mas_yr": 3.94,
+      "parallax_mas": -0.1,
+      "phot_g_mag": 20.18
+    },
+    {
+      "source_id": "1648327535316330496",
+      "ra": 248.09246,
+      "dec": 66.72345,
+      "pm_ra_mas_yr": -9.74,
+      "pm_dec_mas_yr": -13.87,
+      "total_pm_mas_yr": 16.95,
+      "parallax_mas": 1.63,
+      "phot_g_mag": 20.44
+    },
+    {
+      "source_id": "1648326706387310080",
+      "ra": 248.13059,
+      "dec": 66.70979,
+      "pm_ra_mas_yr": -0.34,
+      "pm_dec_mas_yr": -2.24,
+      "total_pm_mas_yr": 2.27,
+      "parallax_mas": 0.99,
+      "phot_g_mag": 20.58
+    },
+    {
+      "source_id": "1648327810194317440",
+      "ra": 248.08818,
+      "dec": 66.75556,
+      "pm_ra_mas_yr": 9.82,
+      "pm_dec_mas_yr": -14.44,
+      "total_pm_mas_yr": 17.46,
+      "parallax_mas": 1.5,
+      "phot_g_mag": 20.69
+    },
+    {
+      "source_id": "1648328737907908224",
+      "ra": 248.28133,
+      "dec": 66.75878,
+      "pm_ra_mas_yr": -11.16,
+      "pm_dec_mas_yr": -14.14,
+      "total_pm_mas_yr": 18.01,
+      "parallax_mas": -0.6,
+      "phot_g_mag": 20.78
+    },
+    {
+      "source_id": "1648328218215831552",
+      "ra": 248.1462,
+      "dec": 66.77076,
+      "pm_ra_mas_yr": -2.73,
+      "pm_dec_mas_yr": -6.97,
+      "total_pm_mas_yr": 7.49,
+      "parallax_mas": 0.45,
+      "phot_g_mag": 20.86
+    },
+    {
+      "source_id": "1648328394309862400",
+      "ra": 248.15803,
+      "dec": 66.78918,
+      "pm_ra_mas_yr": -5.52,
+      "pm_dec_mas_yr": 0.38,
+      "total_pm_mas_yr": 5.53,
+      "parallax_mas": 0.8,
+      "phot_g_mag": 20.9
+    },
+    {
+      "source_id": "1648331280528784000",
+      "ra": 248.0834,
+      "dec": 66.79117,
+      "pm_ra_mas_yr": null,
+      "pm_dec_mas_yr": null,
+      "total_pm_mas_yr": null,
+      "parallax_mas": null,
+      "phot_g_mag": 20.95
+    },
+    {
+      "source_id": "1648328085073984384",
+      "ra": 248.2473,
+      "dec": 66.77007,
+      "pm_ra_mas_yr": null,
+      "pm_dec_mas_yr": null,
+      "total_pm_mas_yr": null,
+      "parallax_mas": null,
+      "phot_g_mag": 21.3
+    },
+    {
+      "source_id": "1648327324865099648",
+      "ra": 248.24003,
+      "dec": 66.76054,
+      "pm_ra_mas_yr": null,
+      "pm_dec_mas_yr": null,
+      "total_pm_mas_yr": null,
+      "parallax_mas": null,
+      "phot_g_mag": 21.44
+    }
+  ]
+}

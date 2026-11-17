@@ -19,7 +19,7 @@ TARGET_COORDS = {
     "wise0855": (133.79513, -7.24515),
     "barnard": (269.45208, 4.69339),
     "epsindi": (331.04379, -56.78272),
-    "rdraconis": (246.54167, 66.86944),
+    "rdraconis": (248.16763, 66.75506),
     "rwaur": (76.95833, 30.40139),
     "sample_leo": (160.6, 30.7)
 }
@@ -75,7 +75,7 @@ def get_benchmarks():
         {"id": "wise0855", "name": "WISE 0855-0714", "ra": 133.79513, "dec": -7.24515, "type": "Substellar Y-Dwarf", "temp_k": 250},
         {"id": "barnard", "name": "Barnard's Star", "ra": 269.45208, "dec": 4.69339, "type": "M4V Red Dwarf", "temp_k": 3130},
         {"id": "epsindi", "name": "Epsilon Indi Ba,Bb", "ra": 331.04379, "dec": -56.78272, "type": "Binary Brown Dwarf (T1+T6)", "temp_k": 1100},
-        {"id": "rdraconis", "name": "R Draconis", "ra": 246.54167, "dec": 66.86944, "type": "Mira Variable Pulsator", "temp_k": 2800},
+        {"id": "rdraconis", "name": "R Draconis", "ra": 248.16763, "dec": 66.75506, "type": "Mira Variable Pulsator", "temp_k": 2800},
         {"id": "rwaur", "name": "RW Aurigae", "ra": 76.95833, "dec": 30.40139, "type": "T Tauri Protostar / Accretion", "temp_k": 4800},
         {"id": "sample_leo", "name": "Technical Validation Field", "ra": 160.6, "dec": 30.7, "type": "Extragalactic Background", "temp_k": 5500}
     ]

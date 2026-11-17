@@ -163,8 +163,8 @@ VERIFIED_PRESETS = {
     ),
     "rdraconis": AstronomicalTargetMetadata(
         name="R Draconis",
-        ra_deg=248.33750,
-        dec_deg=66.70472,
+        ra_deg=248.16763,
+        dec_deg=66.75506,
         object_type="Mira Pulsating Variable",
         spectral_type="M5e-M9e",
         pm_ra_mas_yr=14.2,
