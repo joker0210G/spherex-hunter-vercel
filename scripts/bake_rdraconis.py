@@ -27,18 +27,14 @@ zoom2 = dim / d2.shape[0]
 d1_720 = zoom(d1, zoom1, order=1)
 d2_720 = zoom(d2, zoom2, order=1)
 
-# Preserve high dynamic range for pulsating star
-bg1 = float(np.median(d1_720))
-bg2 = float(np.median(d2_720))
-s1 = np.maximum(0, d1_720 - bg1)
-s2 = np.maximum(0, d2_720 - bg2)
-vmax = max(float(np.max(s1)), float(np.max(s2)))
+from astropy.visualization import PercentileInterval, AsinhStretch, ImageNormalize
 
-scale1 = np.arcsinh(s1 / 180.0) / np.arcsinh(vmax / 180.0)
-scale2 = np.arcsinh(s2 / 180.0) / np.arcsinh(vmax / 180.0)
+# Balanced Astropy Asinh stretch preserving velvety deep-sky background & luminous stars
+norm1 = ImageNormalize(d1_720, interval=PercentileInterval(99.5), stretch=AsinhStretch(a=0.05))
+norm2 = ImageNormalize(d2_720, interval=PercentileInterval(99.5), stretch=AsinhStretch(a=0.05))
 
-ep1_arr = np.clip(scale1 * 255.0, 0, 255).astype(np.uint8)
-ep2_arr = np.clip(scale2 * 255.0, 0, 255).astype(np.uint8)
+ep1_arr = np.clip(norm1(d1_720) * 255.0, 0, 255).astype(np.uint8)
+ep2_arr = np.clip(norm2(d2_720) * 255.0, 0, 255).astype(np.uint8)
 
 # Encode PNG base64
 def arr_to_b64(arr):

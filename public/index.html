@@ -3137,10 +3137,18 @@
     // =========================================================================
     const clientRamTileCache = new Map();
     const MAX_RAM_TILES = 128;
-    const IDB_NAME = 'spherex_tile_store'; // IndexedDB store for calibrated exposure cutouts & difference products
+    const IDB_NAME = 'spherex_tile_store_v3'; // IndexedDB store for calibrated exposure cutouts & difference products (v3 schema)
     const IDB_STORE = 'cutout_products';
     const IDB_MAX_ENTRIES = 256;
     let activeCutoutAbortController = null;
+
+    // Purge deprecated legacy client databases to eliminate stale noise artifacts
+    try {
+      if (typeof indexedDB !== 'undefined') {
+        indexedDB.deleteDatabase('spherex_tile_store');
+        indexedDB.deleteDatabase('spherex_tile_store_v2');
+      }
+    } catch (_) {}
 
     // Telemetry counters for cache performance audit (Amendment A5)
     window.cacheTelemetry = {
@@ -3177,13 +3185,29 @@
     // Quantized deterministic cache keys: integer micro-degrees prevent float miss jitter (Amendment A5)
     function getClientSpatialKey(ra, dec, fov, lod, targetKey, channel = 1, epochFrame = 0) {
       const release = 'DR1';
-      const pipeVer = '2.1.0';
+      const pipeVer = '2.2.0';
       const prodType = 'cutout';
       const targetSlug = (targetKey || 'sky').toLowerCase();
       const raMicro = Math.round(parseFloat(ra) * 1e5);
       const decMicro = Math.round(parseFloat(dec) * 1e5);
       const fovArcsec = Math.round(parseFloat(fov) * 60.0);
       return `${release}:${pipeVer}:${prodType}:${targetSlug}:ep${epochFrame}:ch${channel}:fov${fovArcsec}:ra${raMicro}_dec${decMicro}:lod${lod}`;
+    }
+
+    function isTilePayloadValid(payload, expectedTargetKey = null) {
+      if (!payload || !payload.epochs || payload.epochs.length < 2) return false;
+      // Invalidate degraded fallback noise tiles when authentic FITS is expected
+      if (payload.status === 'fallback_simulated' || payload.archive_reachability === 'degraded' || payload.is_authentic_fits === false) {
+        return false;
+      }
+      // Check preset celestial coordinates against canonical presets to reject contaminated cache
+      if (expectedTargetKey && typeof TARGETS !== 'undefined' && TARGETS[expectedTargetKey] && payload.coordinates) {
+        const canonical = TARGETS[expectedTargetKey];
+        const dRa = Math.abs(Number(payload.coordinates.ra_deg) - canonical.raDeg);
+        const dDec = Math.abs(Number(payload.coordinates.dec_deg) - canonical.decDeg);
+        if (dRa > 0.05 || dDec > 0.05) return false;
+      }
+      return true;
     }
 
     function openTileIDB() {
@@ -3205,14 +3229,18 @@
       });
     }
 
-    async function getTileFromClientCache(cacheKey) {
+    async function getTileFromClientCache(cacheKey, targetKey = null) {
       if (clientRamTileCache.has(cacheKey)) {
-        window.cacheTelemetry.l0Hits++;
         const entry = clientRamTileCache.get(cacheKey);
-        // Refresh LRU order
-        clientRamTileCache.delete(cacheKey);
-        clientRamTileCache.set(cacheKey, entry);
-        return entry;
+        if (!isTilePayloadValid(entry, targetKey)) {
+          clientRamTileCache.delete(cacheKey);
+        } else {
+          window.cacheTelemetry.l0Hits++;
+          // Refresh LRU order
+          clientRamTileCache.delete(cacheKey);
+          clientRamTileCache.set(cacheKey, entry);
+          return entry;
+        }
       }
       try {
         const db = await openTileIDB();
@@ -3224,6 +3252,11 @@
           getReq.onsuccess = () => {
             const rec = getReq.result;
             if (rec && rec.payload) {
+              if (!isTilePayloadValid(rec.payload, targetKey)) {
+                store.delete(cacheKey);
+                resolve(null);
+                return;
+              }
               window.cacheTelemetry.l1Hits++;
               rec.last_accessed = Date.now();
               store.put(rec);
@@ -5568,7 +5601,7 @@
 
       try {
         const cacheKey = getClientSpatialKey(camera.ra, camera.dec, reqFov, reqLOD, currentTargetKey);
-        let data = await getTileFromClientCache(cacheKey);
+        let data = await getTileFromClientCache(cacheKey, currentTargetKey);
         if (!data) {
           let url = `${BACKEND_URL}/cutout?ra=${encodeURIComponent(camera.ra)}&dec=${encodeURIComponent(camera.dec)}&fov=${reqFov}&lod=${reqLOD}`;
           if (currentTargetKey) url += `&target=${currentTargetKey}`;
@@ -5605,10 +5638,12 @@
           realEpoch1Img = newImg1;
           realEpoch2Img = newImg2;
           realDiffImg = newImgDiff;
+          window.loadedEpochImages = [newImg1, newImg2, newImg1, newImg2];
           currentLOD = reqLOD;
 
           updateLODBadge(currentLOD);
           startLODCrossFade();
+          if (typeof drawFrame === 'function') drawFrame();
         }
       } catch (err) {
         if (err && err.name === 'AbortError') return;
@@ -5641,7 +5676,7 @@
       const clampedFov = Math.max(1.0, Math.min(15.0, Number(fov) || 3.0));
       const reqFov = (currentLOD === 2) ? 10.0 : ((currentLOD === 0) ? 1.5 : clampedFov);
       const cacheKey = getClientSpatialKey(ra, dec, reqFov, currentLOD, targetKey);
-      let data = await getTileFromClientCache(cacheKey);
+      let data = await getTileFromClientCache(cacheKey, targetKey);
 
       if (!silent && !data) {
         showLoading(
@@ -5681,7 +5716,11 @@
         }
         activeCutoutData = data;
 
-        if (data.coordinates) {
+        if (targetKey && typeof TARGETS !== 'undefined' && TARGETS[targetKey]) {
+          camera.ra = TARGETS[targetKey].raDeg;
+          camera.dec = TARGETS[targetKey].decDeg;
+          camera.fov = (data.coordinates && data.coordinates.fov_arcmin) ? data.coordinates.fov_arcmin : clampedFov;
+        } else if (data.coordinates) {
           camera.ra = (isCustom && !isNaN(Number(ra))) ? Number(ra) : data.coordinates.ra_deg;
           camera.dec = (isCustom && !isNaN(Number(dec))) ? Number(dec) : data.coordinates.dec_deg;
           camera.fov = data.coordinates.fov_arcmin || fov;
