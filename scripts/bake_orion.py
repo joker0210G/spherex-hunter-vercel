@@ -14,8 +14,8 @@ from backend.services.gaia_service import query_gaia_dr3
 
 ra, dec = 83.82208, -5.39111 # Orion Nebula Core (Messier 42)
 fits_dir = r'D:\Workspace\nasa\NASA_Space_apps\backend\cache\fits'
-f1 = os.path.join(fits_dir, 'orion_2mass.fits')
-f2 = os.path.join(fits_dir, 'orion_dss2.fits')
+f1 = os.path.join(fits_dir, 'orion_2mass_j.fits')
+f2 = os.path.join(fits_dir, 'orion_2mass.fits')
 
 # 1. Load authentic FITS
 with fits.open(f1) as h1:
@@ -77,15 +77,15 @@ cutout_json = {
         'dec_deg': dec,
         'fov_arcmin': 3.0
     },
-    'archive_survey': 'NASA 2MASS (Ks) & DSS2 (Red) archival FITS via IRSA FinderChart',
+    'archive_survey': 'NASA 2MASS Multi-Band Infrared FITS (J 1.25 µm & Ks 2.16 µm)',
     'is_authentic_fits': True,
     'epochs': [
         {
             'index': 1,
             'frame': 1,
             'survey': '2MASS',
-            'label': 'NASA 2MASS Ks-band FITS [LOD 1 (Standard Science 720px)] (Epoch 1999.0)',
-            'date': '1999-01-20 (2MASS Ks)',
+            'label': 'NASA 2MASS J-band FITS [LOD 1 (Standard Science 720px)] (1.25 µm, Epoch 1999.0)',
+            'date': '1999-01-20 (2MASS J)',
             'date_obs': '1999-01-20T05:12:00Z',
             'mjd': 51198.21,
             'image_data': ep1_b64
@@ -93,11 +93,11 @@ cutout_json = {
         {
             'index': 2,
             'frame': 2,
-            'survey': 'DSS2',
-            'label': 'NASA DSS2 Red FITS [LOD 1 (Standard Science 720px)] (Epoch 1988.9)',
-            'date': '1988-11-14 (DSS2 Red)',
-            'date_obs': '1988-11-14T00:00:00Z',
-            'mjd': 47479.0,
+            'survey': '2MASS',
+            'label': 'NASA 2MASS Ks-band FITS [LOD 1 (Standard Science 720px)] (2.16 µm, Epoch 1999.0)',
+            'date': '1999-01-20 (2MASS Ks)',
+            'date_obs': '1999-01-20T05:12:00Z',
+            'mjd': 51198.21,
             'image_data': ep2_b64
         }
     ],
@@ -165,12 +165,12 @@ scene_json = {
         'citations': ['O\'Dell et al. (2008) Handbook of Star Forming Regions', 'Gaia Collaboration (2022) Gaia DR3']
     },
     'epochs': [
-        {'id': 'ep1', 'label': '1999 2MASS Ks', 'survey': '2MASS', 'date': '1999-01-20'},
-        {'id': 'ep2', 'label': '1988 DSS2 Red', 'survey': 'DSS2', 'date': '1988-11-14'}
+        {'id': 'ep1', 'label': '1999 2MASS J (1.25 µm)', 'survey': '2MASS', 'date': '1999-01-20'},
+        {'id': 'ep2', 'label': '1999 2MASS Ks (2.16 µm)', 'survey': '2MASS', 'date': '1999-01-20'}
     ],
     'layers': [
-        {'id': 'base_epoch_a', 'name': 'Epoch 1 (2MASS Ks)', 'visible': True, 'opacity': 1.0},
-        {'id': 'base_epoch_b', 'name': 'Epoch 2 (DSS2 Red)', 'visible': True, 'opacity': 1.0},
+        {'id': 'base_epoch_a', 'name': 'Epoch 1 (2MASS J 1.25 µm)', 'visible': True, 'opacity': 1.0},
+        {'id': 'base_epoch_b', 'name': 'Epoch 2 (2MASS Ks 2.16 µm)', 'visible': True, 'opacity': 1.0},
         {'id': 'diff_image', 'name': 'ZOGY Difference', 'visible': False, 'opacity': 1.0},
         {'id': 'coverage_mask', 'name': 'Coverage Boundary Mask', 'visible': False, 'opacity': 0.3},
         {'id': 'gaia_overlay', 'name': 'Gaia DR3 Astrometry Overlay', 'visible': True, 'opacity': 1.0}

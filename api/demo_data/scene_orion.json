@@ -14,7 +14,7 @@
     "parallax_mas": 2.42,
     "distance_pc": 414.0,
     "effective_temp_k": 8000.0,
-    "evidence_tier": "KNOWN_STELLAR_OR_BROWN_DWARF",
+    "evidence_tier": "KNOWN_EXTRAGALACTIC_OR_NEBULAR_COMPLEX",
     "evidence_summary": "Active star-forming H II ionization region hosting massive protostellar protoclusters and dense molecular gas.",
     "confirmation_status": "CATALOG_VERIFIED (Messier 42 / SIMBAD)",
     "citations": [
@@ -25,27 +25,27 @@
   "epochs": [
     {
       "id": "ep1",
-      "label": "1999 2MASS Ks",
+      "label": "1999 2MASS J (1.25 \u00b5m)",
       "survey": "2MASS",
       "date": "1999-01-20"
     },
     {
       "id": "ep2",
-      "label": "1988 DSS2 Red",
-      "survey": "DSS2",
-      "date": "1988-11-14"
+      "label": "1999 2MASS Ks (2.16 \u00b5m)",
+      "survey": "2MASS",
+      "date": "1999-01-20"
     }
   ],
   "layers": [
     {
       "id": "base_epoch_a",
-      "name": "Epoch 1 (2MASS Ks)",
+      "name": "Epoch 1 (2MASS J 1.25 \u00b5m)",
       "visible": true,
       "opacity": 1.0
     },
     {
       "id": "base_epoch_b",
-      "name": "Epoch 2 (DSS2 Red)",
+      "name": "Epoch 2 (2MASS Ks 2.16 \u00b5m)",
       "visible": true,
       "opacity": 1.0
     },
