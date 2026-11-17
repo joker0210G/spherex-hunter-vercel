@@ -1901,7 +1901,7 @@
             </div>
 
             <!-- Central Blink Toggle Button -->
-            <button id="btnBlinkPair" type="button" onclick="toggleBlinkPair()" class="px-2.5 py-1 rounded-lg blender-btn bg-amber-950/80 hover:bg-amber-900 border border-amber-500/80 text-amber-300 font-bold text-xs flex items-center gap-1 shadow-md transition shrink-0 group" title="Blink: Rapidly toggle between Slot ① and Slot ② (Shortcut: B)">
+            <button id="btnBlinkPair" type="button" onclick="toggleBlinkPair()" class="px-2.5 py-1 rounded-lg blender-btn bg-amber-950/80 hover:bg-amber-900 border border-amber-500/80 text-amber-300 font-bold text-xs flex items-center gap-1 shadow-md transition shrink-0 group" title="Blink — the technique Clyde Tombaugh used to discover Pluto in 1930. Anything that jumps between ① and ② is moving. (Shortcut: B)">
               <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-400 group-hover:scale-110 transition-transform"></i>
               <span id="blinkPairBtnText">Blink ① ↔ ②</span>
             </button>
@@ -6236,6 +6236,7 @@
     // FLIPBOOK BLINK CONTROLS & TIMELINE (4-Epoch Cycle: Issue #24)
     // =========================================================================
     function startFlipbook() {
+      if (typeof stopBlinkPair === 'function') stopBlinkPair();
       if (playTimer) clearInterval(playTimer);
       if (blinkMorphMode === 'snap') {
         playTimer = setInterval(() => {
