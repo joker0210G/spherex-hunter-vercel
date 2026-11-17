@@ -111,6 +111,16 @@ BENCHMARKS = {
         "pm_dec_mas": 0.0,
         "temp_k": 2700,
         "type": "Mira Pulsating Red Giant"
+    },
+    "orion": {
+        "name": "Orion Nebula Core",
+        "ra": 83.82208,
+        "dec": -5.39111,
+        "survey": "2MASS Ks",
+        "pm_ra_mas": 0.0,
+        "pm_dec_mas": 0.0,
+        "temp_k": 8000,
+        "type": "Diffuse Star-Forming H II Region"
     }
 }
 
@@ -348,7 +358,7 @@ def clear_all_caches(include_pinned: bool = False) -> dict:
     _SPATIAL_HASH_CACHE.clear()
     _L1_TIMESTAMPS.clear()
 
-    pinned_keys = ("wise0855", "barnard", "epsindi", "rwaur", "rdraconis")
+    pinned_keys = ("wise0855", "barnard", "epsindi", "rwaur", "rdraconis", "orion")
     cache_dir = os.path.join(os.path.dirname(__file__), "..", "cache", "dynamic_fits")
     deleted_files = 0
     freed_bytes = 0
@@ -436,7 +446,7 @@ def auto_prune_disk_cache(
             os.path.join(base, "..", "cache", "fits"),
         ]
 
-    pinned_keys = ("wise0855", "barnard", "epsindi", "rwaur", "rdraconis")
+    pinned_keys = ("wise0855", "barnard", "epsindi", "rwaur", "rdraconis", "orion")
     files = []
     total_bytes = 0
     pinned_count = 0

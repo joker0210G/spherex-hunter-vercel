@@ -21,6 +21,7 @@ TARGET_COORDS = {
     "epsindi": (331.04379, -56.78272),
     "rdraconis": (248.16763, 66.75506),
     "rwaur": (76.95833, 30.40139),
+    "orion": (83.82208, -5.39111),
     "sample_leo": (160.6, 30.7)
 }
 
@@ -77,6 +78,7 @@ def get_benchmarks():
         {"id": "epsindi", "name": "Epsilon Indi Ba,Bb", "ra": 331.04379, "dec": -56.78272, "type": "Binary Brown Dwarf (T1+T6)", "temp_k": 1100},
         {"id": "rdraconis", "name": "R Draconis", "ra": 248.16763, "dec": 66.75506, "type": "Mira Variable Pulsator", "temp_k": 2800},
         {"id": "rwaur", "name": "RW Aurigae", "ra": 76.95833, "dec": 30.40139, "type": "T Tauri Protostar / Accretion", "temp_k": 4800},
+        {"id": "orion", "name": "Orion Nebula Core", "ra": 83.82208, "dec": -5.39111, "type": "H II Star-Forming Region", "temp_k": 8000},
         {"id": "sample_leo", "name": "Technical Validation Field", "ra": 160.6, "dec": 30.7, "type": "Extragalactic Background", "temp_k": 5500}
     ]
 

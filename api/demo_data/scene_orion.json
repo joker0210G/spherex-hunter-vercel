@@ -1,0 +1,78 @@
+{
+  "status": "success",
+  "target_key": "orion",
+  "target": {
+    "name": "Orion Nebula Core (M42)",
+    "ra_deg": 83.82208,
+    "dec_deg": -5.39111,
+    "object_type": "Diffuse H II Star-Forming Region / Trapezium Cluster",
+    "spectral_type": "O7V + B-type protostars",
+    "pm_ra_mas_yr": 1.1,
+    "pm_dec_mas_yr": -0.8,
+    "total_pm_mas_yr": 1.36,
+    "total_pm_arcsec_yr": 0.0014,
+    "parallax_mas": 2.42,
+    "distance_pc": 414.0,
+    "effective_temp_k": 8000.0,
+    "evidence_tier": "KNOWN_STELLAR_OR_BROWN_DWARF",
+    "evidence_summary": "Active star-forming H II ionization region hosting massive protostellar protoclusters and dense molecular gas.",
+    "confirmation_status": "CATALOG_VERIFIED (Messier 42 / SIMBAD)",
+    "citations": [
+      "O'Dell et al. (2008) Handbook of Star Forming Regions",
+      "Gaia Collaboration (2022) Gaia DR3"
+    ]
+  },
+  "epochs": [
+    {
+      "id": "ep1",
+      "label": "1999 2MASS Ks",
+      "survey": "2MASS",
+      "date": "1999-01-20"
+    },
+    {
+      "id": "ep2",
+      "label": "1988 DSS2 Red",
+      "survey": "DSS2",
+      "date": "1988-11-14"
+    }
+  ],
+  "layers": [
+    {
+      "id": "base_epoch_a",
+      "name": "Epoch 1 (2MASS Ks)",
+      "visible": true,
+      "opacity": 1.0
+    },
+    {
+      "id": "base_epoch_b",
+      "name": "Epoch 2 (DSS2 Red)",
+      "visible": true,
+      "opacity": 1.0
+    },
+    {
+      "id": "diff_image",
+      "name": "ZOGY Difference",
+      "visible": false,
+      "opacity": 1.0
+    },
+    {
+      "id": "coverage_mask",
+      "name": "Coverage Boundary Mask",
+      "visible": false,
+      "opacity": 0.3
+    },
+    {
+      "id": "gaia_overlay",
+      "name": "Gaia DR3 Astrometry Overlay",
+      "visible": true,
+      "opacity": 1.0
+    }
+  ],
+  "active_blink_pair": {
+    "epoch_a": 1,
+    "epoch_b": 2
+  },
+  "provenance": {
+    "source": "NASA IRSA / 2MASS / DSS2 / Gaia DR3"
+  }
+}
